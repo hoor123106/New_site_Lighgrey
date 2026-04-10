@@ -1,6 +1,8 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
 
 interface Props {
   title: string;
@@ -20,77 +22,13 @@ const { title, description = 'Astro Google Sheets dynamic site', fullWidth = fal
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body>
-    <Header />       
+    <Header />
     <main class={fullWidth ? 'layout-main layout-main--full' : 'layout-main'}>
       <slot />
     </main>
     <Footer />      
   </body>
 </html>
-
-<style is:global>
-	:root {
-		--accent: 236, 72, 153;        
-		--accent-light: 252, 165, 211; 
-		--accent-dark: 157, 23, 77;   
-        --muted-text: #475569;
-        --muted-text-2: #334155;
-        --border-color: #e2e8f0;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent-dark)),
-			rgb(var(--accent)) 30%,
-			white 60%
-
-		);
-        /* Explicitly use the variable from astro.config.mjs */
-        --font-main: var(--font-poppins);
-        --bg-color: #ffffff;
-        --text-color: #0f172a; /* Deeper for a "bold" feel */
-	}
-	html {
-        font-family: var(--font-poppins, "Poppins"), sans-serif;
-		background: var(--bg-color);
-        color: var(--text-color);
-        font-weight: 600;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-	}
-    body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        font-style: normal !important; /* Force no italics */
-    }
-    .layout-main {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
-    .layout-main--full {
-        max-width: 100%;
-        padding: 0;
-    }
-    h1, h2, h3, h4 {
-        color: #000000; /* Max contrast for headers */
-        font-weight: 900; /* Maximum bold */
-        line-height: 1.1;
-        margin-top: 2.5rem;
-        margin-bottom: 1.25rem;
-        letter-spacing: -0.02em;
-    }
-    p {
-        line-height: 1.7;
-        color: var(--muted-text-2);
-        margin-bottom: 1.5rem;
-    }
-    a {
-        color: rgb(var(--accent));
-        text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-</style>
