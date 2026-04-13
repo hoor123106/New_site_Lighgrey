@@ -1,0 +1,17 @@
+---
+import { Image } from 'astro:assets';
+import lastImg from '../assets/images/home_last_image.png';
+import '../styles/LastSection.css';
+---
+
+<section class="last-section reveal-on-scroll">
+  <div class="last-section__image-container">
+    <Image
+      src={lastImg}
+      alt="Steelcraft Excellence"
+      class="last-section__image"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+</section>

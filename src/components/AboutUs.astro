@@ -1,37 +1,31 @@
 ---
 import { Image } from 'astro:assets';
-import aboutImg from '../assets/images/HeroPerfume_section-2.png';
+import aboutImg from '../assets/images/about.webp';
 import '../styles/AboutUs.css';
 ---
 
-<section class="about">
+<section class="about reveal-on-scroll">
   <div class="container about__container">
     <div class="about__visual">
       <div class="about__image-container">
         <Image
           src={aboutImg}
-          alt="Luxury perfume collection"
+          alt="Industrial Steel Manufacturing"
           class="about__image"
           loading="lazy"
           decoding="async"
-          widths={[400, 640, 900, 1200]}
-          sizes="(max-width: 992px) 100vw, 520px"
         />
       </div>
     </div>
     
     <div class="about__content">
-      <p class="about__label">About Us</p>
-      <h2 class="about__title">The Ultimate Fragrance <br /> Compendium</h2>
+      <h2 class="about__title">We are Steelcraft.</h2>
       
-      <div class="about__description">
-        <div class="about__accent-bar"></div>
-        <p class="about__description_p">
-          We are a team of passionate collectors, historians, and scent enthusiasts dedicated to creating the most comprehensive fragrance resource online. Our mission is to document and share the art, science, and history of perfumery, making it accessible to everyone, from the curious novice to the seasoned connoisseur.
-        </p>
-      </div>
+      <p class="about__description_p">
+        Steelcraft is a provider of commercial kitchen equipment and industrial bakery equipment with over 16 years of experience in design, sourcing, project management, manufacturing, and extending technical support for restaurants, hotels, cloud kitchens, catering establishments, industrial bakeries, and other food production facilities.
+      </p>
       
-      <a href="/perfume" class="btn btn-primary about__btn">Explore Perfumes</a>
+      <a href="/about" class="btn btn-primary about__btn">Learn More</a>
     </div>
   </div>
 </section>

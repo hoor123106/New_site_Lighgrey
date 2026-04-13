@@ -1,15 +1,15 @@
 .satisfaction {
-  background-color: var(--color-primary); /* Solid Deep Pink */
-  padding: 50px 20px;
+  background-color: var(--bg-dark);
+  padding: 80px 0;
   color: white;
 }
 .satisfaction__container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 .satisfaction__item {
@@ -51,7 +51,7 @@
 }
 
 .satisfaction__text p {
-  font-size: 0.95rem;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.4;
   margin: 0;

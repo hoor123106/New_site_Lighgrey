@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import bakingImg from '../assets/images/Hero2.webp';
+import '../styles/Hero2Section.css';
+---
+
+<section class="hero2 reveal-on-scroll">
+  <div class="container hero2__container">
+    <div class="hero2__content">
+      <h2 class="hero2__title">
+        We design and develop <br />
+        industrial baking <br />
+        & food production lines.
+      </h2>
+    </div>
+    
+    <div class="hero2__visual">
+      <div class="hero2__image-wrapper">
+        <Image
+          src={bakingImg}
+          alt="Industrial Baking Line"
+          class="hero2__image"
+        />
+      </div>
+    </div>
+    
+    <div class="hero2__spacer"></div>
+  </div>
+</section>

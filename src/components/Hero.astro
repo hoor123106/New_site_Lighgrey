@@ -1,45 +1,51 @@
 ---
 import { Image } from 'astro:assets';
-import heroImg from '../assets/images/heroImage.png';
+import heroImg from '../assets/images/heroImage.webp';
 import '../styles/Hero.css';
 ---
 
-<section class="hero">
+<section class="hero reveal-on-scroll">
   <div class="container hero__container">
     <div class="hero__content">
       <h1 class="hero__title">
-        <span class="hero__line">Your Ultimate Guide To The World</span>
-        <span class="text-pink hero__line">Of Fragrance</span>
+        We build stainless steel <br /> kitchens for hotels, <br /> restaurants, & private <br /> residences.
       </h1>
-      <p class="hero__subtitle">
-        <span class="hero__subtitle-line">
-          Explore the world's largest database of perfumes, notes, and brands. From timeless classics to the latest niche releases, your scent journey
-        </span>
-        <span class="hero__subtitle-line">starts here.</span>
-      </p>
-      <div class="hero__actions">
-        <a href="/perfume" class="btn btn-primary">Perfume Notes</a>
-      </div>
     </div>
     
     <div class="hero__visual">
       <div class="hero__image-wrapper">
         <Image
           src={heroImg}
-          alt="Luxury Perfume Bottle"
+          alt="Luxury Stainless Steel Kitchen"
           class="hero__image"
           loading="eager"
           fetchpriority="high"
           decoding="async"
-          widths={[480, 768, 1024, 1242]}
-          sizes="(max-width: 992px) 100vw, 1160px"
         />
-        <div class="hero__play-btn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 3L19 12L5 21V3Z" fill="currentColor"/>
-          </svg>
-        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  function setupReveal() {
+    const observerOptions = {
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  setupReveal();
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>

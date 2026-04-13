@@ -1,29 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import Hero2Section from '../components/Hero2Section.astro';
 import AboutUs from '../components/AboutUs.astro';
-import Database from '../components/Database.astro';
-import Satisfaction from '../components/Satisfaction.astro';
-import Features from '../components/Features.astro';
-import FeaturedFragrances from '../components/FeaturedFragrances.astro';
-import Mission from '../components/Mission.astro';
-import Testimonials from '../components/Testimonials.astro';
+import CTASection from '../components/CTASection.astro';
+import LastSection from '../components/LastSection.astro';
 import '../styles/global.css';
 
-const title = "Luxury Fragrance - Your Ultimate Scent Guide";
-const description = "Discover the world's largest database of perfumes, notes, and brands. Elegant, luxury fragrance guide.";
+const title = "Steelcraft | Industrial Kitchen & Bakery Solutions";
+const description = "Premium stainless steel solutions for commercial kitchens, industrial bakeries, and high-end residences with over 16 years of expertise.";
 ---
 
 <Layout title={title} description={description} fullWidth={true}>
   <main class="home-main">
     <Hero />
+    <Hero2Section />
     <AboutUs />
-    <Database />
-    <Satisfaction />
-    <Features />
-    <FeaturedFragrances />
-    <Mission />
-    <Testimonials />
+    <CTASection />
+    <LastSection />
   </main>
 </Layout>
 

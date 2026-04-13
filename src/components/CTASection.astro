@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import ctaImg from '../assets/images/cta_image.webp';
+import '../styles/CTASection.css';
+---
+
+<section class="cta reveal-on-scroll">
+  <div class="container cta__container">
+    <div class="cta__content">
+      <h2 class="cta__title">Book a Factory Tour</h2>
+      <p class="cta__text">
+        What goes on behind the doors, inside our production facility? Book a tour with us to understand our capabilities and ascertain our quality standards.
+      </p>
+      <a href="/contact" class="cta__btn">Book Visit</a>
+    </div>
+    
+    <div class="cta__visual">
+      <div class="cta__image-container">
+        <Image
+          src={ctaImg}
+          alt="Production Facility"
+          class="cta__image"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</section>
