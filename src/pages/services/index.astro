@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/services-index.css';
+
+const services = await getCollection('services');
+const sortedServices = services.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<Layout title="Our Services | Steelcraft" description="Professional services by Steelcraft." fullWidth={true}>
+  <div class="services-index-page">
+    <section class="intro-section reveal-on-scroll">
+      <div class="index-container">
+        <h1 class="index-main-title">Our Services</h1>
+        <p style="color: var(--muted-text-2); margin-bottom: 60px;">
+          Explore our professional range of services designed to optimize your operations.
+        </p>
+      </div>
+    </section>
+
+    <section class="categories-grid-section">
+      <div class="index-container">
+        <div class="services-grid">
+          {sortedServices.map((service, index) => (
+            <a 
+              href={`/services/${service.id.replace(/\.(md|mdx)$/, '')}`} 
+              class="service-card reveal-on-scroll" 
+              style={`transition-delay: ${index * 0.1}s;`}
+            >
+              <div class="card-image">
+                <div class="feature-image" style="background: rgba(255,255,255,0.05); height: 100%;"></div>
+              </div>
+              <h3>{service.data.title}</h3>
+              {service.data.metaDescription && <p>{service.data.metaDescription}</p>}
+              <span class="card-link-text">Explore Service</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  function setupReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  }
+  setupReveal();
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>
