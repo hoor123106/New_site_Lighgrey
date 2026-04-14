@@ -6,16 +6,16 @@ import '../../../styles/commercial-kitchens-index.css';
 const kitchens = await getCollection('commercialKitchens');
 const sortedKitchens = kitchens.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
-// Static Category Images Mapping
+// Static Category Images Mapping - Using PUBLIC folder paths
 const categoryImages = {
-  'baking-equipment': '/src/assets/images/Baking_card.webp',
-  'bar-and-beverage-equipment': '/src/assets/images/Beverage_card.webp',
-  'cooking-equipment': '/src/assets/images/cooking_card.webp',
-  'dishwashing-equipment': '/src/assets/images/dishwashing_card.webp',
-  'preparation-equipment': '/src/assets/images/preparation_card.webp',
-  'refrigeration-equipment': '/src/assets/images/Refrigeration_card.webp',
-  'speciality-equipment': '/src/assets/images/speciality_card.webp',
-  'customized-stainless-steel-equipment': '/src/assets/images/steel_card.webp',
+  'baking-equipment': '/images/commercial-kitchens/Baking_card.webp',
+  'bar-and-beverage-equipment': '/images/commercial-kitchens/Beverage_card.webp',
+  'cooking-equipment': '/images/commercial-kitchens/cooking_card.webp',
+  'dishwashing-equipment': '/images/commercial-kitchens/dishwashing_card.webp',
+  'preparation-equipment': '/images/commercial-kitchens/preparation_card.webp',
+  'refrigeration-equipment': '/images/commercial-kitchens/Refrigeration_card.webp',
+  'speciality-equipment': '/images/commercial-kitchens/speciality_card.webp',
+  'customized-stainless-steel-equipment': '/images/commercial-kitchens/steel_card.webp',
 };
 ---
 
@@ -29,10 +29,11 @@ const categoryImages = {
       <div class="index-container">
         <h1 class="index-main-title">Commercial Kitchens</h1>
         
+        <!-- Row 1 -->
         <div class="intro-row">
           <div class="intro-image-col">
             <div class="intro-image-wrapper">
-              <img src="/src/assets/images/commercial-kitches_image_1.webp" alt="Commercial Kitchen Workflow" />
+              <img src="/images/commercial-kitchens/commercial-kitches_image_1.webp" alt="Commercial Kitchen Workflow" />
             </div>
           </div>
           <div class="intro-content-col">
@@ -61,7 +62,7 @@ const categoryImages = {
         <div class="intro-row">
           <div class="intro-image-col">
             <div class="intro-image-wrapper">
-              <img src="/src/assets/images/commercial-steelness_image_2.webp" alt="Stainless Steel Fabrication" />
+              <img src="/images/commercial-kitchens/commercial-steelness_image_2.webp" alt="Stainless Steel Fabrication" />
             </div>
           </div>
           <div class="intro-content-col">
@@ -111,7 +112,7 @@ const categoryImages = {
         <div class="kitchens-grid">
           {sortedKitchens.map((kitchen, index) => {
             const currentSlug = kitchen.id;
-            const categoryImg = categoryImages[currentSlug] || kitchen.data.feature1Image || "/src/assets/images/placeholder.webp";
+            const categoryImg = categoryImages[currentSlug] || "/images/placeholder.webp";
             
             return (
               <a 
