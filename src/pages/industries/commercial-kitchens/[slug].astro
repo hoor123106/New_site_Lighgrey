@@ -1,0 +1,145 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/commercial-kitchens-slug.css';
+
+export async function getStaticPaths() {
+  const kitchens = await getCollection('commercialKitchens');
+  return kitchens.map((kitchen) => ({
+    params: { slug: kitchen.id.replace(/\.(md|mdx)$/, '') },
+  }));
+}
+
+const { slug } = Astro.params;
+const kitchens = await getCollection('commercialKitchens');
+const kitchen = kitchens.find(
+  (k) => k.id.replace(/\.(md|mdx)$/, '') === slug
+);
+
+if (!kitchen) {
+  throw new Error(`Kitchen not found for slug: ${slug}`);
+}
+
+const { Content } = await render(kitchen);
+const d = kitchen.data;
+
+const features = [
+  { img: d.feature1Image, title: d.feature1Title, desc: d.feature1Description },
+  { img: d.feature2Image, title: d.feature2Title, desc: d.feature2Description },
+  { img: d.feature3Image, title: d.feature3Title, desc: d.feature3Description }
+].filter(f => f.title || f.desc);
+
+const ctas = [
+  { icon: d.cta1Icon, title: d.cta1Title, desc: d.cta1Description },
+  { icon: d.cta2Icon, title: d.cta2Title, desc: d.cta2Description },
+  { icon: d.cta3Icon, title: d.cta3Title, desc: d.cta3Description }
+].filter(c => c.title || c.desc);
+---
+
+<Layout
+  title={d.title}
+  description={d.metaDescription}
+  fullWidth={true}
+>
+  <div class="kitchen-page">
+
+    <section class="kitchen-hero">
+     <div class="back-wrap container reveal-on-scroll">
+      <a href="/industries/commercial-kitchens" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Commercial Kitchens
+      </a>
+    </div>
+      <div class="kitchen-hero__inner reveal-on-scroll">
+        <h1 set:html={d.heroTitle || d.title} />
+        {d.heroSubtitle && <p class="kitchen-hero__subtitle" set:html={d.heroSubtitle} />}
+      </div>
+    </section>
+
+    {features.length > 0 && (
+      <section class="kitchen-features">
+        {features.map((feature, index) => (
+          <div class="feature-row reveal-on-scroll">
+            <div class="feature-image-col">
+              <div class="feature-image-wrapper">
+                {feature.img ? (
+                  <img src={feature.img} alt={feature.title} class="feature-image" />
+                ) : (
+                  <div class="feature-image" style="background: rgba(255,255,255,0.05);"></div>
+                )}
+              </div>
+            </div>
+            <div class="feature-content-col">
+              <h3 set:html={feature.title} />
+              <p set:html={feature.desc} />
+            </div>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {(d.ourProcessTitle || d.ourProcessDescription) && (
+      <section class="kitchen-process">
+        <div class="kitchen-process__container reveal-on-scroll">
+          {d.ourProcessSubtitle && <span class="process-subtitle" set:html={d.ourProcessSubtitle} />}
+          <h2 set:html={d.ourProcessTitle} />
+          {d.ourProcessDescription && <p class="process-description" set:html={d.ourProcessDescription} />}
+        </div>
+      </section>
+    )}
+
+    {ctas.length > 0 && (
+      <section class="kitchen-ctas">
+        <div class="kitchen-ctas__grid">
+          {ctas.map((cta, index) => (
+            <div class="cta-item reveal-on-scroll" style={`transition-delay: ${index * 0.1}s;`}>
+              <div class="cta-icon">
+                {cta.icon ? (
+                  <span set:html={cta.icon} />
+                ) : (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                )}
+              </div>
+              <div class="cta-text">
+                <h3 set:html={cta.title} />
+                <p set:html={cta.desc} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="mdx-body reveal-on-scroll">
+      <div class="mdx-body__inner">
+        <Content />
+      </div>
+    </section>
+
+    {d.footNote && (
+      <section class="kitchen-footer-note reveal-on-scroll">
+        <div class="footer-note-content" set:html={d.footNote} />
+      </section>
+    )}
+    
+  </div>
+</Layout>
+
+<script>
+  function setupReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  setupReveal();
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>

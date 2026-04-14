@@ -7,15 +7,17 @@
 
   --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
   --section-padding: 100px 24px;
-  --container-max-width: 1240px;
+  --container-max-width: 1200px;
   --header-bg: #272725;
   --header-text: var(--color-white);
-  --border-radius: 2px;
+  --border-radius: 4px;
 
   --muted-text: rgba(255, 255, 255, 0.7);
-  --muted-text-2: rgba(255, 255, 255, 0.8);
+  --muted-text-2: rgba(255, 255, 255, 0.85);
   --border-color: rgba(255, 255, 255, 0.1);
   --bg-dark: #272725;
+  --bg-deep: #1a1a18;
+  --bg-blue-accent: #1e2a3a;
 }
 
 /* Base Resets */
@@ -29,7 +31,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins, "Poppins"), sans-serif;
   background: var(--bg-dark);
   color: var(--color-text-main);
   font-weight: 400;
@@ -54,7 +56,7 @@ h4,
 h5,
 h6 {
   color: #ffffff;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins, "Poppins"), sans-serif;
   font-weight: 700;
   line-height: 1.1;
   margin-top: 2rem;
@@ -110,6 +112,7 @@ img {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

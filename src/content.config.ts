@@ -52,8 +52,44 @@ const perfumeCollection = defineCollection({
   }),
 });
 
+// ✅ New: Commercial Kitchens collection
+const commercialKitchensCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/commercial-kitchens' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().optional(),
+    category: z.string().optional(),
+    metaDescription: z.string().optional(),
+    heroTitle: z.string().optional(),
+    heroSubtitle: z.string().optional(),
+    feature1Image: z.string().optional(),
+    feature1Title: z.string().optional(),
+    feature1Description: z.string().optional(),
+    feature2Image: z.string().optional(),
+    feature2Title: z.string().optional(),
+    feature2Description: z.string().optional(),
+    feature3Image: z.string().optional(),
+    feature3Title: z.string().optional(),
+    feature3Description: z.string().optional(),
+    ourProcessSubtitle: z.string().optional(),
+    ourProcessTitle: z.string().optional(),
+    ourProcessDescription: z.string().optional(),
+    cta1Icon: z.string().optional(),
+    cta1Title: z.string().optional(),
+    cta1Description: z.string().optional(),
+    cta2Icon: z.string().optional(),
+    cta2Title: z.string().optional(),
+    cta2Description: z.string().optional(),
+    cta3Icon: z.string().optional(),
+    cta3Title: z.string().optional(),
+    cta3Description: z.string().optional(),
+    footNote: z.string().optional(),
+  }),
+});
+
 export const collections = {
   fragnanceNotes: fragnanceNotesCollection,
   blogs: blogsCollection,
   perfume: perfumeCollection,
+  commercialKitchens: commercialKitchensCollection, // ✅ register kiya
 };

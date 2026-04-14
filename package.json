@@ -6,7 +6,8 @@
     "fetch:notes": "node scripts/fetch-notes.js",
     "fetch:blogs": "node scripts/fetch-blogs.js",
     "fetch:perfume": "node scripts/fetch-perfume.js",
-    "fetch:all": "node scripts/fetch-notes.js && node scripts/fetch-blogs.js && node scripts/fetch-perfume.js",
+    "fetch:kitchens": "node scripts/fetch-commercial-kitchens.js",
+    "fetch:all": "node scripts/fetch-notes.js && node scripts/fetch-blogs.js && node scripts/fetch-perfume.js && node scripts/fetch-commercial-kitchens.js",
     "dev": "npm run fetch:all && astro dev",
     "build": "npm run fetch:all && astro build"
   },

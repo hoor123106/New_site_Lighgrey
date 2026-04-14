@@ -1,0 +1,157 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/commercial-kitchens-index.css';
+
+const kitchens = await getCollection('commercialKitchens');
+const sortedKitchens = kitchens.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+// Static Category Images Mapping
+const categoryImages = {
+  'baking-equipment': '/src/assets/images/Baking_card.webp',
+  'bar-and-beverage-equipment': '/src/assets/images/Beverage_card.webp',
+  'cooking-equipment': '/src/assets/images/cooking_card.webp',
+  'dishwashing-equipment': '/src/assets/images/dishwashing_card.webp',
+  'preparation-equipment': '/src/assets/images/preparation_card.webp',
+  'refrigeration-equipment': '/src/assets/images/Refrigeration_card.webp',
+  'speciality-equipment': '/src/assets/images/Speciality _card.webp',
+  'customized-stainless-steel-equipment': '/src/assets/images/steel_card.webp',
+};
+---
+
+<Layout
+  title="Commercial Kitchens | Steelcraft"
+  description="Steelcraft provides an extensive range of high-quality commercial kitchen equipment and services."
+  fullWidth={true}
+>
+  <div class="kitchen-index-page">
+    <section class="intro-section reveal-on-scroll">
+      <div class="index-container">
+        <h1 class="index-main-title">Commercial Kitchens</h1>
+        
+        <div class="intro-row">
+          <div class="intro-image-col">
+            <div class="intro-image-wrapper">
+              <img src="/src/assets/images/commercial-kitches_image_1.webp" alt="Commercial Kitchen Workflow" />
+            </div>
+          </div>
+          <div class="intro-content-col">
+            <p>
+              Steelcraft provides an extensive range of high-quality commercial kitchen equipment and services, 
+              and we are committed to meeting the unique needs of the food service industry. Our commercial 
+              kitchen equipment line provides a comprehensive range of top-notch products designed to enhance 
+              the efficiency and productivity of commercial kitchens. From cooking appliances and refrigeration 
+              systems to food preparation equipment and dishwashing solutions, we have everything you need to 
+              equip your kitchen for success. 
+            </p>
+            <p>
+              We carefully source our equipment from trusted manufacturers known for their reliability, durability, 
+              and advanced features, ensuring our clients receive the best-in-class products. We understand that 
+              every commercial kitchen has specific requirements and challenges. 
+            </p>
+            <p>
+              Our team of experienced professionals provides personalized consultation and customization services. 
+              We work closely with our clients to understand their unique needs and goals, offering tailored 
+              solutions that optimize workflows and maximize operational efficiency. Our experts ensure your 
+              kitchen is ready for peak performance.
+            </p>
+          </div>
+        </div>
+
+        <div class="intro-row">
+          <div class="intro-image-col">
+            <div class="intro-image-wrapper">
+              <img src="/src/assets/images/commercial-steelness_image_2.webp" alt="Stainless Steel Fabrication" />
+            </div>
+          </div>
+          <div class="intro-content-col">
+            <div class="content-group">
+                <h3>Customized Stainless Steel Fabrication</h3>
+                <p>
+                  In addition to our comprehensive product line, we specialize in providing customized stainless 
+                  steel equipment for commercial kitchens. Our team of fabricators produces high-quality, 
+                  tailor-made equipment that perfectly fits customers' unique kitchen spaces and requirements.
+                </p>
+                <p>
+                  Using Grade 304 stainless steel (or Grade 316, where recommended), we ensure that our 
+                  customized equipment meets the highest standards of durability and hygiene and enhances the 
+                  kitchen's overall aesthetics. From custom stainless steel countertops and workstations to 
+                  shelves, cabinets, and storage solutions, we have the expertise to create functional and 
+                  visually appealing equipment that optimizes workflow.
+                </p>
+            </div>
+            
+            <div class="content-group">
+                <h3>Customer Satisfaction</h3>
+                <p>
+                  At Steelcraft, we prioritize customer satisfaction and long-term partnerships. That's why a 
+                  team of skilled technicians and service professionals backs our commercial kitchen equipment 
+                  division. We provide prompt and reliable technical support, ensuring your equipment operates 
+                  at its best. 
+                </p>
+                <p>
+                  From installation and maintenance to repairs and troubleshooting, our dedicated team is 
+                  always ready to assist you. We understand the critical role of uptime in your kitchen 
+                  operations, and we strive to minimize disruptions to keep your business running smoothly.
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="deal-in-section reveal-on-scroll">
+      <div class="index-container">
+        <h2>WE DEAL IN</h2>
+      </div>
+    </section>
+
+    <section class="categories-grid-section">
+      <div class="index-container">
+        <div class="kitchens-grid">
+          {sortedKitchens.map((kitchen, index) => {
+            const currentSlug = kitchen.id;
+            const categoryImg = categoryImages[currentSlug] || kitchen.data.feature1Image || "/src/assets/images/placeholder.webp";
+            
+            return (
+              <a 
+                href={`/industries/commercial-kitchens/${kitchen.id}`} 
+                class="kitchen-card reveal-on-scroll"
+                style={`transition-delay: ${index * 0.1}s;`}
+              >
+                <div class="card-image">
+                  <img src={categoryImg} alt={kitchen.data.title} />
+                </div>
+                <h3>{kitchen.data.title}</h3>
+                {kitchen.data.metaDescription && <p>{kitchen.data.metaDescription}</p>}
+                <span class="card-link-text">Read More</span>
+              </a>
+            );
+          })}
+        </div>
+
+        <div class="index-cta-wrap reveal-on-scroll">
+            <a href="/get-in-touch" class="index-cta-btn">Get in touch</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  function setupReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+  }
+  setupReveal();
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>
