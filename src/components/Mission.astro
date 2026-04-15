@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import '../styles/Mission.css';
+import missionImage from '../assets/images/our-mission.png';
 ---
 
 <section class="mission">
@@ -19,7 +20,7 @@ import '../styles/Mission.css';
     <div class="mission__side">
       <div class="mission__image-wrap">
         <Image
-          src="/images/our-mission.png"
+          src={missionImage}
           alt="Our mission visual"
           class="mission__image"
           width={800}

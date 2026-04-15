@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import '../styles/AboutUs.css';
+import aboutImg from '../assets/images/about.webp';
 ---
 
 <section class="about reveal-on-scroll">
@@ -8,7 +9,7 @@ import '../styles/AboutUs.css';
     <div class="about__visual">
       <div class="about__image-container">
         <Image
-          src="/images/about.webp"
+          src={aboutImg}
           alt="Industrial Steel Manufacturing"
           class="about__image"
           width={800}

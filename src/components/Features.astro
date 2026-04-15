@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import '../styles/Features.css';
+import productMaking from '../assets/images/Prodcut-Making-In-home.png';
+import allFragrances from '../assets/images/all_iamges-fragnances.png';
 ---
 
 <section class="features">
@@ -8,7 +10,7 @@ import '../styles/Features.css';
     <div class="features__visual">
       <div class="features__main-img-wrapper">
         <Image
-          src="/images/Prodcut-Making-In-home.png"
+          src={productMaking}
           alt="Production Process"
           class="features__main-img"
           width={644}
@@ -19,7 +21,7 @@ import '../styles/Features.css';
       </div>
       <div class="features__grid">
         <Image
-          src="/images/all_iamges-fragnances.png"
+          src={allFragrances}
           alt="Fragrance image collection"
           class="features__grid-img"
           width={520}

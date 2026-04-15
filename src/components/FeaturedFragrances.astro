@@ -2,13 +2,20 @@
 import { Image } from 'astro:assets';
 import '../styles/FeaturedFragrances.css';
 
+import perfume1 from '../assets/images/perfume1.png';
+import perfume2 from '../assets/images/perfume2.png';
+import perfume3 from '../assets/images/perfume3.png';
+import perfume4 from '../assets/images/perfume4.png';
+import perfume5 from '../assets/images/perfume-5.png';
+import perfume6 from '../assets/images/perfume-6.png';
+
 const fragrances = [
-  { img: "/images/perfume1.png", name: "Chanel No. 5 - The Icon", details: "Launched: 1921 | Family: Floral Aldehyde" },
-  { img: "/images/perfume2.png", name: "Dior Sauvage - The Modern Classic", details: "Launched: 2015 | Family: Aromatic Fougere" },
-  { img: "/images/perfume3.png", name: "Creed Aventus - The Powerhouse", details: "Launched: 2010 | Family: Chypre Fruity" },
-  { img: "/images/perfume4.png", name: "Baccarat Rouge 540 - The Cult Favorite", details: "Launched: 2015 | Family: Amber Floral" },
-  { img: "/images/perfume-5.png", name: "Guerlain Shalimar - The Oriental Legend", details: "Launched: 1925 | Family: Amber Spicy" },
-  { img: "/images/perfume-6.png", name: "Le Labo Santal 33 - The Niche Star", details: "Launched: 2011 | Family: Woody Aromatic" },
+  { img: perfume1, name: "Chanel No. 5 - The Icon", details: "Launched: 1921 | Family: Floral Aldehyde" },
+  { img: perfume2, name: "Dior Sauvage - The Modern Classic", details: "Launched: 2015 | Family: Aromatic Fougere" },
+  { img: perfume3, name: "Creed Aventus - The Powerhouse", details: "Launched: 2010 | Family: Chypre Fruity" },
+  { img: perfume4, name: "Baccarat Rouge 540 - The Cult Favorite", details: "Launched: 2015 | Family: Amber Floral" },
+  { img: perfume5, name: "Guerlain Shalimar - The Oriental Legend", details: "Launched: 1925 | Family: Amber Spicy" },
+  { img: perfume6, name: "Le Labo Santal 33 - The Niche Star", details: "Launched: 2011 | Family: Woody Aromatic" },
 ];
 ---
 
@@ -27,7 +34,7 @@ const fragrances = [
         <button
           type="button"
           class="fragrance-card"
-          data-full-image={item.img}
+          data-full-image={item.img.src}
           data-title={item.name}
           aria-label={`Open ${item.name} image preview`}
         >

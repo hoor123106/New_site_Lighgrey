@@ -4,16 +4,23 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/services-index.css';
 
+// Import service images
+import designImg from '../../assets/images/services/design.webp';
+import manufacturingImg from '../../assets/images/services/manufacturing.webp';
+import projectManagementImg from '../../assets/images/services/project_management.webp';
+import sourcingImg from '../../assets/images/services/sourcing.webp';
+import technicalSupportImg from '../../assets/images/services/technical_support.webp';
+
 const services = await getCollection('services');
 const sortedServices = services.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
-// Category images mapping - Using public folder paths
+// Category images mapping
 const categoryImages = {
-  'design': '/images/services/design.webp',
-  'manufacturing': '/images/services/manufacturing.webp',
-  'project-management': '/images/services/project_management.webp',
-  'sourcing': '/images/services/sourcing.webp',
-  'technical-support': '/images/services/technical_support.webp',
+  'design': designImg,
+  'manufacturing': manufacturingImg,
+  'project-management': projectManagementImg,
+  'sourcing': sourcingImg,
+  'technical-support': technicalSupportImg,
 };
 ---
 

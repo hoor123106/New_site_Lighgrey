@@ -4,21 +4,37 @@ import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import '../../../styles/industrial-bakeries-index.css';
 
+// Import category images
+import baguetteImg from '../../../assets/images/industrail-bakeries/banguette.webp';
+import bunsImg from '../../../assets/images/industrail-bakeries/buns.webp';
+import croissantsImg from '../../../assets/images/industrail-bakeries/croissants.webp';
+import cupcakeImg from '../../../assets/images/industrail-bakeries/cupcake.webp';
+import doughImg from '../../../assets/images/industrail-bakeries/dough.webp';
+import flatbreadImg from '../../../assets/images/industrail-bakeries/flatbread.webp';
+import automaticImg from '../../../assets/images/industrail-bakeries/industrail_automatic_process.webp';
+import industrialImg from '../../../assets/images/industrail-bakeries/industrial.webp';
+import materialImg from '../../../assets/images/industrail-bakeries/material_handling.webp';
+import packagingImg from '../../../assets/images/industrail-bakeries/packaging.webp';
+import proofersImg from '../../../assets/images/industrail-bakeries/proofers.webp';
+
+// Import intro image
+import bakeryHome from '../../../assets/images/industrail-bakeries/industrail_bakery_home.webp';
+
 const bakeries = await getCollection('industrialBakeries');
 const sortedBakeries = bakeries.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 const categoryImages = {
-  'baguette-and-bread-production': '/images/industrail-bakeries/banguette.webp',
-  'buns-and-rolls-production': '/images/industrail-bakeries/buns.webp',
-  'croissants-and-pastry-production': '/images/industrail-bakeries/croissants.webp',
-  'cupcake-production': '/images/industrail-bakeries/cupcake.webp',
-  'dough-mixing': '/images/industrail-bakeries/dough.webp',
-  'flatbread-production': '/images/industrail-bakeries/flatbread.webp',
-  'fully-automatic-industrial-process-solutions': '/images/industrail-bakeries/industrail_automatic_process.webp',
-  'industrial-solutions': '/images/industrail-bakeries/industrial.webp',
-  'material-handling': '/images/industrail-bakeries/material_handling.webp',
-  'packaging-systems': '/images/industrail-bakeries/packaging.webp',
-  'proofers-and-ovens': '/images/industrail-bakeries/proofers.webp',
+  'baguette-and-bread-production': baguetteImg,
+  'buns-and-rolls-production': bunsImg,
+  'croissants-and-pastry-production': croissantsImg,
+  'cupcake-production': cupcakeImg,
+  'dough-mixing': doughImg,
+  'flatbread-production': flatbreadImg,
+  'fully-automatic-industrial-process-solutions': automaticImg,
+  'industrial-solutions': industrialImg,
+  'material-handling': materialImg,
+  'packaging-systems': packagingImg,
+  'proofers-and-ovens': proofersImg,
 };
 ---
 
@@ -36,7 +52,7 @@ const categoryImages = {
           <div class="intro-image-col">
             <div class="intro-image-wrapper">
               <Image 
-                src="/images/industrail-bakeries/industrail_bakery_home.webp" 
+                src={bakeryHome} 
                 alt="Industrial Bakery" 
                 width={800}
                 height={1200}

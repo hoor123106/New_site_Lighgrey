@@ -4,19 +4,32 @@ import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import '../../../styles/commercial-kitchens-index.css';
 
+// Import category images
+import bakingImg from '../../../assets/images/commercial-kitchens/Baking_card.webp';
+import beverageImg from '../../../assets/images/commercial-kitchens/Beverage_card.webp';
+import cookingImg from '../../../assets/images/commercial-kitchens/cooking_card.webp';
+import dishwashingImg from '../../../assets/images/commercial-kitchens/dishwashing_card.webp';
+import preparationImg from '../../../assets/images/commercial-kitchens/preparation_card.webp';
+import refrigerationImg from '../../../assets/images/commercial-kitchens/Refrigeration_card.webp';
+import specialityImg from '../../../assets/images/commercial-kitchens/speciality_card.webp';
+import steelImg from '../../../assets/images/commercial-kitchens/steel_card.webp';
+
+// Import row images
+import intro1 from '../../../assets/images/commercial-kitchens/commercial-kitches_image_1.webp';
+import intro2 from '../../../assets/images/commercial-kitchens/commercial-steelness_image_2.webp';
+
 const kitchens = await getCollection('commercialKitchens');
 const sortedKitchens = kitchens.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
-// Static Category Images Mapping - Using PUBLIC folder paths
 const categoryImages = {
-  'baking-equipment': '/images/commercial-kitchens/Baking_card.webp',
-  'bar-and-beverage-equipment': '/images/commercial-kitchens/Beverage_card.webp',
-  'cooking-equipment': '/images/commercial-kitchens/cooking_card.webp',
-  'dishwashing-equipment': '/images/commercial-kitchens/dishwashing_card.webp',
-  'preparation-equipment': '/images/commercial-kitchens/preparation_card.webp',
-  'refrigeration-equipment': '/images/commercial-kitchens/Refrigeration_card.webp',
-  'speciality-equipment': '/images/commercial-kitchens/speciality_card.webp',
-  'customized-stainless-steel-equipment': '/images/commercial-kitchens/steel_card.webp',
+  'baking-equipment': bakingImg,
+  'bar-and-beverage-equipment': beverageImg,
+  'cooking-equipment': cookingImg,
+  'dishwashing-equipment': dishwashingImg,
+  'preparation-equipment': preparationImg,
+  'refrigeration-equipment': refrigerationImg,
+  'speciality-equipment': specialityImg,
+  'customized-stainless-steel-equipment': steelImg,
 };
 ---
 
@@ -34,7 +47,7 @@ const categoryImages = {
         <div class="intro-row">
           <div class="intro-image-col">
             <div class="intro-image-wrapper">
-              <Image src="/images/commercial-kitchens/commercial-kitches_image_1.webp" alt="Commercial Kitchen Workflow" width={800} height={600} />
+              <Image src={intro1} alt="Commercial Kitchen Workflow" width={800} height={600} />
             </div>
           </div>
           <div class="intro-content-col">
@@ -63,7 +76,7 @@ const categoryImages = {
         <div class="intro-row">
           <div class="intro-image-col">
             <div class="intro-image-wrapper">
-              <Image src="/images/commercial-kitchens/commercial-steelness_image_2.webp" alt="Stainless Steel Fabrication" width={800} height={600} />
+              <Image src={intro2} alt="Stainless Steel Fabrication" width={800} height={600} />
             </div>
           </div>
           <div class="intro-content-col">

@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import '../styles/Hero.css';
+import heroImage from '../assets/images/heroImage.webp';
 ---
 
 <section class="hero reveal-on-scroll">
@@ -14,7 +15,7 @@ import '../styles/Hero.css';
     <div class="hero__visual">
       <div class="hero__image-wrapper">
         <Image
-          src="/images/heroImage.webp"
+          src={heroImage}
           alt="Luxury Stainless Steel Kitchen"
           class="hero__image"
           width={1200}

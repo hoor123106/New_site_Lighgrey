@@ -1,6 +1,8 @@
 ---
 import '../styles/footer.css';
 import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.png';
+import emailIcon from '../assets/images/email.png';
 
 const currentPath = Astro.url.pathname;
 const navItems = [
@@ -21,7 +23,7 @@ const isActive = (href) => {
 <footer class="footer">
   <div class="footer-container">
     <a href="/" class="footer-logo" aria-label="Steelcraft home">
-      <Image src="/images/logo.png" alt="Steelcraft" width={200} height={50} />
+      <Image src={logo} alt="Steelcraft" />
     </a>
     
     <ul class="social-list" aria-label="Social links">
@@ -47,7 +49,7 @@ const isActive = (href) => {
       </li>
       <li>
         <a href="mailto:info@steelcraft.com" aria-label="Email" class="social-link" target="_blank" rel="noreferrer">
-          <Image src="/images/email.png" alt="Steelcraft" width={22} height={22} />
+          <Image src={emailIcon} alt="Steelcraft Email" width={22} height={22} />
         </a>
       </li>
       <li>

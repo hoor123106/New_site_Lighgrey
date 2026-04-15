@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import '../styles/Database.css';
+import perfume3Home from '../assets/images/perfume3_home.png';
 ---
 
 <section class="database">
@@ -16,7 +17,7 @@ import '../styles/Database.css';
     <div class="database__visual">
       <div class="database__image-wrapper">
         <Image
-          src="/images/perfume3_home.png"
+          src={perfume3Home}
           alt="Perfume database visualization"
           class="database__image"
           width={560}

@@ -1,8 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import '../styles/header.css';
-
-const logo = "/images/logo.png";
-const email = "/images/email.png";
+import logo from '../assets/images/logo.png';
+import emailIcon from '../assets/images/email.png';
 
 const currentPath = Astro.url.pathname;
 
@@ -35,7 +35,7 @@ const isActive = (href) => {
     </div>
 
     <a href="/" class="logo header-enter header-enter--logo" aria-label="Steelcraft home">
-      <img src={logo} alt="Steelcraft"/>
+      <Image src={logo} alt="Steelcraft" loading="eager" fetchpriority="high" />
     </a>
 
     <ul class="nav-list nav-list--desktop nav-list--center header-enter header-enter--nav">
@@ -84,7 +84,7 @@ const isActive = (href) => {
         </li>
         <li>
           <a href="mailto:info@steelcraft.com" aria-label="Email" class="social-link" target="_blank" rel="noreferrer">
-      <img src={email} alt="Steelcraft" width="18" height="18" />
+            <Image src={emailIcon} alt="Steelcraft Email" width={18} height={18} />
           </a>
         </li>
         <li>
@@ -182,7 +182,7 @@ const isActive = (href) => {
             </li>
             <li>
               <a href="mailto:info@steelcraft.com" aria-label="Email" class="social-link" target="_blank" rel="noreferrer">
-                <img src={email} alt="Steelcraft" width="18" height="18" />
+                <Image src={emailIcon} alt="Steelcraft Email" width={18} height={18} />
               </a>
             </li>
             <li>

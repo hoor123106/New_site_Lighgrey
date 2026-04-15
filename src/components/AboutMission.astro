@@ -1,13 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import '../styles/about-mission.css';
+import aboutMissionImage from '../assets/images/about-mission-image.png';
 ---
 
 <section class="about-mission">
   <div class="container about-mission__container">
     <div class="about-mission__visual">
       <Image
-        src="/images/about-mission-image.png"
+        src={aboutMissionImage}
         alt="Perfume bottle in warm light"
         class="about-mission__image"
         width={1000}
