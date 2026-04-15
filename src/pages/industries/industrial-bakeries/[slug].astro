@@ -66,10 +66,12 @@ const ctas = [
                 {feature.img ? (
                   <Image 
                     src={feature.img} 
-                    alt={feature.title} 
+                    alt={feature.title || "Bakery Feature"} 
                     class="feature-image" 
-                    width={800} 
-                    height={600} 
+                    widths={[400, 800]}
+                    sizes="(max-width: 800px) 100vw, 800px"
+                    format="webp"
+                    quality="high"
                   />
                 ) : (
                   <div class="feature-image" style="background: rgba(255,255,255,0.05);"></div>
@@ -77,7 +79,7 @@ const ctas = [
               </div>
             </div>
             <div class="feature-content-col">
-              <h3 set:html={feature.title} />
+              <h2 set:html={feature.title} />
               <p set:html={feature.desc} />
             </div>
           </div>

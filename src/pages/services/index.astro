@@ -30,7 +30,11 @@ const categoryImages = {
   fullWidth={true}
 >
   <div class="services-index-page">
-    
+    <section class="intro-section reveal-on-scroll">
+      <div class="index-container">
+        <h1 class="index-main-title">Our Services</h1>
+      </div>
+    </section>
 
     <section class="deal-in-section reveal-on-scroll">
       <div class="index-container">
@@ -55,8 +59,10 @@ const categoryImages = {
                   <Image 
                     src={categoryImg} 
                     alt={service.data.title} 
-                    width={600} 
-                    height={400} 
+                    widths={[300, 600]}
+                    sizes="(max-width: 640px) 100vw, 300px"
+                    format="webp"
+                    quality="mid"
                   />
                 </div>
                 <h3>{service.data.title}</h3>

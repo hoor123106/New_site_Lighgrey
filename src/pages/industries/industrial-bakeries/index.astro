@@ -54,8 +54,11 @@ const categoryImages = {
               <Image 
                 src={bakeryHome} 
                 alt="Industrial Bakery" 
-                width={800}
-                height={1200}
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 800px) 100vw, 800px"
+                format="webp"
+                quality="high"
+                class="intro-img"
               />
             </div>
           </div>
@@ -106,8 +109,10 @@ const categoryImages = {
                   <Image 
                     src={categoryImg} 
                     alt={bakery.data.title} 
-                    width={600} 
-                    height={400} 
+                    widths={[300, 600]}
+                    sizes="(max-width: 640px) 100vw, 300px"
+                    format="webp"
+                    quality="mid"
                   />
                 </div>
                 <h3>{bakery.data.title}</h3>

@@ -47,7 +47,15 @@ const categoryImages = {
         <div class="intro-row">
           <div class="intro-image-col">
             <div class="intro-image-wrapper">
-              <Image src={intro1} alt="Commercial Kitchen Workflow" width={800} height={600} />
+              <Image 
+                src={intro1} 
+                alt="Commercial Kitchen Workflow" 
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 800px) 100vw, 800px"
+                format="webp"
+                quality="high"
+                class="intro-img"
+              />
             </div>
           </div>
           <div class="intro-content-col">
@@ -76,12 +84,20 @@ const categoryImages = {
         <div class="intro-row">
           <div class="intro-image-col">
             <div class="intro-image-wrapper">
-              <Image src={intro2} alt="Stainless Steel Fabrication" width={800} height={600} />
+              <Image 
+                src={intro2} 
+                alt="Stainless Steel Fabrication" 
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 800px) 100vw, 800px"
+                format="webp"
+                quality="high"
+                class="intro-img"
+              />
             </div>
           </div>
           <div class="intro-content-col">
             <div class="content-group">
-                <h3>Customized Stainless Steel Fabrication</h3>
+                <h2>Customized Stainless Steel Fabrication</h2>
                 <p>
                   In addition to our comprehensive product line, we specialize in providing customized stainless 
                   steel equipment for commercial kitchens. Our team of fabricators produces high-quality, 
@@ -97,7 +113,7 @@ const categoryImages = {
             </div>
             
             <div class="content-group">
-                <h3>Customer Satisfaction</h3>
+                <h2>Customer Satisfaction</h2>
                 <p>
                   At Steelcraft, we prioritize customer satisfaction and long-term partnerships. That's why a 
                   team of skilled technicians and service professionals backs our commercial kitchen equipment 
@@ -135,7 +151,14 @@ const categoryImages = {
                 style={`transition-delay: ${index * 0.1}s;`}
               >
                 <div class="card-image">
-                  <Image src={categoryImg} alt={kitchen.data.title} width={600} height={400} />
+                  <Image 
+                    src={categoryImg} 
+                    alt={kitchen.data.title} 
+                    widths={[300, 600]}
+                    sizes="(max-width: 640px) 100vw, 300px"
+                    format="webp"
+                    quality="mid"
+                  />
                 </div>
                 <h3>{kitchen.data.title}</h3>
                 {kitchen.data.metaDescription && <p>{kitchen.data.metaDescription}</p>}
