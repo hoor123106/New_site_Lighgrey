@@ -1,8 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import bookIcon from '../assets/images/book-icon.png';
-import shieldIcon from '../assets/images/shield-icon.png';
-import clockIcon from '../assets/images/clock-icon.png';
 import '../styles/about-info.css';
 ---
 
@@ -23,21 +20,21 @@ import '../styles/about-info.css';
     <div class="about-info__cards">
       <div class="about-info__card">
         <div class="about-info__icon">
-          <Image src={bookIcon} alt="Encyclopedia icon" />
+          <Image src="/images/book-icon.png" alt="Encyclopedia icon" width={40} height={40} />
         </div>
         <h3>Your Encyclopedia Of Scent.</h3>
       </div>
 
       <div class="about-info__card">
         <div class="about-info__icon">
-          <Image src={shieldIcon} alt="Honest reviews icon" />
+          <Image src="/images/shield-icon.png" alt="Honest reviews icon" width={40} height={40} />
         </div>
         <h3>Honest Reviews, No Sales Agenda.</h3>
       </div>
 
       <div class="about-info__card">
         <div class="about-info__icon">
-          <Image src={clockIcon} alt="History and trends icon" />
+          <Image src="/images/clock-icon.png" alt="History and trends icon" width={40} height={40} />
         </div>
         <h3>History, Trends, And Artistry.</h3>
       </div>

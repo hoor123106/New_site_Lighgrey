@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import '../../../styles/commercial-kitchens-index.css';
 
@@ -33,7 +34,7 @@ const categoryImages = {
         <div class="intro-row">
           <div class="intro-image-col">
             <div class="intro-image-wrapper">
-              <img src="/images/commercial-kitchens/commercial-kitches_image_1.webp" alt="Commercial Kitchen Workflow" />
+              <Image src="/images/commercial-kitchens/commercial-kitches_image_1.webp" alt="Commercial Kitchen Workflow" width={800} height={600} />
             </div>
           </div>
           <div class="intro-content-col">
@@ -62,7 +63,7 @@ const categoryImages = {
         <div class="intro-row">
           <div class="intro-image-col">
             <div class="intro-image-wrapper">
-              <img src="/images/commercial-kitchens/commercial-steelness_image_2.webp" alt="Stainless Steel Fabrication" />
+              <Image src="/images/commercial-kitchens/commercial-steelness_image_2.webp" alt="Stainless Steel Fabrication" width={800} height={600} />
             </div>
           </div>
           <div class="intro-content-col">
@@ -121,7 +122,7 @@ const categoryImages = {
                 style={`transition-delay: ${index * 0.1}s;`}
               >
                 <div class="card-image">
-                  <img src={categoryImg} alt={kitchen.data.title} />
+                  <Image src={categoryImg} alt={kitchen.data.title} width={600} height={400} />
                 </div>
                 <h3>{kitchen.data.title}</h3>
                 {kitchen.data.metaDescription && <p>{kitchen.data.metaDescription}</p>}

@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import ctaImg from '../assets/images/cta_image.webp';
 import '../styles/CTASection.css';
 ---
 
@@ -17,9 +16,11 @@ import '../styles/CTASection.css';
     <div class="cta__visual">
       <div class="cta__image-container">
         <Image
-          src={ctaImg}
+          src="/images/cta_image.webp"
           alt="Production Facility"
           class="cta__image"
+          width={800}
+          height={600}
           loading="lazy"
           decoding="async"
         />

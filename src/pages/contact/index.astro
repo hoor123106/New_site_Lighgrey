@@ -4,10 +4,6 @@ import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
 import '../../styles/contact.css';
 
-import addressIcon from '../../assets/images/address.png';
-import contactIcon from '../../assets/images/phone.png';
-import emailIcon from '../../assets/images/email.png';
-
 const title = "Contact Us — Mimya";
 const description = "Get in touch with Mimya for collaboration, writing assignments, or any fragrance-related questions.";
 ---
@@ -29,7 +25,7 @@ const description = "Get in touch with Mimya for collaboration, writing assignme
           <div class="contact-card">
             <div class="contact-card__icon">
               <Image 
-                src={addressIcon} 
+                src="/images/address.png" 
                 alt="Address" 
                 width={35} 
                 height={35} 
@@ -45,7 +41,7 @@ const description = "Get in touch with Mimya for collaboration, writing assignme
           <div class="contact-card">
             <div class="contact-card__icon">
               <Image 
-                src={contactIcon} 
+                src="/images/phone.png" 
                 alt="Phone" 
                 width={35} 
                 height={35} 
@@ -61,7 +57,7 @@ const description = "Get in touch with Mimya for collaboration, writing assignme
           <div class="contact-card">
             <div class="contact-card__icon">
               <Image 
-                src={emailIcon} 
+                src="/images/email.png" 
                 alt="Email" 
                 width={35} 
                 height={35} 

@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
-import Layout from '../../../layouts/Layout.astro';
-import '../../../styles/services-slug.css';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/services-slug.css';
 
 export async function getStaticPaths() {
   const services = await getCollection('services');
@@ -12,7 +13,9 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const services = await getCollection('services');
-const service = services.find((s) => s.id.replace(/\.(md|mdx)$/, '') === slug);
+const service = services.find(
+  (s) => s.id.replace(/\.(md|mdx)$/, '') === slug
+);
 
 if (!service) {
   throw new Error(`Service not found for slug: ${slug}`);
@@ -34,31 +37,34 @@ const ctas = [
 ].filter(c => c.title || c.desc);
 ---
 
-<Layout title={d.title} description={d.metaDescription} fullWidth={true}>
-  <div class="services-page">
-    <section class="services-hero">
-      <div class="back-wrap container reveal-on-scroll">
-        <a href="/services" class="back-link">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Back to Services
-        </a>
-      </div>
-      <div class="services-hero__inner reveal-on-scroll">
+<Layout
+  title={d.title}
+  description={d.metaDescription}
+  fullWidth={true}
+>
+  <div class="service-page">
+
+    <section class="service-hero">
+     <div class="back-wrap container reveal-on-scroll">
+      <a href="/services" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Services
+      </a>
+    </div>
+      <div class="service-hero__inner reveal-on-scroll">
         <h1 set:html={d.heroTitle || d.title} />
-        {d.heroSubtitle && <p class="services-hero__subtitle" set:html={d.heroSubtitle} />}
+        {d.heroSubtitle && <p class="service-hero__subtitle" set:html={d.heroSubtitle} />}
       </div>
     </section>
 
     {features.length > 0 && (
-      <section class="services-features">
-        {features.map((feature) => (
+      <section class="service-features">
+        {features.map((feature, index) => (
           <div class="feature-row reveal-on-scroll">
             <div class="feature-image-col">
               <div class="feature-image-wrapper">
                 {feature.img ? (
-                  <img src={feature.img} alt={feature.title} class="feature-image" />
+                  <Image src={feature.img} alt={feature.title} class="feature-image" width={800} height={600} />
                 ) : (
                   <div class="feature-image" style="background: rgba(255,255,255,0.05);"></div>
                 )}
@@ -74,8 +80,8 @@ const ctas = [
     )}
 
     {(d.ourProcessTitle || d.ourProcessDescription) && (
-      <section class="services-process">
-        <div class="services-process__container reveal-on-scroll">
+      <section class="service-process">
+        <div class="service-process__container reveal-on-scroll">
           {d.ourProcessSubtitle && <span class="process-subtitle" set:html={d.ourProcessSubtitle} />}
           <h2 set:html={d.ourProcessTitle} />
           {d.ourProcessDescription && <p class="process-description" set:html={d.ourProcessDescription} />}
@@ -84,15 +90,15 @@ const ctas = [
     )}
 
     {ctas.length > 0 && (
-      <section class="services-ctas">
-        <div class="services-ctas__grid">
+      <section class="service-ctas">
+        <div class="service-ctas__grid">
           {ctas.map((cta, index) => (
             <div class="cta-item reveal-on-scroll" style={`transition-delay: ${index * 0.1}s;`}>
               <div class="cta-icon">
-                {cta.icon ? <span set:html={cta.icon} /> : (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  </svg>
+                {cta.icon ? (
+                  <span set:html={cta.icon} />
+                ) : (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 )}
               </div>
               <div class="cta-text">
@@ -112,10 +118,11 @@ const ctas = [
     </section>
 
     {d.footNote && (
-      <section class="services-footer-note reveal-on-scroll">
+      <section class="service-footer-note reveal-on-scroll">
         <div class="footer-note-content" set:html={d.footNote} />
       </section>
     )}
+    
   </div>
 </Layout>
 
@@ -128,8 +135,12 @@ const ctas = [
         }
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
   }
+
   setupReveal();
   document.addEventListener('astro:after-swap', setupReveal);
 </script>

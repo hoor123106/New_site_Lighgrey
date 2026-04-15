@@ -1,20 +1,14 @@
 ---
 import { Image } from 'astro:assets';
-import p1 from '../assets/images/perfume1.png';
-import p2 from '../assets/images/perfume2.png';
-import p3 from '../assets/images/perfume3.png';
-import p4 from '../assets/images/perfume4.png';
-import p5 from '../assets/images/perfume-5.png';
-import p6 from '../assets/images/perfume-6.png';
 import '../styles/FeaturedFragrances.css';
 
 const fragrances = [
-  { img: p1, name: "Chanel No. 5 - The Icon", details: "Launched: 1921 | Family: Floral Aldehyde" },
-  { img: p2, name: "Dior Sauvage - The Modern Classic", details: "Launched: 2015 | Family: Aromatic Fougere" },
-  { img: p3, name: "Creed Aventus - The Powerhouse", details: "Launched: 2010 | Family: Chypre Fruity" },
-  { img: p4, name: "Baccarat Rouge 540 - The Cult Favorite", details: "Launched: 2015 | Family: Amber Floral" },
-  { img: p5, name: "Guerlain Shalimar - The Oriental Legend", details: "Launched: 1925 | Family: Amber Spicy" },
-  { img: p6, name: "Le Labo Santal 33 - The Niche Star", details: "Launched: 2011 | Family: Woody Aromatic" },
+  { img: "/images/perfume1.png", name: "Chanel No. 5 - The Icon", details: "Launched: 1921 | Family: Floral Aldehyde" },
+  { img: "/images/perfume2.png", name: "Dior Sauvage - The Modern Classic", details: "Launched: 2015 | Family: Aromatic Fougere" },
+  { img: "/images/perfume3.png", name: "Creed Aventus - The Powerhouse", details: "Launched: 2010 | Family: Chypre Fruity" },
+  { img: "/images/perfume4.png", name: "Baccarat Rouge 540 - The Cult Favorite", details: "Launched: 2015 | Family: Amber Floral" },
+  { img: "/images/perfume-5.png", name: "Guerlain Shalimar - The Oriental Legend", details: "Launched: 1925 | Family: Amber Spicy" },
+  { img: "/images/perfume-6.png", name: "Le Labo Santal 33 - The Niche Star", details: "Launched: 2011 | Family: Woody Aromatic" },
 ];
 ---
 
@@ -33,7 +27,7 @@ const fragrances = [
         <button
           type="button"
           class="fragrance-card"
-          data-full-image={item.img.src}
+          data-full-image={item.img}
           data-title={item.name}
           aria-label={`Open ${item.name} image preview`}
         >
@@ -42,10 +36,10 @@ const fragrances = [
               src={item.img}
               alt={item.name}
               class="fragrance-card__image"
+              width={220}
+              height={300}
               loading="lazy"
               decoding="async"
-              widths={[160, 240, 320]}
-              sizes="(max-width: 640px) 45vw, (max-width: 992px) 28vw, 220px"
             />
           </div>
           <div class="fragrance-card__info">

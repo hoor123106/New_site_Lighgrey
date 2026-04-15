@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import bakingImg from '../assets/images/Hero2.webp';
 import '../styles/Hero2Section.css';
 ---
 
@@ -17,9 +16,11 @@ import '../styles/Hero2Section.css';
     <div class="hero2__visual">
       <div class="hero2__image-wrapper">
         <Image
-          src={bakingImg}
+          src="/images/Hero2.webp"
           alt="Industrial Baking Line"
           class="hero2__image"
+          width={1000}
+          height={600}
         />
       </div>
     </div>

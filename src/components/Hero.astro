@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import heroImg from '../assets/images/heroImage.webp';
 import '../styles/Hero.css';
 ---
 
@@ -15,11 +14,12 @@ import '../styles/Hero.css';
     <div class="hero__visual">
       <div class="hero__image-wrapper">
         <Image
-          src={heroImg}
+          src="/images/heroImage.webp"
           alt="Luxury Stainless Steel Kitchen"
           class="hero__image"
+          width={1200}
+          height={800}
           loading="eager"
-          fetchpriority="high"
           decoding="async"
         />
       </div>

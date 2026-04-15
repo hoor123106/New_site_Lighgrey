@@ -1,16 +1,13 @@
 ---
 import '../styles/Satisfaction.css';
 import { Image } from 'astro:assets';
-import laughLogo from '../assets/images/laughLogo.png';
-import calender from '../assets/images/calender.png';
-import batch from '../assets/images/batch.png';
 ---
 
 <section class="satisfaction">
   <div class="container satisfaction__container">
     <div class="satisfaction__item">
       <div class="satisfaction__icon">
-       <Image src={laughLogo} alt="Laugh icon" loading="lazy" decoding="async" widths={[40, 56, 72]} sizes="56px" />
+       <Image src="/images/laughLogo.png" alt="Laugh icon" width={56} height={56} loading="lazy" decoding="async" />
       </div>
       <div class="satisfaction__text">
         <h3>50,000+ Perfumes Listed</h3>
@@ -20,7 +17,7 @@ import batch from '../assets/images/batch.png';
     
     <div class="satisfaction__item">
       <div class="satisfaction__icon">
-         <Image src={calender} alt="Calendar icon" loading="lazy" decoding="async" widths={[40, 56, 72]} sizes="56px" />
+         <Image src="/images/calender.png" alt="Calendar icon" width={56} height={56} loading="lazy" decoding="async" />
       </div>
       <div class="satisfaction__text">
         <h3>3,000+ Verified Brands</h3>
@@ -30,7 +27,7 @@ import batch from '../assets/images/batch.png';
     
     <div class="satisfaction__item">
       <div class="satisfaction__icon">
-          <Image src={batch} alt="Batch icon" loading="lazy" decoding="async" widths={[40, 56, 72]} sizes="56px" />
+          <Image src="/images/batch.png" alt="Batch icon" width={56} height={56} loading="lazy" decoding="async" />
       </div>
       <div class="satisfaction__text">
         <h3>1800+ Scent Notes Profiled</h3>

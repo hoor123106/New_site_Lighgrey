@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import databaseImg from '../assets/images/perfume3_home.png';
 import '../styles/Database.css';
 ---
 
@@ -17,13 +16,13 @@ import '../styles/Database.css';
     <div class="database__visual">
       <div class="database__image-wrapper">
         <Image
-          src={databaseImg}
+          src="/images/perfume3_home.png"
           alt="Perfume database visualization"
           class="database__image"
+          width={560}
+          height={400}
           loading="lazy"
           decoding="async"
-          widths={[400, 640, 900, 1200]}
-          sizes="(max-width: 992px) 100vw, 560px"
         />
       </div>
     </div>

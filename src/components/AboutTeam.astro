@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import teamVisual from '../assets/images/perfume-about-us-info.png';
 import '../styles/about-team.css';
 ---
 
@@ -15,13 +14,13 @@ import '../styles/about-team.css';
 
     <div class="about-team__visual">
       <Image
-        src={teamVisual}
+        src="/images/perfume-about-us-info.png"
         alt="Team fragrance visual"
         class="about-team__image"
+        width={1400}
+        height={800}
         loading="lazy"
         decoding="async"
-        widths={[480, 768, 1024, 1400]}
-        sizes="(max-width: 992px) 100vw, 860px"
       />
       <button type="button" class="about-team__play" aria-label="Preview visual">▶</button>
     </div>

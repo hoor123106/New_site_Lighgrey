@@ -1,7 +1,5 @@
 ---
 import '../styles/footer.css';
-import logo from '../assets/images/logo.png';
-import email from '../assets/images/email.png';
 import { Image } from 'astro:assets';
 
 const currentPath = Astro.url.pathname;
@@ -23,7 +21,7 @@ const isActive = (href) => {
 <footer class="footer">
   <div class="footer-container">
     <a href="/" class="footer-logo" aria-label="Steelcraft home">
-      <Image src={logo} alt="Steelcraft" />
+      <Image src="/images/logo.png" alt="Steelcraft" width={200} height={50} />
     </a>
     
     <ul class="social-list" aria-label="Social links">
@@ -49,7 +47,7 @@ const isActive = (href) => {
       </li>
       <li>
         <a href="mailto:info@steelcraft.com" aria-label="Email" class="social-link" target="_blank" rel="noreferrer">
-          <Image src={email} alt="Steelcraft" width={22} height={22} />
+          <Image src="/images/email.png" alt="Steelcraft" width={22} height={22} />
         </a>
       </li>
       <li>
@@ -59,4 +57,4 @@ const isActive = (href) => {
       </li>
     </ul>
   </div>
-</footer>
+</footer>

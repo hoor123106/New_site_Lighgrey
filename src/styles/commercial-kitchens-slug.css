@@ -5,10 +5,31 @@
 
 .kitchen-hero {
     background-color: var(--bg-deep, #1a1a18);
-    padding: 140px 24px;
+    padding: 140px 24px 100px;
     text-align: center;
     color: #fff;
     width: 100%;
+}
+
+.back-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.back-link {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted-text-2) !important;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    color: #fff !important;
 }
 
 .kitchen-hero__inner {
@@ -151,18 +172,20 @@
 }
 
 .kitchen-ctas__grid {
-    max-width: var(--container-max-width);
+    max-width: 1100px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 45px;
+    gap: 40px;
 }
 
 .cta-item {
     display: flex;
-    gap: 25px;
+    flex-direction: column;
     align-items: flex-start;
-    padding: 30px;
+    text-align: left;
+    gap: 20px;
+    padding: 30px 20px;
     transition: all 0.3s ease;
 }
 
@@ -190,13 +213,14 @@
 }
 
 .cta-text h3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: #fff;
     margin-top: 0;
     margin-bottom: 8px;
     letter-spacing: -0.2px;
-    white-space: nowrap;
+    white-space: normal;
+    line-height: 1.4;
 }
 
 .cta-text p {
@@ -263,5 +287,32 @@
 
     .kitchen-process h2 {
         font-size: 32px;
+    }
+}
+
+@media (max-width: 640px) {
+    .kitchen-hero {
+        padding: 100px 20px;
+    }
+
+    .kitchen-hero h1 {
+        font-size: 32px;
+    }
+
+    .kitchen-features {
+        padding: 60px 0;
+    }
+
+    .feature-content-col h3 {
+        font-size: 28px;
+        line-height: 1.2;
+    }
+
+    .kitchen-ctas {
+        padding: 60px 20px;
+    }
+
+    .cta-item {
+        padding: 15px 0;
     }
 }

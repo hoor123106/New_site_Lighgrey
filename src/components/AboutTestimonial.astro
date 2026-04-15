@@ -1,16 +1,16 @@
 ---
 import { Image } from 'astro:assets';
-import authorImg from '../assets/images/testimonial1.png';
-import bgImg from '../assets/images/testimonial_about.png'; 
 import '../styles/about-testimonial.css';
 ---
 
 <section class="about-testimonial">
   <Image 
-    src={bgImg} 
+    src="/images/testimonial_about.png" 
     alt="" 
     aria-hidden="true" 
     class="about-testimonial__bg"
+    width={1920}
+    height={600}
     loading="lazy"
     decoding="async"
   />
@@ -27,13 +27,13 @@ import '../styles/about-testimonial.css';
 
       <div class="about-testimonial__footer">
         <Image
-          src={authorImg}
+          src="/images/testimonial1.png"
           alt="Catherine Lopez"
           class="about-testimonial__avatar"
+          width={56}
+          height={56}
           loading="lazy"
           decoding="async"
-          widths={[40, 56, 72]}
-          sizes="56px"
         />
         <div class="about-testimonial__meta">
           <p class="about-testimonial__author">Catherine Lopez</p>

@@ -1,40 +1,67 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/services-index.css';
 
 const services = await getCollection('services');
 const sortedServices = services.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+// Category images mapping - Using public folder paths
+const categoryImages = {
+  'design': '/images/services/design.webp',
+  'manufacturing': '/images/services/manufacturing.webp',
+  'project-management': '/images/services/project_management.webp',
+  'sourcing': '/images/services/sourcing.webp',
+  'technical-support': '/images/services/technical_support.webp',
+};
 ---
 
-<Layout title="Our Services | Steelcraft" description="Professional services by Steelcraft." fullWidth={true}>
+<Layout
+  title="Our Services | Steelcraft"
+  description="Explore the wide range of professional services offered by Steelcraft."
+  fullWidth={true}
+>
   <div class="services-index-page">
-    <section class="intro-section reveal-on-scroll">
+    
+
+    <section class="deal-in-section reveal-on-scroll">
       <div class="index-container">
-        <h1 class="index-main-title">Our Services</h1>
-        <p style="color: var(--muted-text-2); margin-bottom: 60px;">
-          Explore our professional range of services designed to optimize your operations.
-        </p>
+        <h2>WE SPECIALIZE IN</h2>
       </div>
     </section>
 
     <section class="categories-grid-section">
       <div class="index-container">
         <div class="services-grid">
-          {sortedServices.map((service, index) => (
-            <a 
-              href={`/services/${service.id.replace(/\.(md|mdx)$/, '')}`} 
-              class="service-card reveal-on-scroll" 
-              style={`transition-delay: ${index * 0.1}s;`}
-            >
-              <div class="card-image">
-                <div class="feature-image" style="background: rgba(255,255,255,0.05); height: 100%;"></div>
-              </div>
-              <h3>{service.data.title}</h3>
-              {service.data.metaDescription && <p>{service.data.metaDescription}</p>}
-              <span class="card-link-text">Explore Service</span>
-            </a>
-          ))}
+          {sortedServices.map((service, index) => {
+            const currentSlug = service.id.replace(/\.(md|mdx)$/, '');
+            const categoryImg = categoryImages[currentSlug] || "/images/placeholder.webp";
+            
+            return (
+              <a 
+                href={`/services/${currentSlug}`} 
+                class="service-card reveal-on-scroll"
+                style={`transition-delay: ${index * 0.1}s;`}
+              >
+                <div class="card-image">
+                  <Image 
+                    src={categoryImg} 
+                    alt={service.data.title} 
+                    width={600} 
+                    height={400} 
+                  />
+                </div>
+                <h3>{service.data.title}</h3>
+                {service.data.metaDescription && <p>{service.data.metaDescription}</p>}
+                <span class="card-link-text">Explore Service</span>
+              </a>
+            );
+          })}
+        </div>
+
+        <div class="index-cta-wrap reveal-on-scroll">
+            <a href="/get-in-touch" class="index-cta-btn">Get in touch</a>
         </div>
       </div>
     </section>
@@ -50,7 +77,10 @@ const sortedServices = services.sort((a, b) => a.data.title.localeCompare(b.data
         }
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
   }
   setupReveal();
   document.addEventListener('astro:after-swap', setupReveal);

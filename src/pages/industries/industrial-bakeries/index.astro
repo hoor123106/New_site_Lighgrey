@@ -1,0 +1,129 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/industrial-bakeries-index.css';
+
+const bakeries = await getCollection('industrialBakeries');
+const sortedBakeries = bakeries.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const categoryImages = {
+  'baguette-and-bread-production': '/images/industrail-bakeries/banguette.webp',
+  'buns-and-rolls-production': '/images/industrail-bakeries/buns.webp',
+  'croissants-and-pastry-production': '/images/industrail-bakeries/croissants.webp',
+  'cupcake-production': '/images/industrail-bakeries/cupcake.webp',
+  'dough-mixing': '/images/industrail-bakeries/dough.webp',
+  'flatbread-production': '/images/industrail-bakeries/flatbread.webp',
+  'fully-automatic-industrial-process-solutions': '/images/industrail-bakeries/industrail_automatic_process.webp',
+  'industrial-solutions': '/images/industrail-bakeries/industrial.webp',
+  'material-handling': '/images/industrail-bakeries/material_handling.webp',
+  'packaging-systems': '/images/industrail-bakeries/packaging.webp',
+  'proofers-and-ovens': '/images/industrail-bakeries/proofers.webp',
+};
+---
+
+<Layout
+  title="Industrial Bakeries | Steelcraft"
+  description="Specialized equipment and solutions for industrial bakeries."
+  fullWidth={true}
+>
+  <div class="bakery-index-page">
+    <section class="intro-section reveal-on-scroll">
+      <div class="index-container">
+        <h1 class="index-main-title">Industrial Bakeries</h1>
+        
+        <div class="intro-row">
+          <div class="intro-image-col">
+            <div class="intro-image-wrapper">
+              <Image 
+                src="/images/industrail-bakeries/industrail_bakery_home.webp" 
+                alt="Industrial Bakery" 
+                width={800}
+                height={1200}
+              />
+            </div>
+          </div>
+          <div class="intro-content-col">
+            <p>
+              Steelcraft is a leading solution provider for industrial bakeries and food production facilities. We offer a comprehensive range of products and services to meet the needs of the baking industry. With years of experience and expertise, we deliver innovative and efficient solutions that help our clients optimize their bakery operations and achieve their production goals.
+            </p>
+            <p>
+              At the core of our offerings is a wide selection of high-quality bakery equipment and machinery. From mixers and dough dividers to ovens and proofers, we provide state-of-the-art solutions to enhance productivity, consistency, and quality in baking. The types of equipment we specify are meticulously crafted with precision engineering and advanced technology, ensuring reliable performance and long-lasting durability.
+            </p>
+            <p>
+              We approach each requirement from a comprehensive consultative point of view and offer customization services. Our team of bakery experts works closely with our clients to understand their unique requirements and challenges. We provide tailored solutions to address specific needs, optimize workflows, and maximize efficiency. Whether customizing equipment configurations or developing specialized baking processes, we are committed to delivering solutions that drive success.
+            </p>
+            <p>
+              Furthermore, we prioritize customer support and after-sales service. Our dedicated technicians and service professionals can provide technical assistance, maintenance, and repairs whenever needed. We understand the importance of minimizing downtime and maximizing uptime for our client's operations, and we strive to ensure their satisfaction every step of the way.
+            </p>
+            <p>
+              Partnering with us means gaining a trusted and reliable ally in the industrial bakery industry. We are passionate about helping our clients succeed and thrive in a competitive market. Our cutting-edge solutions, personalized approach, and unwavering commitment to excellence make us the ideal choice for all your industrial bakery needs.
+            </p>
+            <p>
+              <a href="/contact" class="contact-link">Contact us today</a> to learn more about our solutions and how we can assist you in achieving your bakery production goals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="deal-in-section reveal-on-scroll">
+      <div class="index-container">
+        <h2>WE DEAL IN</h2>
+      </div>
+    </section>
+
+    <section class="categories-grid-section">
+      <div class="index-container">
+        <div class="bakery-grid">
+          {sortedBakeries.map((bakery, index) => {
+            const currentSlug = bakery.id.replace(/\.(md|mdx)$/, '');
+            const categoryImg = categoryImages[currentSlug] || "/images/placeholder.webp";
+            
+            return (
+              <a 
+                href={`/industries/industrial-bakeries/${currentSlug}`} 
+                class="bakery-card reveal-on-scroll"
+                style={`transition-delay: ${index * 0.1}s;`}
+              >
+                <div class="card-image">
+                  <Image 
+                    src={categoryImg} 
+                    alt={bakery.data.title} 
+                    width={600} 
+                    height={400} 
+                  />
+                </div>
+                <h3>{bakery.data.title}</h3>
+                {bakery.data.metaDescription && <p>{bakery.data.metaDescription}</p>}
+                <span class="card-link-text">Read More</span>
+              </a>
+            );
+          })}
+        </div>
+
+        <div class="index-cta-wrap reveal-on-scroll">
+            <a href="/get-in-touch" class="index-cta-btn">Get in touch</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  function setupReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+  }
+  setupReveal();
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>

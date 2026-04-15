@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import '../../../styles/commercial-kitchens-slug.css';
 
@@ -63,7 +64,7 @@ const ctas = [
             <div class="feature-image-col">
               <div class="feature-image-wrapper">
                 {feature.img ? (
-                  <img src={feature.img} alt={feature.title} class="feature-image" />
+                  <Image src={feature.img} alt={feature.title} class="feature-image" width={800} height={600} />
                 ) : (
                   <div class="feature-image" style="background: rgba(255,255,255,0.05);"></div>
                 )}

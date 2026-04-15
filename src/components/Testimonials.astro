@@ -1,25 +1,22 @@
 ---
 import { Image } from 'astro:assets';
-import t1 from '../assets/images/testimonial1.png';
-import t2 from '../assets/images/testimonial2.png';
-import t3 from '../assets/images/testimonial3.png';
 import '../styles/Testimonials.css';
 
 const testimonials = [
   {
-    img: t1,
+    img: "/images/testimonial1.png",
     name: "Alex Chen",
     location: "New York, NY",
     text: "“This website has become my go-to resource. The level of detail on each perfume is astounding. I’ve discovered so many new favorites thanks to the ‘search by note’ feature. An invaluable tool for any collector!”"
   },
   {
-    img: t2,
+    img: "/images/testimonial2.png",
     name: "Maria Garcia",
     location: "Miami, FL",
     text: "“I’m new to the world of fragrance, and this site made it so approachable. The blog posts are fantastic for learning, and I finally understand the difference between an Eau de Parfum and an Eau de Toilette!”"
   },
   {
-    img: t3,
+    img: "/images/testimonial3.png",
     name: "Ben Carter",
     location: "London, UK",
     text: "“As a blogger, having accurate information is crucial. I trust this database completely. It’s clear that it was built by people who genuinely love and respect the art of perfumery. A class act.”"
@@ -44,10 +41,10 @@ const testimonials = [
               src={item.img}
               alt={item.name}
               class="testimonial-card__avatar"
+              width={64}
+              height={64}
               loading="lazy"
               decoding="async"
-              widths={[48, 64, 80]}
-              sizes="64px"
             />
             <div class="testimonial-card__meta">
               <h3 class="testimonial-card__name">{item.name}</h3>
