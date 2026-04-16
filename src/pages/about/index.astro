@@ -1,14 +1,57 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
+import '../../styles/AboutUs.css'; // Import the new CSS file
+import LastSection from '../../components/LastSection.astro';
+
 ---
 
-<Layout title="About Us — Mimya" description="Learn about Mimya, our fragrance mission, research, team, and community." fullWidth={true}>
+<Layout title="About Us — Steelcraft" description="Learn about Steelcraft, our mission in precision steel manufacturing and commercial kitchen solutions." fullWidth={true}>
+  <section class="about-page-section reveal-on-scroll">
+    <div class="container">
+      
+      <div class="about-split-layout">
+        <div class="about-title-col">
+          <h1 class="page-title">About Steelcraft</h1>
+        </div>
 
+        <div class="about-text-col">
+          <div class="about-content-rich">
+            <p>
+              Many summers ago, a baker starting up his production line sought a  supplier for stainless steel fabrications. He met several of them and bought tables, shelves, trolleys, and everything he needed from so many of them. However, he wasn’t happy with the results each time. In later years, he started a small stainless steel fabrication unit called Steelcraft to take things into his own hands and have more control in the process. True to the founder’s vision, Steelcraft today strives for perfection in production quality and service standards. 
+            </p>
+            <p>
+              Over the last 16 years, Steelcraft has grown to about 50 people, including fabricators, welders, finishers, machine operators, kitchen equipment technicians, production supervisors, procurement professionals, designers, and estimators, all ably supported by the finance, administration, and management team. Steelcraft today services many clients from the MENA region and a few from the Indian subcontinent. Our biggest market continues to be the United Arab Emirates, where Steelcraft is based. 
+            </p>
+            <p>
+              Our commercial kitchens division specializes in the design, sourcing, project management, manufacturing, and product lifecycle support for equipment and ancillary units related to restaurants, hotels, cloud kitchens, and catering establishments. Our production facility in Industrial Area 13 of Sharjah has been meticulously planned to provide quick turnaround time for production without compromising the quality requirements. We are proud of our strong capabilities in research and development that Steelcraft carries out for production requirements that are out of the ordinary. 
+            </p>
+            <p>
+              Our industrial bakeries division works with food production facilities to understand short- and long-term production requirements. It provides integrated solutions based on these requirements. 
+            </p>
+            <p>
+              Whether you are a seasoned restaurateur, a new player entering the food and beverage sector, a large multinational food manufacturer, or an entrepreneur setting up your first production facility, we have the resources to support you and ease your decision process. Write to us at <a href="mailto:sales@steelcraftuae.com">sales@steelcraftuae.com</a> or text us on our contact page, and we shall contact you to begin the discovery stage of your journey.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <LastSection />
 </Layout>
 
-<style>
-  .about-page {
-    overflow-x: hidden;
+<script>
+  function setupReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   }
-</style>
+  setupReveal();
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>
