@@ -25,9 +25,9 @@ const { Content } = await render(bakeryItems);
 const d = bakeryItems.data;
 
 const features = [
-  { img: d.feature1Image, title: d.feature1Title, desc: d.feature1Description },
-  { img: d.feature2Image, title: d.feature2Title, desc: d.feature2Description },
-  { img: d.feature3Image, title: d.feature3Title, desc: d.feature3Description }
+  { img: d.feature1Image, alt: d.feature1Alt, title: d.feature1Title, desc: d.feature1Description },
+  { img: d.feature2Image, alt: d.feature2Alt, title: d.feature2Title, desc: d.feature2Description },
+  { img: d.feature3Image, alt: d.feature3Alt, title: d.feature3Title, desc: d.feature3Description }
 ].filter(f => f.title || f.desc);
 
 const ctas = [
@@ -66,7 +66,7 @@ const ctas = [
                 {feature.img ? (
                   <Image 
                     src={feature.img} 
-                    alt={feature.title || "Bakery Feature"} 
+                    alt={feature.alt || feature.title || "Bakery Feature"} 
                     class="feature-image" 
                     widths={[400, 800]}
                     sizes="(max-width: 800px) 100vw, 800px"

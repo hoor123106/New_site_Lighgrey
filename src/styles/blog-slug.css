@@ -1,0 +1,217 @@
+.blog-post-page {
+  padding: 100px 0;
+  color: #fff;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.back-link-wrapper {
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #aaa;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #fff;
+}
+
+.blog-header {
+  margin-bottom: 3rem;
+}
+
+.blog-category {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.blog-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.blog-meta {
+  font-size: 1rem;
+  color: #999;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.blog-hero-image {
+  margin-bottom: 3rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.hero-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Black and white styling for MDX body as asked */
+.mdx-black-and-white {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #d1d1d1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Headings Styling */
+.mdx-black-and-white :global(h2),
+.mdx-black-and-white :global(h3),
+.mdx-black-and-white :global(h4) {
+  color: #fff;
+  margin-top: 3.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.mdx-black-and-white :global(h2) {
+  font-size: 2.25rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.75rem;
+  text-transform: capitalize;
+}
+
+.mdx-black-and-white :global(h3) {
+  font-size: 1.5rem;
+  color: #eee;
+}
+
+/* Paragraphs */
+.mdx-black-and-white :global(p) {
+  margin-bottom: 1.75rem;
+}
+
+/* List Styling - Premium Look */
+.mdx-black-and-white :global(ul) {
+  margin: 2rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.mdx-black-and-white :global(ol) {
+  margin: 2rem 0;
+  padding-left: 1.5rem;
+  list-style: decimal;
+}
+
+.mdx-black-and-white :global(ul li) {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  position: relative;
+  line-height: 1.6;
+}
+
+/* Custom bullet for all lists or key takeaways */
+.mdx-black-and-white :global(ul li::before) {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+/* Table of Contents / Key Takeaways specific styling */
+.mdx-black-and-white :global(ul:first-of-type) {
+  background: #111;
+  padding: 2rem;
+  border: 1px solid #333;
+  border-radius: 12px;
+  margin-bottom: 4rem;
+}
+
+.mdx-black-and-white :global(ul:first-of-type li) {
+  padding-left: 1.5rem;
+  font-size: 1rem;
+}
+
+.mdx-black-and-white :global(ul:first-of-type li::before) {
+  background-color: #666;
+  width: 6px;
+  height: 6px;
+}
+
+.mdx-black-and-white :global(a) {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #555;
+  transition: border-color 0.3s ease;
+}
+
+.mdx-black-and-white :global(a:hover) {
+  border-bottom-color: #fff;
+}
+
+.mdx-black-and-white :global(blockquote) {
+  border-left: 4px solid #fff;
+  padding: 1.5rem 2rem;
+  margin: 2.5rem 0;
+  background: #0a0a0a;
+  color: #fff;
+  font-style: italic;
+  font-size: 1.25rem;
+}
+
+.mdx-black-and-white :global(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 3rem 0;
+  border: 1px solid #333;
+}
+
+.mdx-black-and-white :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2.5rem 0;
+}
+
+.mdx-black-and-white :global(th),
+.mdx-black-and-white :global(td) {
+  padding: 1rem;
+  border-bottom: 1px solid #222;
+  text-align: left;
+}
+
+.mdx-black-and-white :global(th) {
+  color: #fff;
+  font-weight: 600;
+  background: #111;
+}
+
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

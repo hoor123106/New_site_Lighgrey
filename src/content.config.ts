@@ -13,24 +13,6 @@ const fragnanceNotesCollection = defineCollection({
   }),
 });
 
-const blogsCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blogs' }),
-  schema: z.object({
-    title: z.string(),
-    slug: z.string().optional(),
-    date: z.string().optional(),
-    postModifiedDate: z.string().optional(),
-    excerpt: z.string().optional(),
-    categories: z.string().optional(),
-    tags: z.string().optional(),
-    authorUsername: z.string().optional(),
-    authorFirstName: z.string().optional(),
-    authorLastName: z.string().optional(),
-    authorEmail: z.string().optional(),
-    permalink: z.string().optional(),
-    postType: z.string().optional(),
-  }),
-});
 
 const perfumeCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/perfume' }),
@@ -64,12 +46,15 @@ const commercialKitchensCollection = defineCollection({
     heroTitle: z.string().optional(),
     heroSubtitle: z.string().optional(),
     feature1Image: image().optional(),
+    feature1Alt: z.string().optional(),
     feature1Title: z.string().optional(),
     feature1Description: z.string().optional(),
     feature2Image: image().optional(),
+    feature2Alt: z.string().optional(),
     feature2Title: z.string().optional(),
     feature2Description: z.string().optional(),
     feature3Image: image().optional(),
+    feature3Alt: z.string().optional(),
     feature3Title: z.string().optional(),
     feature3Description: z.string().optional(),
     ourProcessSubtitle: z.string().optional(),
@@ -136,12 +121,15 @@ const industrialBakeriesCollection = defineCollection({
     heroTitle: z.string().optional(),
     heroSubtitle: z.string().optional(),
     feature1Image: image().optional(),
+    feature1Alt: z.string().optional(),
     feature1Title: z.string().optional(),
     feature1Description: z.string().optional(),
     feature2Image: image().optional(),
+    feature2Alt: z.string().optional(),
     feature2Title: z.string().optional(),
     feature2Description: z.string().optional(),
     feature3Image: image().optional(),
+    feature3Alt: z.string().optional(),
     feature3Title: z.string().optional(),
     feature3Description: z.string().optional(),
     ourProcessSubtitle: z.string().optional(),
@@ -160,11 +148,29 @@ const industrialBakeriesCollection = defineCollection({
   }),
 });
 
+const blogCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    metaTitle: z.string().optional(),
+    slug: z.string().optional(),
+    date: z.string().optional(),
+    metaDescription: z.string().optional(),
+    imageFeatured: z.string().optional(),
+    imageAlt: z.string().optional(),
+    categories: z.string().optional(),
+    tags: z.string().optional(),
+    status: z.string().optional(),
+    authorId: z.string().optional(),
+    authorName: z.string().optional(),
+  }),
+});
+
 export const collections = {
   fragnanceNotes: fragnanceNotesCollection,
-  blogs: blogsCollection,
   perfume: perfumeCollection,
   commercialKitchens: commercialKitchensCollection, // ✅ register kiya
   services: servicesCollection,
   industrialBakeries: industrialBakeriesCollection,
+  blog: blogCollection,
 };

@@ -1,125 +1,104 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
-import '../../styles/content.css';
+import '../../styles/blog-slug.css';
 
 export async function getStaticPaths() {
-  const blogs = await getCollection('blogs');
-  return blogs.map(blog => ({
-    params: { slug: blog.data.slug },
+  const blogs = await getCollection('blog');
+  return blogs.map((blog) => ({
+    params: { slug: blog.id.replace(/\.(md|mdx)$/, '') },
     props: { blog },
   }));
 }
 
 const { blog } = Astro.props;
 const { Content } = await render(blog);
+const d = blog.data;
+
+// Dynamic import of images for the Image component
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/**/*.{jpeg,jpg,png,gif,webp}'
+);
 ---
 
-<Layout title={blog.data.title} description={blog.data.excerpt}>
-  <div class="content-container">
-    <a href="/blog" class="content-back-link">← Back to Blog</a>
-
-    <header class="content-header">
-      <div class="content-meta">
-        <span class="pill-badge">{blog.data.categories}</span>
-        <span class="content-date">{blog.data.date}</span>
+<Layout title={d.metaTitle || d.title} description={d.metaDescription}>
+  <article class="blog-post-page">
+    <div class="container">
+      <div class="back-link-wrapper reveal-on-scroll">
+        <a href="/blog" class="back-link">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to Blog
+        </a>
       </div>
-      <h1>{blog.data.title}</h1>
-      <p class="content-date">By {blog.data.authorFirstName} {blog.data.authorLastName}</p>
-    </header>
 
-    {blog.data.excerpt && (
-      <div class="excerpt">
-        <p>{blog.data.excerpt}</p>
+      <header class="blog-header reveal-on-scroll">
+        {d.categories && <span class="blog-category">{d.categories}</span>}
+        <h1 class="blog-title">{d.title}</h1>
+        <div class="blog-meta">
+          {d.date && <span class="blog-date">{d.date}</span>}
+          {d.authorName && <span class="blog-author">By {d.authorName}</span>}
+        </div>
+      </header>
+
+      {
+        (() => {
+          const imagePath = d.imageFeatured?.replace('../../assets', '/src/assets');
+          const filename = imagePath?.split('/').pop();
+          const imageKey = Object.keys(allImages).find(
+            (key) => key === imagePath || key.endsWith(`/${filename}`)
+          );
+          const imageSrc = imageKey ? allImages[imageKey] : null;
+
+          return imageSrc ? (
+            <div class="blog-hero-image reveal-on-scroll">
+              <Image
+                src={imageSrc()}
+                alt={d.imageAlt || d.title}
+                width={1200}
+                height={600}
+                class="hero-img"
+              />
+            </div>
+          ) : null;
+        })()
+      }
+
+      <div class="blog-content mdx-body mdx-black-and-white">
+        <Content />
       </div>
-    )}
-
-    <div class="mdx-content">
-      <Content />
     </div>
-  </div>
+  </article>
 </Layout>
-<style>
-  .blog-container {
-    max-width: 800px;
-    margin: 0 auto;
-    font-family: var(--font-poppins, "Poppins"), sans-serif;
+
+<script>
+  function setupReveal() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+      observer.observe(el);
+    });
   }
-  .back-link {
-    display: inline-block;
-    margin-bottom: 2rem;
-    color: #64748b;
-    font-weight: 600;
-  }
-  .blog-header {
-    margin-bottom: 2rem;
-  }
-  .blog-meta {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .badge {
-    background: rgba(var(--accent), 0.1);
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: rgb(var(--accent-dark));
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .date {
-    font-size: 0.9rem;
-    color:rgb(34, 34, 34); 
-    font-weight: 500;
-  }
-  .blog-header h1 {
-    font-size: 3rem;
-    margin: 0 0 0.5rem 0;
-    font-weight: 700;
-    line-height: 1.1;
-    color:rgb(180, 19, 118);
-  }
-  .author {
-    color: #64748b;
-    font-weight: 500;
-    font-size: 1rem;
-  }
-  .excerpt {
-    background: rgba(var(--accent-light), 0.15);
-    border-left: 4px solid rgb(var(--accent));
-    padding: 1.5rem;
-    border-radius: 0 12px 12px 0;
-    margin-bottom: 2.5rem;
-  }
-  .excerpt p {
-    margin: 0;
-    color: #334155;
-    font-size: 1.1rem;
-    font-style: normal;
-    font-weight: 400;
-  }
-  .mdx-content :global(h2) {
-    margin-top: 3rem;
-    border-bottom: 2px solid #f1f5f9;
-    padding-bottom: 0.5rem;
-    font-size: 2rem;
-    font-weight: 700;
-  }
-  .mdx-content :global(p) {
-    font-size: 1.1rem;
-    color: #1e293b;
-    line-height: 1.8;
-    font-weight: 400;
-  }
-  .mdx-content :global(ul), .mdx-content :global(ol) {
-    padding-left: 1.5rem;
-    color: #334155;
-  }
-  .mdx-content :global(li) {
-    margin-bottom: 0.5rem;
-    line-height: 1.7;
-  }
-</style>
+
+  setupReveal();
+  // Re-run setup after view transitions
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>
