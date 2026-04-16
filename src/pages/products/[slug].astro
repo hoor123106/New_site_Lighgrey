@@ -1,0 +1,117 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/products-slug.css';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((product) => ({
+    params: { slug: product.id.replace(/\.(md|mdx)$/, '') },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const { Content } = await render(product);
+const d = product.data;
+
+// Dynamic import of images
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/**/*.{jpeg,jpg,png,gif,webp}'
+);
+
+const imagePath = d.image?.replace('../../assets', '/src/assets');
+const filename = imagePath?.split('/').pop();
+const imageKey = Object.keys(allImages).find(
+  (key) => key === imagePath || key.endsWith(`/${filename}`)
+);
+const imageSrc = imageKey ? allImages[imageKey] : null;
+---
+
+<Layout title={d.metaTitle || d.title} description={d.metaDescription}>
+  <article class="product-slug-page">
+    <div class="container">
+      <a href="/products" class="back-link reveal-left">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Back to Products
+      </a>
+
+      <div class="product-layout">
+        <!-- Left Side: Content -->
+        <div class="product-content">
+          {d.category && <span class="product-category">{d.category}</span>}
+          <h1 class="product-title">{d.title}</h1>
+          
+          {/* Material Section */}
+          {(d.material || d.Material) && (
+            <div class="spec-section">
+              <span class="spec-label">Material Specifications</span>
+              <ul class="material-list">
+                {(d.material || d.Material).split('\n').filter(Boolean).map(line => {
+                  const [label, ...rest] = line.split(':');
+                  return rest.length > 0 ? (
+                    <li><strong>{label.trim()}:</strong> {rest.join(':').trim()}</li>
+                  ) : (
+                    <li>{line.trim()}</li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+
+          {/* Options Section */}
+          {(d.options || d.Options) && (
+            <div class="spec-section">
+              <span class="spec-label">Available Options</span>
+              <div class="options-pills">
+                {(d.options || d.Options).split(/[,/|]+|and/).filter(Boolean).map(opt => (
+                  <span class="pill">{opt.trim()}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div class="product-body">
+            <Content />
+          </div>
+        </div>
+
+        <!-- Right Side: Image -->
+        <div class="product-visual">
+          <div class="product-image-container">
+            {imageSrc ? (
+              <Image
+                src={imageSrc()}
+                alt={d.imageAlt || d.title}
+                width={800}
+                height={1000}
+                class="product-img"
+              />
+            ) : (
+              <div class="product-placeholder">Product image not found</div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<script>
+  function setupReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
+  }
+  setupReveal();
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>

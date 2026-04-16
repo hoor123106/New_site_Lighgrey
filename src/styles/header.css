@@ -165,33 +165,7 @@
   opacity: 1;
 }
 
-.language-icon,
-.language-chevron {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.language-icon svg,
-.language-chevron svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.language-icon svg {
-  width: 17px;
-  height: 17px;
-}
-
-.language-chevron svg {
-  width: 12px;
-  height: 12px;
-  fill: currentColor;
-  stroke: none;
-}
 
 .hamburger {
   display: none;

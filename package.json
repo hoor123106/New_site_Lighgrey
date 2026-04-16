@@ -9,7 +9,8 @@
     "fetch:services": "node scripts/fetch-services.js",
     "fetch:industrial-bakeries": "node scripts/fetch-industrial-bakeries.js",
     "fetch:blog": "node scripts/fetch-blog.js",
-    "fetch:all": "node scripts/fetch-notes.js && node scripts/fetch-perfume.js && node scripts/fetch-commercial-kitchens.js && node scripts/fetch-services.js && node scripts/fetch-industrial-bakeries.js && node scripts/fetch-blog.js",
+    "fetch:products": "node scripts/fetch-products.js",
+    "fetch:all": "node scripts/fetch-notes.js && node scripts/fetch-perfume.js && node scripts/fetch-commercial-kitchens.js && node scripts/fetch-services.js && node scripts/fetch-industrial-bakeries.js && node scripts/fetch-blog.js && node scripts/fetch-products.js",
     "dev": "npm run fetch:all && astro dev",
     "build": "npm run fetch:all && astro build"
   },

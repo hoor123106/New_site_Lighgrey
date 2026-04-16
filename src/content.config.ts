@@ -166,6 +166,27 @@ const blogCollection = defineCollection({
   }),
 });
 
+const productsCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/products' }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    metaTitle: z.string().optional(),
+    slug: z.string().optional(),
+    metaDescription: z.string().optional(),
+    image: z.string().optional(), // Using string for mapping to assets later
+    imageAlt: z.string().optional(),
+    category: z.string().optional(),
+    description: z.string().optional(),
+    material: z.string().optional(),
+    options: z.string().optional(),
+    Material: z.string().optional(),
+    Options: z.string().optional(),
+    Serial: z.string().optional(),
+    serial: z.string().optional(),
+    "Category Description": z.string().optional(),
+  }).passthrough(),
+});
+
 export const collections = {
   fragnanceNotes: fragnanceNotesCollection,
   perfume: perfumeCollection,
@@ -173,4 +194,5 @@ export const collections = {
   services: servicesCollection,
   industrialBakeries: industrialBakeriesCollection,
   blog: blogCollection,
+  products: productsCollection,
 };
