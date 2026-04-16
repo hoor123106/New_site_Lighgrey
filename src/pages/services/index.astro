@@ -56,15 +56,22 @@ const categoryImages = {
                 style={`transition-delay: ${index * 0.1}s;`}
               >
                 <div class="card-image">
-                  <Image 
-                    src={categoryImg} 
-                    alt={service.data.title} 
-                    widths={[300, 600]}
-                    sizes="(max-width: 640px) 100vw, 300px"
-                    format="webp"
-                    quality="mid"
-                    inferSize={true}
-                  />
+                  {typeof categoryImg === 'string' ? (
+                    <img 
+                      src={categoryImg} 
+                      alt={service.data.title} 
+                      style="width: 100%; height: auto; object-fit: cover; aspect-ratio: 16/9;"
+                    />
+                  ) : (
+                    <Image 
+                      src={categoryImg} 
+                      alt={service.data.title} 
+                      widths={[300, 600]}
+                      sizes="(max-width: 640px) 100vw, 300px"
+                      format="webp"
+                      quality="mid"
+                    />
+                  )}
                 </div>
                 <h3>{service.data.title}</h3>
                 {service.data.metaDescription && <p>{service.data.metaDescription}</p>}

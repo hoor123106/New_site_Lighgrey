@@ -106,15 +106,22 @@ const categoryImages = {
                 style={`transition-delay: ${index * 0.1}s;`}
               >
                 <div class="card-image">
-                  <Image 
-                    src={categoryImg} 
-                    alt={bakery.data.title} 
-                    widths={[300, 600]}
-                    sizes="(max-width: 640px) 100vw, 300px"
-                    format="webp"
-                    quality="mid"
-                    inferSize={true}
-                  />
+                  {typeof categoryImg === 'string' ? (
+                    <img 
+                      src={categoryImg} 
+                      alt={bakery.data.title} 
+                      style="width: 100%; height: auto; object-fit: cover; aspect-ratio: 16/9;"
+                    />
+                  ) : (
+                    <Image 
+                      src={categoryImg} 
+                      alt={bakery.data.title} 
+                      widths={[300, 600]}
+                      sizes="(max-width: 640px) 100vw, 300px"
+                      format="webp"
+                      quality="mid"
+                    />
+                  )}
                 </div>
                 <h3>{bakery.data.title}</h3>
                 {bakery.data.metaDescription && <p>{bakery.data.metaDescription}</p>}
