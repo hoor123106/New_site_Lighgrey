@@ -57,6 +57,7 @@ const commercialKitchensCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/commercial-kitchens' }),
   schema: z.object({
     title: z.string(),
+    metaTitle: z.string().optional(),
     slug: z.string().optional(),
     category: z.string().optional(),
     metaDescription: z.string().optional(),
@@ -92,6 +93,7 @@ const servicesCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/services' }),
   schema: z.object({
     title: z.string(),
+    metaTitle: z.string().optional(),
     slug: z.string().optional(),
     category: z.string().optional(),
     metaDescription: z.string().optional(),
@@ -127,6 +129,7 @@ const industrialBakeriesCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/industrial-bakeries' }),
   schema: z.object({
     title: z.string(),
+    metaTitle: z.string().optional(),
     slug: z.string().optional(),
     category: z.string().optional(),
     metaDescription: z.string().optional(),

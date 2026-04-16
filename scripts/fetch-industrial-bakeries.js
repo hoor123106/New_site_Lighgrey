@@ -73,6 +73,7 @@ async function fetchAndGenerate() {
 
         const frontmatter = {
             title: title,
+            metaTitle: getVal(['meta title', 'seotitle', 'seo title']) || '',
             slug: slug,
             category: getVal(['category', 'type']) || '',
             metaDescription: getVal(['meta description', 'meta desc']) || '',
