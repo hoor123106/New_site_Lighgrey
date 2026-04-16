@@ -55,7 +55,7 @@ const perfumeCollection = defineCollection({
 // ✅ New: Commercial Kitchens collection
 const commercialKitchensCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/commercial-kitchens' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     metaTitle: z.string().optional(),
     slug: z.string().optional(),
@@ -63,13 +63,13 @@ const commercialKitchensCollection = defineCollection({
     metaDescription: z.string().optional(),
     heroTitle: z.string().optional(),
     heroSubtitle: z.string().optional(),
-    feature1Image: z.string().optional(),
+    feature1Image: image().optional(),
     feature1Title: z.string().optional(),
     feature1Description: z.string().optional(),
-    feature2Image: z.string().optional(),
+    feature2Image: image().optional(),
     feature2Title: z.string().optional(),
     feature2Description: z.string().optional(),
-    feature3Image: z.string().optional(),
+    feature3Image: image().optional(),
     feature3Title: z.string().optional(),
     feature3Description: z.string().optional(),
     ourProcessSubtitle: z.string().optional(),
@@ -127,7 +127,7 @@ const servicesCollection = defineCollection({
 // ✅ New: Industrial Bakeries collection
 const industrialBakeriesCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/industrial-bakeries' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     metaTitle: z.string().optional(),
     slug: z.string().optional(),
@@ -135,13 +135,13 @@ const industrialBakeriesCollection = defineCollection({
     metaDescription: z.string().optional(),
     heroTitle: z.string().optional(),
     heroSubtitle: z.string().optional(),
-    feature1Image: z.string().optional(),
+    feature1Image: image().optional(),
     feature1Title: z.string().optional(),
     feature1Description: z.string().optional(),
-    feature2Image: z.string().optional(),
+    feature2Image: image().optional(),
     feature2Title: z.string().optional(),
     feature2Description: z.string().optional(),
-    feature3Image: z.string().optional(),
+    feature3Image: image().optional(),
     feature3Title: z.string().optional(),
     feature3Description: z.string().optional(),
     ourProcessSubtitle: z.string().optional(),
