@@ -47,6 +47,12 @@ async function fetchAndGenerate() {
         const title = getVal(['name', 'title', 'product name']) || '';
         let rawSlug = getVal(['slug', 'url']) || title.toLowerCase().replace(/[^a-z0-9]+/g, '-') || '';
 
+        const isPublished = getVal(['publish', 'published', 'status'])?.toLowerCase();
+        if (isPublished !== 'y') {
+            console.log(`Skipping unpublished product at index ${index} (Publish: ${isPublished})`);
+            return;
+        }
+
         if (!rawSlug && !title) return;
 
         let slug = rawSlug;

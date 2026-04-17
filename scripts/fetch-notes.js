@@ -38,6 +38,12 @@ async function fetchAndGenerate() {
   }
 
   records.forEach((row, index) => {
+    const isPublished = (row.Publish || row.publish || row.Status || row.status)?.trim().toLowerCase();
+    if (isPublished !== 'y') {
+      console.log(`Skipping unpublished note at index ${index} (Publish: ${isPublished})`);
+      return;
+    }
+
     let slug = row.permalink?.trim() || row['Note-Name']?.toLowerCase().replace(/[^a-z0-9]+/g, '-') || `note-${index}`;
     if (slug.startsWith('http')) {
       try {

@@ -74,6 +74,13 @@ async function fetchAndGenerate() {
       slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
     }
 
+    const isPublished = (row.Publish || row.publish || row.Status || row.status)?.toString().trim().toLowerCase();
+    if (isPublished && isPublished !== 'y' && isPublished !== 'publish') {
+      console.log(`Skipping unpublished perfume at index ${index} (Publish: ${isPublished})`);
+      skipped++;
+      return;
+    }
+
     if (!slug) {
       slug = `perfume-${index}`;
     }

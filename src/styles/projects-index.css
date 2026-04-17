@@ -23,24 +23,51 @@
 
 .intro-section {
     padding: 120px 0 60px 0;
-    text-align: center;
+}
+
+.intro-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 100px;
+    text-align: left;
+}
+
+.intro-left {
+    flex: 0 0 auto;
+    width: 30%;
+}
+
+.intro-right {
+    flex: 1;
+    max-width: 700px;
 }
 
 .index-main-title {
     font-family: var(--font-poppins, "Poppins"), sans-serif;
-    font-size: 52px;
+    font-size: 56px;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin: 0;
     color: #fff;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    text-transform: capitalize;
 }
 
 .projects-intro-text {
-    max-width: 800px;
-    margin: 0 auto;
+    font-family: var(--font-poppins, "Poppins"), sans-serif;
     font-size: 18px;
+    line-height: 1.8;
+    color: #ffffff;
+    margin-bottom: 28px;
+    font-weight: 300;
+}
+
+.projects-secondary-text {
+    font-family: var(--font-poppins, "Poppins"), sans-serif;
+    font-size: 16px;
     line-height: 1.6;
-    color: var(--muted-text-2);
+    font-weight: 500;
 }
 
 .projects-grid-section {
@@ -49,32 +76,32 @@
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
     margin-bottom: 60px;
 }
 
 .project-card {
-    text-decoration: none;
-    color: inherit;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: var(--border-radius);
+    background: transparent;
+    border-radius: 12px;
     overflow: hidden;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: all 0.4s ease;
     display: flex;
     flex-direction: column;
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    background: rgba(255, 255, 255, 0.05);
+    /* Removed hover transform */
+    transform: none;
 }
 
 .card-image {
     width: 100%;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
+    border-radius: 16px;
+    background: #1a1a18;
+    margin-bottom: 20px;
 }
 
 .card-image img {
@@ -85,61 +112,121 @@
 }
 
 .project-card:hover .card-image img {
-    transform: scale(1.1);
+    /* Removed hover scale */
+    transform: none;
 }
 
 .card-content {
-    padding: 30px;
+    padding: 0 5px;
+}
+
+.project-title {
+    font-family: var(--font-poppins, "Poppins"), sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+    outline: none;
+}
+
+.card-meta:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.project-card.is-open .card-meta {
+    border-top-color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
 }
 
 .project-location {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-primary);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 10px;
-}
-
-.project-card h3 {
-    font-size: 28px;
+    font-family: var(--font-poppins, "Poppins"), sans-serif;
+    font-size: 15px;
     font-weight: 700;
-    margin-bottom: 15px;
-    color: #fff;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.project-card p {
-    font-size: 16px;
+.description-toggle-icon {
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card.is-open .description-toggle-icon {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+}
+
+.description-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    border-radius: 0 0 8px 8px;
+}
+
+.project-card.is-open .description-wrapper {
+    grid-template-rows: 1fr;
+    margin-top: 20px;
+    padding: 0;
+    background: transparent;
+}
+
+.description-content {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.project-card.is-open .description-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.description-content p {
+    font-family: var(--font-poppins, "Poppins"), sans-serif;
+    font-size: 14px;
     line-height: 1.6;
-    color: var(--muted-text-2);
-    margin-bottom: 25px;
+    color: #ffffff;
+    margin-bottom: 24px;
+    letter-spacing: 0.3px;
 }
 
 .card-link-text {
     display: inline-block;
-    padding: 8px 0;
     font-size: 14px;
-    font-weight: 600;
-    color: var(--color-primary);
+    font-weight: 700;
+    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 1px;
-    position: relative;
+    padding: 12px 24px;
+    border: 1px solid #ffffff;
+    transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
-.card-link-text::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-primary);
-    transition: width 0.3s ease;
-}
-
-.project-card:hover .card-link-text::after {
-    width: 100%;
+.card-link-text:hover {
+    background-color: #ffffff;
+    color: #000;
 }
 
 .placeholder-image {
@@ -174,13 +261,29 @@
     transform: scale(1.05);
 }
 
+@media (max-width: 1200px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 900px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .index-main-title {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 600px) {
     .projects-grid {
         grid-template-columns: 1fr;
     }
-    
-    .index-main-title {
-        font-size: 42px;
+
+    .intro-grid {
+        gap: 20px;
     }
 }
 
@@ -188,7 +291,7 @@
     .card-content {
         padding: 20px;
     }
-    
+
     .project-card h3 {
         font-size: 24px;
     }

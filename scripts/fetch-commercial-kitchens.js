@@ -52,6 +52,12 @@ async function fetchAndGenerate() {
                       title.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 
                       '';
 
+        const isPublished = getVal(['publish', 'published', 'status'])?.toLowerCase();
+        if (isPublished !== 'y') {
+            console.log(`Skipping unpublished kitchen at index ${index} (Publish: ${isPublished})`);
+            return;
+        }
+
         if (!rawSlug && !title) {
             console.log(`Skipping empty row at index ${index}`);
             return;

@@ -65,8 +65,9 @@ h6 {
 }
 
 p {
+  font-family: var(--font-poppins, "Poppins"), sans-serif;
   line-height: 1.7;
-  color: var(--muted-text-2);
+  color: #ffffff;
   margin-bottom: 1.5rem;
 }
 

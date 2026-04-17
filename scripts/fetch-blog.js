@@ -53,6 +53,12 @@ async function fetchAndGenerate() {
         const title = getVal(['title', 'article title', 'name']) || '';
         let rawSlug = getVal(['slug', 'url', 'product_page_url']) || title.toLowerCase().replace(/[^a-z0-9]+/g, '-') || '';
 
+        const isPublished = getVal(['publish', 'published', 'status'])?.toLowerCase();
+        if (isPublished !== 'y') {
+            console.log(`Skipping unpublished blog at index ${index} (Publish: ${isPublished})`);
+            return;
+        }
+
         if (!rawSlug && !title) return;
 
         let slug = rawSlug;

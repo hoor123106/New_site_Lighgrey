@@ -15,13 +15,18 @@ const sortedProjects = projects.sort((a, b) => a.data.title.localeCompare(b.data
 >
   <div class="projects-index-page">
     <section class="intro-section reveal-on-scroll">
-      <div class="index-container">
-        <h1 class="index-main-title">Our Projects</h1>
-        <p class="projects-intro-text">
-          Steelcraft has been a trusted partner for numerous high-profile projects in the food service industry. 
-          From conceptual design to final installation, we deliver excellence in every square inch of the kitchen.
-          Explore some of our featured projects below.
-        </p>
+      <div class="index-container intro-grid">
+        <div class="intro-left">
+          <h1 class="index-main-title">Our Projects</h1>
+        </div>
+        <div class="intro-right">
+          <p class="projects-intro-text">
+            We spend much of our attention on each project and work with a few limited clients every year, supplying kitchen equipment for a wide range of restaurant kitchen projects. Over the years, we have completed projects in various countries across the GCC region, and now we have embarked on projects in the Indian subcontinent. Our approach to projects verges on the consultative, enabling our clients to view us as partners with the same goals. Our project management services include the kitchen equipment layout, MEP drawings, exhaust requirement calculations, sourcing of equipment, supply, installation & technical services, and manufacturing of stainless steel equipment. 
+          </p>
+          <p class="projects-secondary-text">
+            Following are some of our recent projects. If you want your project to appear here, contact us today.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -30,32 +35,42 @@ const sortedProjects = projects.sort((a, b) => a.data.title.localeCompare(b.data
         <div class="projects-grid">
           {sortedProjects.map((project, index) => {
             return (
-              <a 
-                href={`/projects/${project.id}`} 
+              <div 
                 class="project-card reveal-on-scroll"
                 style={`transition-delay: ${index * 0.1}s;`}
               >
-                <div class="card-image">
+                <a href={`/projects/${project.id}`} class="card-image">
                   {(project.data.image && typeof project.data.image !== 'string') ? (
                     <Image 
                       src={project.data.image} 
                       alt={project.data.imageAlt || project.data.title} 
-                      width={600}
-                      height={400}
+                      width={400}
+                      height={300}
                       format="webp"
                       quality="mid"
                     />
                   ) : (
                     <div class="placeholder-image">No Image</div>
                   )}
+                </a>
+                  <div class="card-content">
+                  <h3 class="project-title">{project.data.title}</h3>
+                  <div class="card-meta" role="button" aria-expanded="false" tabindex="0">
+                    <span class="project-location">{project.data.location}</span>
+                    <div class="description-toggle-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="description-wrapper">
+                    <div class="description-content">
+                      {project.data.description && <p>{project.data.description}</p>}
+                      <a href={`/projects/${project.id}`} class="card-link-text">Explore Project</a>
+                    </div>
+                  </div>
                 </div>
-                <div class="card-content">
-                  <span class="project-location">{project.data.location}</span>
-                  <h3>{project.data.title}</h3>
-                  {project.data.description && <p>{project.data.description.substring(0, 150)}...</p>}
-                  <span class="card-link-text">View Project</span>
-                </div>
-              </a>
+              </div>
             );
           })}
         </div>
@@ -82,6 +97,41 @@ const sortedProjects = projects.sort((a, b) => a.data.title.localeCompare(b.data
       observer.observe(el);
     });
   }
+
+  function setupToggles() {
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(card => {
+      const meta = card.querySelector('.card-meta');
+      
+      if (meta) {
+        meta.addEventListener('click', (e) => {
+          const isOpen = card.classList.contains('is-open');
+          
+          if (!isOpen) {
+            card.classList.add('is-open');
+            meta.setAttribute('aria-expanded', 'true');
+          } else {
+            card.classList.remove('is-open');
+            meta.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Accessibility for keyboard
+        meta.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            meta.click();
+          }
+        });
+      }
+    });
+  }
+
   setupReveal();
-  document.addEventListener('astro:after-swap', setupReveal);
+  setupToggles();
+  
+  document.addEventListener('astro:after-swap', () => {
+    setupReveal();
+    setupToggles();
+  });
 </script>

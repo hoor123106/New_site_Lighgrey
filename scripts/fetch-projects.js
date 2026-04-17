@@ -50,6 +50,13 @@ async function fetchAndGenerate() {
         let title = getVal(['project name', 'title', 'name']) || '';
         let rawSlug = getVal(['slug', 'url', 'id', 'product_page_url']) || '';
         const imageFile = getVal(['feature 1 image', 'featured image', 'image']) || '';
+        const isPublished = getVal(['publish', 'published', 'status'])?.toLowerCase();
+
+        // ONLY fetch if Publish column is 'y'
+        if (isPublished !== 'y') {
+            console.log(`Skipping unpublished project at index ${index} (Publish: ${isPublished})`);
+            return;
+        }
 
         // If title is "Title" or empty, try fallback to image name
         if (title.toLowerCase() === 'title' || !title) {
