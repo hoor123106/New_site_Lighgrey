@@ -27,6 +27,21 @@ const imageKey = Object.keys(allImages).find(
   (key) => key === imagePath || key.endsWith(`/${filename}`)
 );
 const imageSrc = imageKey ? allImages[imageKey] : null;
+const allProducts = await getCollection('products');
+const relatedProducts = allProducts
+  .filter(p => p.id !== product.id)
+  .filter(p => p.data.category === product.data.category)
+  .sort(() => Math.random() - 0.5)
+  .slice(0, 3);
+
+if (relatedProducts.length < 3) {
+  const remaining = 3 - relatedProducts.length;
+  const fillers = allProducts
+    .filter(p => p.id !== product.id && !relatedProducts.some(rp => rp.id === p.id))
+    .sort(() => Math.random() - 0.5)
+    .slice(0, remaining);
+  relatedProducts.push(...fillers);
+}
 ---
 
 <Layout title={d.metaTitle || d.title} description={d.metaDescription}>
@@ -96,8 +111,52 @@ const imageSrc = imageKey ? allImages[imageKey] : null;
           </div>
         </div>
       </div>
+
     </div>
   </article>
+
+  <!-- Related Products Section -->
+  <section class="related-products">
+    <div class="container-wide">
+      <h2 class="section-title reveal-left">Related Products</h2>
+      <div class="products-grid">
+        {relatedProducts.map((p) => {
+          const pData = p.data;
+          const pImagePath = pData.image?.replace('../../assets', '/src/assets');
+          const pFilename = pImagePath?.split('/').pop();
+          const pImageKey = Object.keys(allImages).find(
+            (key) => key === pImagePath || key.endsWith(`/${pFilename}`)
+          );
+          const pImageSrc = pImageKey ? allImages[pImageKey] : null;
+
+          return (
+            <article class="product-card reveal-left">
+              <a href={`/products/${p.id.replace(/\.(md|mdx)$/, '')}`} class="product-card-link">
+                <div class="product-image-wrapper">
+                  {pImageSrc ? (
+                    <Image 
+                      src={pImageSrc()} 
+                      alt={pData.imageAlt || pData.title}
+                      width={800}
+                      height={1000}
+                      class="product-img"
+                    />
+                  ) : (
+                    <div class="product-placeholder">No Image Available</div>
+                  )}
+                </div>
+                <div class="product-info">
+                  {pData.category && <span class="product-category">{pData.category}</span>}
+                  <h3 class="product-title-sm">{pData.title}</h3>
+                  <span class="view-details">View Details</span>
+                </div>
+              </a>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <script>
@@ -110,7 +169,7 @@ const imageSrc = imageKey ? allImages[imageKey] : null;
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal-left, .reveal-right, .reveal-up').forEach(el => observer.observe(el));
   }
   setupReveal();
   document.addEventListener('astro:after-swap', setupReveal);
