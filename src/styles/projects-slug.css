@@ -1,0 +1,232 @@
+.project-page {
+    font-family: var(--font-poppins, "Poppins"), sans-serif;
+    color: #fff;
+    background-color: var(--bg-dark);
+}
+
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted-text-2);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 40px;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--color-primary);
+}
+
+.project-hero {
+    padding: 140px 0 60px 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+}
+
+.project-category {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.project-hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.project-meta {
+    display: flex;
+    gap: 40px;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.meta-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted-text-2);
+}
+
+.meta-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.project-main {
+    padding: 60px 0 100px 0;
+}
+
+.project-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.project-description h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #fff;
+}
+
+.project-description p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--muted-text-2);
+    margin-bottom: 40px;
+}
+
+.mdx-content {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted-text-2);
+}
+
+.mdx-content h2 {
+    font-size: 24px;
+    color: #fff;
+    margin: 40px 0 20px 0;
+}
+
+.main-image-wrapper {
+    width: 100%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    background: rgba(255,255,255,0.03);
+    margin-bottom: 40px;
+}
+
+.main-project-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.additional-image-wrapper {
+    width: 100%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.additional-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.placeholder-main-image {
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #222;
+    color: #444;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.project-cta {
+    padding: 100px 0;
+    background: rgba(255,255,255,0.02);
+}
+
+.cta-box {
+    background: var(--color-primary);
+    padding: 60px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.cta-box h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.cta-box p {
+    font-size: 18px;
+    color: rgba(0,0,0,0.8);
+    margin-bottom: 35px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 18px 40px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background: #fff;
+    color: #000;
+    transform: scale(1.05);
+}
+
+@media (max-width: 1100px) {
+    .project-layout {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    
+    .project-hero h1 {
+        font-size: 44px;
+    }
+}
+
+@media (max-width: 600px) {
+    .project-hero h1 {
+        font-size: 36px;
+    }
+    
+    .cta-box {
+        padding: 40px 20px;
+    }
+    
+    .cta-box h2 {
+        font-size: 28px;
+    }
+}

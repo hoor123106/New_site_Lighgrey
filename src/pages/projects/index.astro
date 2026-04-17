@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/projects-index.css';
+
+const projects = await getCollection('projects');
+const sortedProjects = projects.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<Layout
+  title="Our Projects | Steelcraft"
+  description="Explore the portfolio of Steelcraft's premium industrial kitchen and bakery projects across Dubai and the UAE."
+  fullWidth={true}
+>
+  <div class="projects-index-page">
+    <section class="intro-section reveal-on-scroll">
+      <div class="index-container">
+        <h1 class="index-main-title">Our Projects</h1>
+        <p class="projects-intro-text">
+          Steelcraft has been a trusted partner for numerous high-profile projects in the food service industry. 
+          From conceptual design to final installation, we deliver excellence in every square inch of the kitchen.
+          Explore some of our featured projects below.
+        </p>
+      </div>
+    </section>
+
+    <section class="projects-grid-section">
+      <div class="index-container">
+        <div class="projects-grid">
+          {sortedProjects.map((project, index) => {
+            return (
+              <a 
+                href={`/projects/${project.id}`} 
+                class="project-card reveal-on-scroll"
+                style={`transition-delay: ${index * 0.1}s;`}
+              >
+                <div class="card-image">
+                  {(project.data.image && typeof project.data.image !== 'string') ? (
+                    <Image 
+                      src={project.data.image} 
+                      alt={project.data.imageAlt || project.data.title} 
+                      width={600}
+                      height={400}
+                      format="webp"
+                      quality="mid"
+                    />
+                  ) : (
+                    <div class="placeholder-image">No Image</div>
+                  )}
+                </div>
+                <div class="card-content">
+                  <span class="project-location">{project.data.location}</span>
+                  <h3>{project.data.title}</h3>
+                  {project.data.description && <p>{project.data.description.substring(0, 150)}...</p>}
+                  <span class="card-link-text">View Project</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        <div class="index-cta-wrap reveal-on-scroll">
+            <a href="/contact" class="index-cta-btn">Start your project</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  function setupReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+  }
+  setupReveal();
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>

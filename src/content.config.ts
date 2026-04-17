@@ -187,6 +187,24 @@ const productsCollection = defineCollection({
   }).passthrough(),
 });
 
+const projectsCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    metaTitle: z.string().optional(),
+    slug: z.string().optional(),
+    metaDescription: z.string().optional(),
+    location: z.string().optional(),
+    description: z.string().optional(),
+    image: image().optional(),
+    imageAlt: z.string().optional(),
+    category: z.string().optional(),
+    feature1Image: image().optional(),
+    feature2Image: image().optional(),
+    feature3Image: image().optional(),
+  }).passthrough(),
+});
+
 export const collections = {
   fragnanceNotes: fragnanceNotesCollection,
   perfume: perfumeCollection,
@@ -195,4 +213,5 @@ export const collections = {
   industrialBakeries: industrialBakeriesCollection,
   blog: blogCollection,
   products: productsCollection,
+  projects: projectsCollection,
 };
