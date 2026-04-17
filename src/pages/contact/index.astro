@@ -8,117 +8,145 @@ import addressIcon from '../../assets/images/address.png';
 import phoneIcon from '../../assets/images/phone.png';
 import emailIcon from '../../assets/images/email.png';
 
-const title = "Contact Us — Mimya";
-const description = "Get in touch with Mimya for collaboration, writing assignments, or any fragrance-related questions.";
+const title = "Contact Us | Steelcraft Kitchen Equipment UAE";
+const description = "Get in touch with Steelcraft for premium kitchen equipment solutions in the UAE. Visit our warehouse in Sharjah or contact our sales team.";
 ---
 
 <Layout title={title} description={description} fullWidth={true}>
-  <main>
-    <section class="contact-hero">
-      <div class="container_header">
-        <h1 class="contact-hero__title">Contact Us</h1>
-        <p class="contact-hero__subtitle">
-          Please contact us for collaboration and writing assignments.
-        </p>
-      </div>
-    </section>
-
-    <section class="contact-info-section">
-      <div class="container_cards">
-        <div class="contact-cards">
-          <div class="contact-card">
-            <div class="contact-card__icon">
-              <Image 
-                src={addressIcon} 
-                alt="Address" 
-                width={35} 
-                height={35} 
-                loading="eager" 
-              />
-            </div>
-            <div class="contact-card__content">
-              <h2>Address</h2>
-              <p>Manhattan Beach Avenue, Los Angeles</p>
-            </div>
-          </div>
-
-          <div class="contact-card">
-            <div class="contact-card__icon">
-              <Image 
-                src={phoneIcon} 
-                alt="Phone" 
-                width={35} 
-                height={35} 
-                loading="eager" 
-              />
-            </div>
-            <div class="contact-card__content">
-              <h2>Call Us</h2>
-              <p>+1 (323)-456-91-23<br />+1 (987)-654-32-11</p>
-            </div>
-          </div>
-
-          <div class="contact-card">
-            <div class="contact-card__icon">
-              <Image 
-                src={emailIcon} 
-                alt="Email" 
-                width={35} 
-                height={35} 
-                loading="eager" 
-              />
-            </div>
-            <div class="contact-card__content">
-              <h2>Email Us</h2>
-              <p>contact@mimya.com</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+  <main class="contact-page">
+    <!-- Section 1: Get in touch (Form) -->
     <section class="contact-form-section">
-      <div class="container_text">
-        <div class="contact-form-header">
-          <h2>Have A Question?</h2>
-          <h2 class="text-pink">Contact Us!</h2>
-          <p>
-            We are working with fragrance designers and writers. To find an opportunity, please get in touch.
+      <div class="container--narrow">
+        <div class="contact-header">
+          <h1 class="contact-title">Get in touch.</h1>
+          <p class="contact-subtitle">
+            It all begins with an idea. Maybe you want to launch a new restaurant. Maybe you want to turn your passion for cooking into something more. Or maybe you want to scale your food production business. Whatever it is, we can support you to come up with a plan to execute your vision. Get in touch with us today.
           </p>
         </div>
 
-        <div class="contact-form-container">
+        <div class="contact-form-wrapper">
           <form class="contact-form" action="#" method="POST">
-            <div class="form-group">
-              <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" class="form-input" placeholder="" />
-            </div>
-
-            <div class="form-group">
-              <label for="email">Email Address <span class="required">*</span></label>
-              <input type="email" id="email" name="email" class="form-input" required />
-            </div>
-
-            <div class="form-group-row">
+            <div class="form-row">
               <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" class="form-input" />
-              </div>
-              <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" class="form-input" />
+                <label>Name</label>
+                <div class="form-row--nested">
+                  <div class="input-wrap">
+                    <input type="text" name="first_name" placeholder="First Name (required)" required />
+                  </div>
+                  <div class="input-wrap">
+                    <input type="text" name="last_name" placeholder="Last Name (required)" required />
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="message">Message <span class="required">*</span></label>
-              <textarea id="message" name="message" class="form-input" required></textarea>
+              <label>Email (required)</label>
+              <input type="email" name="email" required />
             </div>
 
-            <button type="submit" class="form-submit-btn">Send A Message</button>
+            <div class="form-group">
+              <label>Phone (required)</label>
+              <input type="tel" name="phone" required />
+            </div>
+
+            <div class="form-group">
+              <label>Message (required)</label>
+              <textarea name="message" rows="6" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Send</button>
           </form>
         </div>
       </div>
     </section>
+
+    <!-- Section 2: Contact Details -->
+    <section class="contact-details-section">
+      <div class="container--narrow text-center">
+        <p class="details-intro">
+          Are you in search of high-quality kitchen equipment solutions in the UAE? Look no further! Steelcraft is a leading manufacturer of premium kitchen equipment, catering to the diverse needs of businesses across the United Arab Emirates.
+        </p>
+        
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="detail-label">Phone</span>
+            <a href="tel:+971542479494" class="detail-value">+971 54 247 9494</a>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Sales Inquiries</span>
+            <a href="mailto:marketing@steelcraftuae.com" class="detail-value">marketing@steelcraftuae.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Visit Us -->
+    <section class="visit-us-section">
+      <div class="container">
+        <div class="visit-grid">
+          <div class="visit-content">
+            <h2 class="section-title--left">Visit Us</h2>
+            
+            <div class="visit-info">
+              <div class="info-block">
+                <h3>Location</h3>
+                <p>D13. Al Khayyal Warehouse<br/>Industrial Area 13<br/>Sharjah, United Arab Emirates</p>
+              </div>
+              
+              <div class="info-block">
+                <h3>Hours</h3>
+                <p>Monday–Saturday<br/>8:30 am–5:30 pm</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="visit-map">
+            <!-- Replace with actual Google Map embed or optimized image -->
+            <div class="map-placeholder">
+               <img src="https://maps.googleapis.com/maps/api/staticmap?center=Sharjah+Industrial+Area+13&zoom=15&size=600x400&markers=color:red%7CSharjah+Industrial+Area+13&key=YOUR_API_KEY_HERE" alt="Steelcraft Location Map" />
+               <p class="map-fallback-text">Map View (Sharjah Industrial Area 13)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Info Cards -->
+    <section class="info-cards-section">
+        <div class="container">
+            <div class="icon-cards">
+                <div class="icon-card">
+                    <div class="card-icon">
+                        <Image src={addressIcon} alt="Address" width={30} height={30} />
+                    </div>
+                    <div class="card-text">
+                        <h4>Address</h4>
+                        <p>Al Khayyal Warehouse, Ind. Area 13, Sharjah, UAE</p>
+                    </div>
+                </div>
+
+                <div class="icon-card">
+                    <div class="card-icon">
+                        <Image src={phoneIcon} alt="Phone" width={30} height={30} />
+                    </div>
+                    <div class="card-text">
+                        <h4>Call Us</h4>
+                        <p>+971 54 247 9494<br/>+971 6 534 1234</p>
+                    </div>
+                </div>
+
+                <div class="icon-card">
+                    <div class="card-icon">
+                        <Image src={emailIcon} alt="Email" width={30} height={30} />
+                    </div>
+                    <div class="card-text">
+                        <h4>Email Us</h4>
+                        <p>marketing@steelcraftuae.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
   </main>
-</Layout>
+</Layout>
