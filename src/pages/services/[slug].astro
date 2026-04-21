@@ -24,17 +24,25 @@ if (!service) {
 const { Content } = await render(service);
 const d = service.data;
 
-const features = [
-  { img: d.feature1Image, title: d.feature1Title, desc: d.feature1Description },
-  { img: d.feature2Image, title: d.feature2Title, desc: d.feature2Description },
-  { img: d.feature3Image, title: d.feature3Title, desc: d.feature3Description }
-].filter(f => f.title || f.desc);
+const features = [];
+for (let i = 1; i <= 20; i++) {
+  const title = d[`feature${i}Title` as keyof typeof d];
+  const desc = d[`feature${i}Description` as keyof typeof d];
+  const img = d[`feature${i}Image` as keyof typeof d];
+  if (title || desc || img) {
+    features.push({ img, title, desc });
+  } else if (i > 3) break;
+}
 
-const ctas = [
-  { icon: d.cta1Icon, title: d.cta1Title, desc: d.cta1Description },
-  { icon: d.cta2Icon, title: d.cta2Title, desc: d.cta2Description },
-  { icon: d.cta3Icon, title: d.cta3Title, desc: d.cta3Description }
-].filter(c => c.title || c.desc);
+const ctas = [];
+for (let i = 1; i <= 20; i++) {
+  const icon = d[`cta${i}Icon` as keyof typeof d];
+  const title = d[`cta${i}Title` as keyof typeof d];
+  const desc = d[`cta${i}Description` as keyof typeof d];
+  if (title || desc || icon) {
+    ctas.push({ icon, title, desc });
+  } else if (i > 3) break;
+}
 ---
 
 <Layout

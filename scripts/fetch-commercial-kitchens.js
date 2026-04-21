@@ -91,32 +91,38 @@ async function fetchAndGenerate() {
             metaDescription: getVal(['meta description', 'meta desc']) || '',
             heroTitle: getVal(['hero title', 'main title']) || '',
             heroSubtitle: getVal(['hero subtitle', 'sub title']) || '',
-            feature1Image: getVal(['feature 1 image', 'feature1image']) ? `../../assets/images/commercial-kitchens/${getVal(['feature 1 image', 'feature1image'])}` : '',
-            feature1Alt: getVal(['feature 1 alt', 'feature1alt']) || '',
-            feature1Title: getVal(['feature 1 title', 'feature1title']) || '',
-            feature1Description: getVal(['feature 1 description', 'feature1description']) || '',
-            feature2Image: getVal(['feature 2 image', 'feature2image']) ? `../../assets/images/commercial-kitchens/${getVal(['feature 2 image', 'feature2image'])}` : '',
-            feature2Alt: getVal(['feature 2 alt', 'feature2alt']) || '',
-            feature2Title: getVal(['feature 2 title', 'feature2title']) || '',
-            feature2Description: getVal(['feature 2 description', 'feature2description']) || '',
-            feature3Image: getVal(['feature 3 image', 'feature3image']) ? `../../assets/images/commercial-kitchens/${getVal(['feature 3 image', 'feature3image'])}` : '',
-            feature3Alt: getVal(['feature 3 alt', 'feature3alt']) || '',
-            feature3Title: getVal(['feature 3 title', 'feature3title']) || '',
-            feature3Description: getVal(['feature 3 description', 'feature3description']) || '',
             ourProcessSubtitle: getVal(['our process subtitle', 'process subtitle']) || '',
             ourProcessTitle: getVal(['our process title', 'process title']) || '',
             ourProcessDescription: getVal(['our process description', 'process description']) || '',
-            cta1Icon: getVal(['cta 1 icon', 'cta1icon']) || '',
-            cta1Title: getVal(['cta 1 title', 'cta1title']) || '',
-            cta1Description: getVal(['cta 1 description', 'cta1description']) || '',
-            cta2Icon: getVal(['cta 2 icon', 'cta2icon']) || '',
-            cta2Title: getVal(['cta 2 title', 'cta2title']) || '',
-            cta2Description: getVal(['cta 2 description', 'cta2description']) || '',
-            cta3Icon: getVal(['cta 3 icon', 'cta3icon']) || '',
-            cta3Title: getVal(['cta 3 title', 'cta3title']) || '',
-            cta3Description: getVal(['cta 3 description', 'cta3description']) || '',
             footNote: getVal(['foot note', 'footnote']) || '',
         };
+
+        // Dynamic detection of all features and CTAs
+        Object.keys(row).forEach(k => {
+            const trimmedKey = k.trim().toLowerCase();
+            
+            // Features
+            const featureMatch = trimmedKey.match(/^feature\s*(\d+)\s*(image|alt|title|description)$/i);
+            if (featureMatch) {
+                const num = featureMatch[1];
+                const type = featureMatch[2].toLowerCase();
+                const cleanType = type === 'description' ? 'Description' : type.charAt(0).toUpperCase() + type.slice(1);
+                let val = row[k]?.trim() || '';
+                if (type === 'image' && val) {
+                    val = `../../assets/images/commercial-kitchens/${val}`;
+                }
+                frontmatter[`feature${num}${cleanType}`] = val;
+            }
+
+            // CTAs
+            const ctaMatch = trimmedKey.match(/^cta\s*(\d+)\s*(icon|title|description)$/i);
+            if (ctaMatch) {
+                const num = ctaMatch[1];
+                const type = ctaMatch[2].toLowerCase();
+                const cleanType = type === 'description' ? 'Description' : type.charAt(0).toUpperCase() + type.slice(1);
+                frontmatter[`cta${num}${cleanType}`] = row[k]?.trim() || '';
+            }
+        });
 
         // MDX file generation
         let mdxContent = `---\n`;
