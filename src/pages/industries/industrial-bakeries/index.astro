@@ -14,8 +14,8 @@ const bakeries = await getCollection('industrialBakeries', ({ data }) => {
 const sortedBakeries = bakeries.sort((a, b) => (a.data.order || 999) - (b.data.order || 999));
 
 // Using the same base URL as commercial kitchens as requested for consistency
-const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/commercial-kitchens/";
-const FALLBACK_IMAGE = `${CLOUDINARY_BASE}front-of-house.avif`;
+const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/industrial-bakeries/";
+const FALLBACK_IMAGE = `${CLOUDINARY_BASE}industrial-bakeries-placeholder.avif`;
 
 ---
 
@@ -97,7 +97,7 @@ const FALLBACK_IMAGE = `${CLOUDINARY_BASE}front-of-house.avif`;
                     />
                 </div>
                 <h3>{bakery.data.title}</h3>
-                {bakery.data.metaDescription && <p>{bakery.data.metaDescription}</p>}
+                {bakery.data.description && <p>{bakery.data.description}</p>}
                 <span class="card-link-text">Read More</span>
               </a>
             );

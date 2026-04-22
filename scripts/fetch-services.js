@@ -80,6 +80,7 @@ async function fetchAndGenerate() {
             title: title,
             slug: slug,
             category: getVal(['category', 'type']) || '',
+            description: getVal(['description', 'desc', 'service description']) || '',
             metaDescription: getVal(['meta description', 'meta desc']) || '',
             heroTitle: getVal(['hero title', 'main title']) || '',
             heroSubtitle: getVal(['hero subtitle', 'sub title']) || '',

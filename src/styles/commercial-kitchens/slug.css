@@ -50,10 +50,20 @@
     font-size: 20px;
     color: var(--muted-text-2);
     max-width: 820px;
-    margin: 0 auto;
+    margin: 0 auto 15px;
     font-weight: 400;
     line-height: 32px;
 }
+
+.kitchen-hero__main-description {
+    font-size: 18px;
+    color: var(--muted-text-2);
+    max-width: 850px;
+    margin: 0 auto;
+    font-weight: 400;
+    line-height: 30px;
+}
+
 
 .kitchen-features {
     padding: 120px 0;

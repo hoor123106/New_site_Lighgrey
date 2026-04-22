@@ -55,7 +55,7 @@ for (let i = 1; i <= 20; i++) {
 
 <Layout
   title={d.metaTitle || d.title}
-  description={d.metaDescription}
+  description={d.metaDescription || d.description}
   fullWidth={true}
 >
   <div class="kitchen-page">
@@ -70,6 +70,7 @@ for (let i = 1; i <= 20; i++) {
       <div class="kitchen-hero__inner reveal-on-scroll">
         <h1 set:html={d.heroTitle || d.title} />
         {d.heroSubtitle && <p class="kitchen-hero__subtitle" set:html={d.heroSubtitle} />}
+        {d.description && <p class="kitchen-hero__main-description" set:html={d.description} />}
       </div>
 
     </section>

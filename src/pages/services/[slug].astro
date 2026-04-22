@@ -46,8 +46,8 @@ for (let i = 1; i <= 20; i++) {
 ---
 
 <Layout
-  title={d.title}
-  description={d.metaDescription}
+  title={d.metaTitle || d.title}
+  description={d.metaDescription || d.description}
   fullWidth={true}
 >
   <div class="service-page">
