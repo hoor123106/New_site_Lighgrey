@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import '../styles/Testimonials.css';
+import '../styles/testimonial/testimonial.css';
 
 import t1 from '../assets/images/testimonial1.png';
 import t2 from '../assets/images/testimonial2.png';
@@ -9,37 +9,37 @@ import t3 from '../assets/images/testimonial3.png';
 const testimonials = [
   {
     img: t1,
-    name: "Alex Chen",
-    location: "New York, NY",
-    text: "“This website has become my go-to resource. The level of detail on each perfume is astounding. I’ve discovered so many new favorites thanks to the ‘search by note’ feature. An invaluable tool for any collector!”"
+    name: "Hassan Al-Mansoori",
+    location: "Dubai, UAE",
+    text: "“Steelcraft provided the complete stainless steel fit-out for our new restaurant. The quality of the welding and the precision of the measurements exceeded our expectations. Truly professional craftsmanship.”"
   },
   {
     img: t2,
-    name: "Maria Garcia",
-    location: "Miami, FL",
-    text: "“I’m new to the world of fragrance, and this site made it so approachable. The blog posts are fantastic for learning, and I finally understand the difference between an Eau de Parfum and an Eau de Toilette!”"
+    name: "Sarah Ibrahim",
+    location: "Abu Dhabi, UAE",
+    text: "“We've been working with Steelcraft for over 5 years. Their maintenance support and genuine spare parts availability have been crucial for our high-volume bakery production. They understand the local market needs perfectly.”"
   },
   {
     img: t3,
-    name: "Ben Carter",
-    location: "London, UK",
-    text: "“As a blogger, having accurate information is crucial. I trust this database completely. It’s clear that it was built by people who genuinely love and respect the art of perfumery. A class act.”"
+    name: "James Wilson",
+    location: "Sharjah, UAE",
+    text: "“From the initial design stage to the final installation, the team at Steelcraft was fantastic. Their custom fabrication solutions saved us significant space in our cloud kitchen. Highly recommended for any F&B operator.”"
   }
 ];
 ---
 
 <section class="testimonials">
-  <div class="container">
+  <div class="container testimonials__container">
     <div class="testimonials__header">
-      <span class="testimonials__label">Testimonials</span>
-      <h2 class="testimonials__title">What Our Community Says</h2>
-      <p class="testimonials__subtitle">Here’s what fellow fragrance lovers are saying about our platform.</p>
+      <span class="testimonials__label">Success Stories</span>
+      <h2 class="testimonials__title">Trusted by Hospitality Leaders</h2>
     </div>
     
     <div class="testimonials__grid">
       {testimonials.map((item) => (
         <div class="testimonial-card">
-          <p class="testimonial-card__text">{item.text}</p>
+          <div class="testimonial-card__content">
+            <p class="testimonial-card__text">{item.text}</p>
           <div class="testimonial-card__author">
             <Image
               src={item.img}
@@ -52,7 +52,7 @@ const testimonials = [
             />
             <div class="testimonial-card__meta">
               <h3 class="testimonial-card__name">{item.name}</h3>
-              <span class="testimonial-card__location">{item.location}</span>
+              <p class="testimonial-card__location">{item.location}</p>
             </div>
           </div>
         </div>

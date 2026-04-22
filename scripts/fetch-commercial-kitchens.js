@@ -84,34 +84,45 @@ async function fetchAndGenerate() {
 
         // Frontmatter — mapping using flexible keys
         const frontmatter = {
-            title: title,
-            metaTitle: getVal(['meta title', 'seotitle', 'seo title']) || '',
-            slug: slug,
-            category: getVal(['category', 'type']) || '',
+            title: getVal(['title']) || '',
+            metaTitle: getVal(['meta title']) || '',
+            slug: getVal(['slug']) || '',
+            category: getVal(['category']) || '',
+            image: getVal(['image', 'industry image', 'featured image']) || '',
+            imageAlt: getVal(['image alt', 'featured image alt']) || '',
+            description: getVal(['description', 'desc']) || '',
             metaDescription: getVal(['meta description', 'meta desc']) || '',
             heroTitle: getVal(['hero title', 'main title']) || '',
             heroSubtitle: getVal(['hero subtitle', 'sub title']) || '',
+            publish: getVal(['publish', 'status']) || 'y',
+            order: parseInt(getVal(['order', 'sort order']) || '999', 10),
             ourProcessSubtitle: getVal(['our process subtitle', 'process subtitle']) || '',
             ourProcessTitle: getVal(['our process title', 'process title']) || '',
             ourProcessDescription: getVal(['our process description', 'process description']) || '',
+            cta1Icon: getVal(['cta 1 icon', 'cta1icon']) || '',
+            cta1Title: getVal(['cta 1 title', 'cta1title']) || '',
+            cta1Description: getVal(['cta 1 description', 'cta1description']) || '',
+            cta2Icon: getVal(['cta 2 icon', 'cta2icon']) || '',
+            cta2Title: getVal(['cta 2 title', 'cta2title']) || '',
+            cta2Description: getVal(['cta 2 description', 'cta2description']) || '',
+            cta3Icon: getVal(['cta 3 icon', 'cta3icon']) || '',
+            cta3Title: getVal(['cta 3 title', 'cta3title']) || '',
+            cta3Description: getVal(['cta 3 description', 'cta3description']) || '',
             footNote: getVal(['foot note', 'footnote']) || '',
         };
 
-        // Dynamic detection of all features and CTAs
+        // Dynamic detection of all sections and CTAs
         Object.keys(row).forEach(k => {
-            const trimmedKey = k.trim().toLowerCase();
+            const trimmedKey = k.trim();
             
-            // Features
-            const featureMatch = trimmedKey.match(/^feature\s*(\d+)\s*(image|alt|title|description)$/i);
-            if (featureMatch) {
-                const num = featureMatch[1];
-                const type = featureMatch[2].toLowerCase();
+            // Sections
+            const sectionMatch = trimmedKey.match(/^section\s*(\d+)\s*(image|alt|title|description)$/i);
+            if (sectionMatch) {
+                const num = sectionMatch[1];
+                const type = sectionMatch[2].toLowerCase();
                 const cleanType = type === 'description' ? 'Description' : type.charAt(0).toUpperCase() + type.slice(1);
                 let val = row[k]?.trim() || '';
-                if (type === 'image' && val) {
-                    val = `../../assets/images/commercial-kitchens/${val}`;
-                }
-                frontmatter[`feature${num}${cleanType}`] = val;
+                frontmatter[`section${num}${cleanType}`] = val;
             }
 
             // CTAs

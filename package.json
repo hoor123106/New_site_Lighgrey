@@ -3,14 +3,12 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "fetch:notes": "node scripts/fetch-notes.js",
-    "fetch:perfume": "node scripts/fetch-perfume.js",
     "fetch:kitchens": "node scripts/fetch-commercial-kitchens.js",
     "fetch:services": "node scripts/fetch-services.js",
     "fetch:industrial-bakeries": "node scripts/fetch-industrial-bakeries.js",
     "fetch:blog": "node scripts/fetch-blog.js",
     "fetch:projects": "node scripts/fetch-projects.js",
-    "fetch:all": "node scripts/fetch-notes.js && node scripts/fetch-perfume.js && node scripts/fetch-commercial-kitchens.js && node scripts/fetch-services.js && node scripts/fetch-industrial-bakeries.js && node scripts/fetch-blog.js && node scripts/fetch-products.js && node scripts/fetch-projects.js",
+    "fetch:all": "node scripts/fetch-commercial-kitchens.js && node scripts/fetch-services.js && node scripts/fetch-industrial-bakeries.js && node scripts/fetch-blog.js && node scripts/fetch-products.js && node scripts/fetch-projects.js",
     "dev": "npm run fetch:all && astro dev",
     "build": "npm run fetch:all && astro build"
   },

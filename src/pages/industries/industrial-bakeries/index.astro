@@ -2,40 +2,21 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
-import '../../../styles/industrial-bakeries-index.css';
-
-// Import category images
-import baguetteImg from '../../../assets/images/industrail-bakeries/banguette.webp';
-import bunsImg from '../../../assets/images/industrail-bakeries/buns.webp';
-import croissantsImg from '../../../assets/images/industrail-bakeries/croissants.webp';
-import cupcakeImg from '../../../assets/images/industrail-bakeries/cupcake.webp';
-import doughImg from '../../../assets/images/industrail-bakeries/dough.webp';
-import flatbreadImg from '../../../assets/images/industrail-bakeries/flatbread.webp';
-import automaticImg from '../../../assets/images/industrail-bakeries/industrail_automatic_process.webp';
-import industrialImg from '../../../assets/images/industrail-bakeries/industrial.webp';
-import materialImg from '../../../assets/images/industrail-bakeries/material_handling.webp';
-import packagingImg from '../../../assets/images/industrail-bakeries/packaging.webp';
-import proofersImg from '../../../assets/images/industrail-bakeries/proofers.webp';
+import '../../../styles/industrial-bakeries/index.css';
 
 // Import intro image
 import bakeryHome from '../../../assets/images/industrail-bakeries/industrail_bakery_home.webp';
 
-const bakeries = await getCollection('industrialBakeries');
-const sortedBakeries = bakeries.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
-const categoryImages = {
-  'baguette-and-bread-production': baguetteImg,
-  'buns-and-rolls-production': bunsImg,
-  'croissants-and-pastry-production': croissantsImg,
-  'cupcake-production': cupcakeImg,
-  'dough-mixing': doughImg,
-  'flatbread-production': flatbreadImg,
-  'fully-automatic-industrial-process-solutions': automaticImg,
-  'industrial-solutions': industrialImg,
-  'material-handling': materialImg,
-  'packaging-systems': packagingImg,
-  'proofers-and-ovens': proofersImg,
-};
+const bakeries = await getCollection('industrialBakeries', ({ data }) => {
+  return data.publish !== 'n';
+});
+const sortedBakeries = bakeries.sort((a, b) => (a.data.order || 999) - (b.data.order || 999));
+
+// Using the same base URL as commercial kitchens as requested for consistency
+const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/commercial-kitchens/";
+const FALLBACK_IMAGE = `${CLOUDINARY_BASE}front-of-house.avif`;
+
 ---
 
 <Layout
@@ -97,31 +78,23 @@ const categoryImages = {
         <div class="bakery-grid">
           {sortedBakeries.map((bakery, index) => {
             const currentSlug = bakery.id.replace(/\.(md|mdx)$/, '');
-            const categoryImg = categoryImages[currentSlug] || "/images/placeholder.webp";
+            const imageName = bakery.data.image;
+            const categoryImg = imageName ? `${CLOUDINARY_BASE}${imageName}` : FALLBACK_IMAGE;
             
             return (
               <a 
-                href={`/industries/industrial-bakeries/${currentSlug}`} 
+                href={`/industries/industrial-bakeries/${bakery.id.split('/').pop().replace(/\.(md|mdx)$/, '')}`} 
                 class="bakery-card reveal-on-scroll"
                 style={`transition-delay: ${index * 0.1}s;`}
               >
                 <div class="card-image">
-                  {typeof categoryImg === 'string' ? (
                     <img 
                       src={categoryImg} 
-                      alt={bakery.data.title} 
+                      alt={bakery.data.imageAlt || bakery.data.title} 
                       style="width: 100%; height: auto; object-fit: cover; aspect-ratio: 16/9;"
+                      loading="lazy"
+                      onerror={`this.onerror=null;this.src='${FALLBACK_IMAGE}';`}
                     />
-                  ) : (
-                    <Image 
-                      src={categoryImg} 
-                      alt={bakery.data.title} 
-                      widths={[300, 600]}
-                      sizes="(max-width: 640px) 100vw, 300px"
-                      format="webp"
-                      quality="mid"
-                    />
-                  )}
                 </div>
                 <h3>{bakery.data.title}</h3>
                 {bakery.data.metaDescription && <p>{bakery.data.metaDescription}</p>}

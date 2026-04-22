@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
-import '../../styles/services-slug.css';
+import '../../styles/services/slug.css';
 
 export async function getStaticPaths() {
   const services = await getCollection('services');

@@ -2,35 +2,21 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
-import '../../../styles/commercial-kitchens-index.css';
+import '../../../styles/commercial-kitchens/index.css';
 
-// Import category images
-import bakingImg from '../../../assets/images/commercial-kitchens/Baking_card.webp';
-import beverageImg from '../../../assets/images/commercial-kitchens/Beverage_card.webp';
-import cookingImg from '../../../assets/images/commercial-kitchens/cooking_card.webp';
-import dishwashingImg from '../../../assets/images/commercial-kitchens/dishwashing_card.webp';
-import preparationImg from '../../../assets/images/commercial-kitchens/preparation_card.webp';
-import refrigerationImg from '../../../assets/images/commercial-kitchens/Refrigeration_card.webp';
-import specialityImg from '../../../assets/images/commercial-kitchens/speciality_card.webp';
-import steelImg from '../../../assets/images/commercial-kitchens/steel_card.webp';
-
-// Import row images
+// Import intro images
 import intro1 from '../../../assets/images/commercial-kitchens/commercial-kitches_image_1.webp';
 import intro2 from '../../../assets/images/commercial-kitchens/commercial-steelness_image_2.webp';
 
-const kitchens = await getCollection('commercialKitchens');
-const sortedKitchens = kitchens.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
-const categoryImages = {
-  'baking-equipment': bakingImg,
-  'bar-and-beverage-equipment': beverageImg,
-  'cooking-equipment': cookingImg,
-  'dishwashing-equipment': dishwashingImg,
-  'preparation-equipment': preparationImg,
-  'refrigeration-equipment': refrigerationImg,
-  'speciality-equipment': specialityImg,
-  'customized-stainless-steel-equipment': steelImg,
-};
+const kitchens = await getCollection('commercialKitchens', ({ data }) => {
+  return data.publish !== 'n'; // Publish if not explicitly 'n'
+});
+const sortedKitchens = kitchens.sort((a, b) => (a.data.order || 999) - (b.data.order || 999));
+
+const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/commercial-kitchens/";
+const FALLBACK_IMAGE = `${CLOUDINARY_BASE}front-of-house.avif`;
+
 ---
 
 <Layout
@@ -141,32 +127,23 @@ const categoryImages = {
       <div class="index-container">
         <div class="kitchens-grid">
           {sortedKitchens.map((kitchen, index) => {
-            const currentSlug = kitchen.id;
-            const categoryImg = categoryImages[currentSlug] || "/images/placeholder.webp";
+            const imageName = kitchen.data.image;
+            const categoryImg = imageName ? `${CLOUDINARY_BASE}${imageName}` : FALLBACK_IMAGE;
             
             return (
               <a 
-                href={`/industries/commercial-kitchens/${kitchen.id}`} 
+                href={`/industries/commercial-kitchens/${kitchen.id.split('/').pop().replace(/\.(md|mdx)$/, '')}`} 
                 class="kitchen-card reveal-on-scroll"
                 style={`transition-delay: ${index * 0.1}s;`}
               >
                 <div class="card-image">
-                  {typeof categoryImg === 'string' ? (
-                    <img 
+                   <img 
                       src={categoryImg} 
-                      alt={kitchen.data.title} 
+                      alt={kitchen.data.imageAlt || kitchen.data.title} 
                       style="width: 100%; height: auto; object-fit: cover; aspect-ratio: 16/9;"
+                      loading="lazy"
+                      onerror={`this.onerror=null;this.src='${FALLBACK_IMAGE}';`}
                     />
-                  ) : (
-                    <Image 
-                      src={categoryImg} 
-                      alt={kitchen.data.title} 
-                      widths={[300, 600]}
-                      sizes="(max-width: 640px) 100vw, 300px"
-                      format="webp"
-                      quality="mid"
-                    />
-                  )}
                 </div>
                 <h3>{kitchen.data.title}</h3>
                 {kitchen.data.metaDescription && <p>{kitchen.data.metaDescription}</p>}

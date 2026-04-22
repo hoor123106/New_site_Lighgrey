@@ -78,25 +78,18 @@ async function fetchAndGenerate() {
         slug = slug.replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
 
         const frontmatter = {
-            title: title,
-            metaTitle: getVal(['meta title', 'seotitle', 'seo title']) || '',
-            slug: slug,
-            category: getVal(['category', 'type']) || '',
+            title: getVal(['title']) || '',
+            metaTitle: getVal(['meta title']) || '',
+            slug: getVal(['slug']) || '',
+            category: getVal(['category']) || '',
+            image: getVal(['image', 'industry image', 'featured image']) || '',
+            imageAlt: getVal(['image alt', 'featured image alt']) || '',
+            description: getVal(['description', 'desc']) || '',
             metaDescription: getVal(['meta description', 'meta desc']) || '',
             heroTitle: getVal(['hero title', 'main title']) || '',
             heroSubtitle: getVal(['hero subtitle', 'sub title']) || '',
-            feature1Image: getVal(['feature 1 image', 'feature1image']) ? `../../assets/images/industrail-bakeries/${getVal(['feature 1 image', 'feature1image'])}` : '',
-            feature1Alt: getVal(['feature 1 alt', 'feature1alt']) || '',
-            feature1Title: getVal(['feature 1 title', 'feature1title']) || '',
-            feature1Description: getVal(['feature 1 description', 'feature1description']) || '',
-            feature2Image: getVal(['feature 2 image', 'feature2image']) ? `../../assets/images/industrail-bakeries/${getVal(['feature 2 image', 'feature2image'])}` : '',
-            feature2Alt: getVal(['feature 2 alt', 'feature2alt']) || '',
-            feature2Title: getVal(['feature 2 title', 'feature2title']) || '',
-            feature2Description: getVal(['feature 2 description', 'feature2description']) || '',
-            feature3Image: getVal(['feature 3 image', 'feature3image']) ? `../../assets/images/industrail-bakeries/${getVal(['feature 3 image', 'feature3image'])}` : '',
-            feature3Alt: getVal(['feature 3 alt', 'feature3alt']) || '',
-            feature3Title: getVal(['feature 3 title', 'feature3title']) || '',
-            feature3Description: getVal(['feature 3 description', 'feature3description']) || '',
+            publish: getVal(['publish', 'status']) || 'y',
+            order: parseInt(getVal(['order', 'sort order']) || '999', 10),
             ourProcessSubtitle: getVal(['our process subtitle', 'process subtitle']) || '',
             ourProcessTitle: getVal(['our process title', 'process title']) || '',
             ourProcessDescription: getVal(['our process description', 'process description']) || '',
@@ -111,6 +104,21 @@ async function fetchAndGenerate() {
             cta3Description: getVal(['cta 3 description', 'cta3description']) || '',
             footNote: getVal(['foot note', 'footnote']) || '',
         };
+
+
+        // Sections
+        Object.keys(row).forEach(k => {
+            const trimmedKey = k.trim();
+            const sectionMatch = trimmedKey.match(/^section\s*(\d+)\s*(image|alt|title|description)$/i);
+            if (sectionMatch) {
+                const num = sectionMatch[1];
+                const type = sectionMatch[2].toLowerCase();
+                const cleanType = type === 'description' ? 'Description' : type.charAt(0).toUpperCase() + type.slice(1);
+                let val = row[k]?.trim() || '';
+                frontmatter[`section${num}${cleanType}`] = val;
+            }
+        });
+
 
         let mdxContent = `---\n`;
         for (const [key, value] of Object.entries(frontmatter)) {

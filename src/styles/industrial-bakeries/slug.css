@@ -255,6 +255,7 @@
 }
 
 @media (max-width: 992px) {
+
     .feature-row,
     .feature-row:nth-child(even) {
         flex-direction: column;
@@ -283,19 +284,24 @@
     .bakery-hero {
         padding: 100px 20px;
     }
+
     .bakery-hero h1 {
         font-size: 32px;
     }
+
     .bakery-features {
         padding: 60px 0;
     }
+
     .feature-content-col h3 {
         font-size: 28px;
         line-height: 1.2;
     }
+
     .bakery-ctas {
         padding: 60px 20px;
     }
+
     .cta-item {
         padding: 15px 0;
     }

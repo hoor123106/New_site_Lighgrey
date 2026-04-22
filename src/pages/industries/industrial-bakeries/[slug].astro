@@ -2,19 +2,19 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
-import '../../../styles/industrial-bakeries-slug.css';
+import '../../../styles/industrial-bakeries/slug.css';
 
 export async function getStaticPaths() {
   const bakeries = await getCollection('industrialBakeries');
   return bakeries.map((bakery) => ({
-    params: { slug: bakery.id.replace(/\.(md|mdx)$/, '') },
+    params: { slug: bakery.id.split('/').pop().replace(/\.(md|mdx)$/, '') },
   }));
 }
 
 const { slug } = Astro.params;
 const bakeries = await getCollection('industrialBakeries');
 const bakeryItems = bakeries.find(
-  (b) => b.id.replace(/\.(md|mdx)$/, '') === slug
+  (b) => b.id.split('/').pop().replace(/\.(md|mdx)$/, '') === slug
 );
 
 if (!bakeryItems) {
@@ -24,16 +24,22 @@ if (!bakeryItems) {
 const { Content } = await render(bakeryItems);
 const d = bakeryItems.data;
 
-const features = [];
+const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/commercial-kitchens/";
+const FALLBACK_IMAGE = `${CLOUDINARY_BASE}front-of-house.avif`;
+
+const sections = [];
 for (let i = 1; i <= 20; i++) {
-  const title = d[`feature${i}Title` as keyof typeof d];
-  const desc = d[`feature${i}Description` as keyof typeof d];
-  const img = d[`feature${i}Image` as keyof typeof d];
-  const alt = d[`feature${i}Alt` as keyof typeof d];
-  if (title || desc || img) {
-    features.push({ img, alt, title, desc });
+  const title = d[`section${i}Title` as keyof typeof d];
+  const desc = d[`section${i}Description` as keyof typeof d];
+  const imgName = d[`section${i}Image` as keyof typeof d] as string | undefined;
+  const alt = d[`section${i}Alt` as keyof typeof d];
+  
+  if (title || desc || imgName) {
+    const imgUrl = imgName ? `${CLOUDINARY_BASE}${imgName}` : FALLBACK_IMAGE;
+    sections.push({ img: imgUrl, alt, title, desc });
   } else if (i > 3) break;
 }
+
 
 const ctas = [];
 for (let i = 1; i <= 20; i++) {
@@ -66,30 +72,24 @@ for (let i = 1; i <= 20; i++) {
       </div>
     </section>
 
-    {features.length > 0 && (
+    {sections.length > 0 && (
       <section class="bakery-features">
-        {features.map((feature, index) => (
+        {sections.map((section, index) => (
           <div class="feature-row reveal-on-scroll">
             <div class="feature-image-col">
               <div class="feature-image-wrapper">
-                {feature.img ? (
-                  <Image 
-                    src={feature.img} 
-                    alt={feature.alt || feature.title || "Bakery Feature"} 
-                    class="feature-image" 
-                    widths={[400, 800]}
-                    sizes="(max-width: 800px) 100vw, 800px"
-                    format="webp"
-                    quality="high"
+                   <img 
+                    src={section.img} 
+                    alt={section.alt || section.title || "Bakery Section"} 
+                    class="feature-image"
+                    loading="lazy"
+                    onerror={`this.onerror=null;this.src='${FALLBACK_IMAGE}';`}
                   />
-                ) : (
-                  <div class="feature-image" style="background: rgba(255,255,255,0.05);"></div>
-                )}
               </div>
             </div>
             <div class="feature-content-col">
-              <h2 set:html={feature.title} />
-              <p set:html={feature.desc} />
+              <h2 set:html={section.title} />
+              <p set:html={section.desc} />
             </div>
           </div>
         ))}
