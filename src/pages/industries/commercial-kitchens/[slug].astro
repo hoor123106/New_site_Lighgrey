@@ -51,6 +51,44 @@ for (let i = 1; i <= 20; i++) {
     ctas.push({ icon, title, desc });
   } else if (i > 3) break;
 }
+
+function parseMarkdown(text: string) {
+  if (!text) return '';
+  
+  // Handle bold text **text**
+  let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // Split into lines for list handling
+  const lines = html.split('\n');
+  let result = [];
+  let inList = false;
+  
+  for (let line of lines) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('- ')) {
+      if (!inList) {
+        result.push('<ul class="section-list">');
+        inList = true;
+      }
+      result.push(`<li>${trimmed.substring(2)}</li>`);
+    } else if (trimmed === '') {
+      if (inList) {
+        result.push('</ul>');
+        inList = false;
+      }
+    } else {
+      if (inList) {
+        result.push('</ul>');
+        inList = false;
+      }
+      result.push(`<p>${trimmed}</p>`);
+    }
+  }
+  
+  if (inList) result.push('</ul>');
+  
+  return result.join('');
+}
 ---
 
 <Layout
@@ -92,7 +130,7 @@ for (let i = 1; i <= 20; i++) {
             </div>
             <div class="feature-content-col">
               <h2 set:html={section.title} />
-              <p set:html={section.desc} />
+              <div class="section-desc" set:html={parseMarkdown(section.desc)} />
             </div>
           </div>
         ))}

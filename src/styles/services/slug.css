@@ -118,11 +118,43 @@
     line-height: 48px;
 }
 
-.feature-content-col p {
+.section-desc p {
     font-size: 17px;
     color: var(--muted-text-2);
     line-height: 28px;
-    margin: 0;
+    margin-bottom: 15px;
+}
+
+.section-desc strong {
+    color: #fff;
+    font-weight: 700;
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.section-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 25px;
+}
+
+.section-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--muted-text-2);
+    line-height: 24px;
+}
+
+.section-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: bold;
 }
 
 .service-process {
