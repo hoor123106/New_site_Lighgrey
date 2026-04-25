@@ -27,16 +27,16 @@ const d = bakeryItems.data;
 const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/industrial-bakeries/";
 const FALLBACK_IMAGE = `${CLOUDINARY_BASE}industrial-bakeries-placeholder.avif`;
 
-const sections = [];
+const features = [];
 for (let i = 1; i <= 20; i++) {
-  const title = d[`section${i}Title` as keyof typeof d];
-  const desc = d[`section${i}Description` as keyof typeof d];
-  const imgName = d[`section${i}Image` as keyof typeof d] as string | undefined;
-  const alt = d[`section${i}Alt` as keyof typeof d];
-  
+  const title = d[`feature${i}Title` as keyof typeof d];
+  const desc = d[`feature${i}Description` as keyof typeof d];
+  const imgName = d[`feature${i}Image` as keyof typeof d] as string | undefined;
+  const alt = d[`feature${i}Alt` as keyof typeof d];
+
   if (title || desc || imgName) {
     const imgUrl = imgName ? `${CLOUDINARY_BASE}${imgName}` : FALLBACK_IMAGE;
-    sections.push({ img: imgUrl, alt, title, desc });
+    features.push({ img: imgUrl, alt, title, desc });
   } else if (i > 3) break;
 }
 
@@ -111,15 +111,15 @@ function parseMarkdown(text: string) {
       </div>
     </section>
 
-    {sections.length > 0 && (
+    {features.length > 0 && (
       <section class="bakery-features">
-        {sections.map((section, index) => (
+        {features.map((feature, index) => (
           <div class="feature-row reveal-on-scroll">
             <div class="feature-image-col">
               <div class="feature-image-wrapper">
-                   <img 
-                    src={section.img} 
-                    alt={section.alt || section.title || "Bakery Section"} 
+                   <img
+                    src={feature.img}
+                    alt={feature.alt || feature.title || "Feature Image"}
                     class="feature-image"
                     loading="lazy"
                     onerror={`this.onerror=null;this.src='${FALLBACK_IMAGE}';`}
@@ -127,8 +127,8 @@ function parseMarkdown(text: string) {
               </div>
             </div>
             <div class="feature-content-col">
-              <h2 set:html={section.title} />
-              <div class="section-desc" set:html={parseMarkdown(section.desc)} />
+              <h2 set:html={feature.title} />
+              <div class="section-desc" set:html={parseMarkdown(feature.desc)} />
             </div>
           </div>
         ))}

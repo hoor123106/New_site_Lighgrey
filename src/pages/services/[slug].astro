@@ -24,13 +24,19 @@ if (!service) {
 const { Content } = await render(service);
 const d = service.data;
 
+const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/services/";
+const FALLBACK_IMAGE = `${CLOUDINARY_BASE}service-placeholder.avif`;
+
 const features = [];
 for (let i = 1; i <= 20; i++) {
-  const title = d[`feature${i}Title` as keyof typeof d];
-  const desc = d[`feature${i}Description` as keyof typeof d];
-  const img = d[`feature${i}Image` as keyof typeof d];
-  if (title || desc || img) {
-    features.push({ img, title, desc });
+  const title = d[`feature${i}Title` as keyof typeof d] as string;
+  const desc = d[`feature${i}Description` as keyof typeof d] as string;
+  const imgName = d[`feature${i}Image` as keyof typeof d] as string;
+  const alt = d[`feature${i}Alt` as keyof typeof d] as string;
+  
+  if (title || desc || imgName) {
+    const imgUrl = imgName ? `${CLOUDINARY_BASE}${imgName}` : FALLBACK_IMAGE;
+    features.push({ img: imgUrl, alt, title, desc });
   } else if (i > 3) break;
 }
 
@@ -81,6 +87,8 @@ function parseMarkdown(text: string) {
   
   return result.join('');
 }
+
+
 ---
 
 <Layout
@@ -109,16 +117,13 @@ function parseMarkdown(text: string) {
           <div class="feature-row reveal-on-scroll">
             <div class="feature-image-col">
               <div class="feature-image-wrapper">
-                {feature.img ? (
-                  <img
-                    src={`/assets/images/${feature.img}`}
-                    alt={feature.title || "Service Feature"}
+            <img
+                    src={feature.img}
+                    alt={feature.alt || feature.title || "Feature Image"}
                     class="feature-image"
                     loading="lazy"
+                    onerror={`this.onerror=null;this.src='${FALLBACK_IMAGE}';`}
                   />
-                ) : (
-                  <div class="feature-image" style="background: rgba(255,255,255,0.05);"></div>
-                )}
               </div>
             </div>
             <div class="feature-content-col">

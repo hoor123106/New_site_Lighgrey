@@ -109,20 +109,21 @@ async function fetchAndGenerate() {
             cta3Title: getVal(['cta 3 title', 'cta3title']) || '',
             cta3Description: getVal(['cta 3 description', 'cta3description']) || '',
             footNote: getVal(['foot note', 'footnote']) || '',
+
         };
 
         // Dynamic detection of all sections and CTAs
         Object.keys(row).forEach(k => {
             const trimmedKey = k.trim();
             
-            // Sections
-            const sectionMatch = trimmedKey.match(/^section\s*(\d+)\s*(image|alt|title|description)$/i);
-            if (sectionMatch) {
-                const num = sectionMatch[1];
-                const type = sectionMatch[2].toLowerCase();
+            // Features (formerly Sections)
+            const featureMatch = trimmedKey.match(/^(section|feature)\s*(\d+)\s*(image|alt|title|description)$/i);
+            if (featureMatch) {
+                const num = featureMatch[2];
+                const type = featureMatch[3].toLowerCase();
                 const cleanType = type === 'description' ? 'Description' : type.charAt(0).toUpperCase() + type.slice(1);
                 let val = row[k]?.trim() || '';
-                frontmatter[`section${num}${cleanType}`] = val;
+                frontmatter[`feature${num}${cleanType}`] = val;
             }
 
             // CTAs

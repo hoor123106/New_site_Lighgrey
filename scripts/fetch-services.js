@@ -47,9 +47,9 @@ async function fetchAndGenerate() {
         };
 
         const title = getVal(['title', 'service title', 'heading', 'name']) || '';
-        let rawSlug = getVal(['slug', 'url', 'id']) || 
-                      title.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 
-                      '';
+        let rawSlug = getVal(['slug', 'url', 'id']) ||
+            title.toLowerCase().replace(/[^a-z0-9]+/g, '-') ||
+            '';
 
         const isPublished = getVal(['publish', 'published', 'status'])?.toLowerCase();
         if (isPublished !== 'y') {
@@ -80,19 +80,12 @@ async function fetchAndGenerate() {
             title: title,
             slug: slug,
             category: getVal(['category', 'type']) || '',
+            image: getVal(['feature 1 image', 'featured image', 'image', 'main image']) || '',
+            imageAlt: getVal(['featured alt', 'image alt', 'feature 1 alt']) || title,
             description: getVal(['description', 'desc', 'service description']) || '',
             metaDescription: getVal(['meta description', 'meta desc']) || '',
             heroTitle: getVal(['hero title', 'main title']) || '',
             heroSubtitle: getVal(['hero subtitle', 'sub title']) || '',
-            feature1Image: getVal(['feature 1 image', 'feature1image']) || '',
-            feature1Title: getVal(['feature 1 title', 'feature1title']) || '',
-            feature1Description: getVal(['feature 1 description', 'feature1description']) || '',
-            feature2Image: getVal(['feature 2 image', 'feature2image']) || '',
-            feature2Title: getVal(['feature 2 title', 'feature2title']) || '',
-            feature2Description: getVal(['feature 2 description', 'feature2description']) || '',
-            feature3Image: getVal(['feature 3 image', 'feature3image']) || '',
-            feature3Title: getVal(['feature 3 title', 'feature3title']) || '',
-            feature3Description: getVal(['feature 3 description', 'feature3description']) || '',
             ourProcessSubtitle: getVal(['our process subtitle', 'process subtitle']) || '',
             ourProcessTitle: getVal(['our process title', 'process title']) || '',
             ourProcessDescription: getVal(['our process description', 'process description']) || '',
@@ -107,6 +100,18 @@ async function fetchAndGenerate() {
             cta3Description: getVal(['cta 3 description', 'cta3description']) || '',
             footNote: getVal(['foot note', 'footnote']) || '',
         };
+
+        // Dynamic Features Detection
+        Object.keys(row).forEach(k => {
+            const trimmedKey = k.trim();
+            const featureMatch = trimmedKey.match(/^(feature|section)\s*(\d+)\s*(image|alt|title|description)$/i);
+            if (featureMatch) {
+                const num = featureMatch[2];
+                const type = featureMatch[3].toLowerCase();
+                const cleanType = type === 'description' ? 'Description' : type.charAt(0).toUpperCase() + type.slice(1);
+                frontmatter[`feature${num}${cleanType}`] = row[k]?.trim() || '';
+            }
+        });
 
         let mdxContent = `---\n`;
         for (const [key, value] of Object.entries(frontmatter)) {

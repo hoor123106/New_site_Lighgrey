@@ -4,24 +4,12 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/services/index.css';
 
-// Import service images
-import designImg from '../../assets/images/services/design.webp';
-import manufacturingImg from '../../assets/images/services/manufacturing.webp';
-import projectManagementImg from '../../assets/images/services/project_management.webp';
-import sourcingImg from '../../assets/images/services/sourcing.webp';
-import technicalSupportImg from '../../assets/images/services/technical_support.webp';
-
 const services = await getCollection('services');
 const sortedServices = services.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
-// Category images mapping
-const categoryImages = {
-  'design': designImg,
-  'manufacturing': manufacturingImg,
-  'project-management': projectManagementImg,
-  'sourcing': sourcingImg,
-  'technical-support': technicalSupportImg,
-};
+const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/services/";
+const FALLBACK_IMAGE = `${CLOUDINARY_BASE}service-placeholder.avif`;
+
 ---
 
 <Layout
@@ -47,7 +35,8 @@ const categoryImages = {
         <div class="services-grid">
           {sortedServices.map((service, index) => {
             const currentSlug = service.id.replace(/\.(md|mdx)$/, '');
-            const categoryImg = categoryImages[currentSlug] || "/images/placeholder.webp";
+            const d = service.data;
+            const imgUrl = d.image ? `${CLOUDINARY_BASE}${d.image}` : `${CLOUDINARY_BASE}${currentSlug}.avif`;
             
             return (
               <a 
@@ -56,25 +45,16 @@ const categoryImages = {
                 style={`transition-delay: ${index * 0.1}s;`}
               >
                 <div class="card-image">
-                  {typeof categoryImg === 'string' ? (
-                    <img 
-                      src={categoryImg} 
-                      alt={service.data.title} 
-                      style="width: 100%; height: auto; object-fit: cover; aspect-ratio: 16/9;"
-                    />
-                  ) : (
-                    <Image 
-                      src={categoryImg} 
-                      alt={service.data.title} 
-                      widths={[300, 600]}
-                      sizes="(max-width: 640px) 100vw, 300px"
-                      format="webp"
-                      quality="mid"
-                    />
-                  )}
+                  <img 
+                    src={imgUrl} 
+                    alt={d.imageAlt || d.title} 
+                    class="service-card-img"
+                    loading="lazy"
+                    onerror={`this.onerror=null;this.src='${FALLBACK_IMAGE}';`}
+                  />
                 </div>
-                <h3>{service.data.title}</h3>
-                {service.data.metaDescription && <p>{service.data.metaDescription}</p>}
+                <h3>{d.title}</h3>
+                {d.metaDescription && <p>{d.metaDescription}</p>}
                 <span class="card-link-text">Explore Service</span>
               </a>
             );
