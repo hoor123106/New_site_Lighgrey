@@ -110,14 +110,11 @@ function parseMarkdown(text: string) {
             <div class="feature-image-col">
               <div class="feature-image-wrapper">
                 {feature.img ? (
-                  <Image 
-                    src={feature.img} 
-                    alt={feature.title || "Service Feature"} 
-                    class="feature-image" 
-                    widths={[400, 800]}
-                    sizes="(max-width: 800px) 100vw, 800px"
-                    format="webp"
-                    quality="high"
+                  <img
+                    src={`/assets/images/${feature.img}`}
+                    alt={feature.title || "Service Feature"}
+                    class="feature-image"
+                    loading="lazy"
                   />
                 ) : (
                   <div class="feature-image" style="background: rgba(255,255,255,0.05);"></div>
