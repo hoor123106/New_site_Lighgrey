@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import '../styles/hero/hero-section.css';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  description: string;
+  buttonText?: string;
+  buttonLink?: string;
+  bgImage: string;
+  variant?: 'dark' | 'light' | 'soft-overlay';
+  align?: 'left' | 'center' | 'right';
+  height?: 'vh' | 'large' | 'medium';
+  overlayOpacity?: number;
+}
+
+const {
+  title,
+  subtitle,
+  description,
+  buttonText,
+  buttonLink = "#",
+  bgImage,
+  variant = 'dark',
+  align = 'left',
+  height = 'vh',
+  overlayOpacity = .5
+} = Astro.props;
+
+const alignmentClass = `align-${align}`;
+const heightClass = `height-${height}`;
+const variantClass = `variant-${variant}`;
+---
+
+<section class={`hero-section ${heightClass} ${variantClass} ${alignmentClass}`}>
+  <div class="hero-bg">
+    <Image src={bgImage} alt={title} class="hero-image" />
+    <div class="hero-overlay" style={`--overlay-opacity: ${overlayOpacity}`}></div>
+  </div>
+
+  <div class="container hero-container">
+    <div class="hero-content">
+      {subtitle && <span class="hero-subtitle">{subtitle}</span>}
+      <h2 class="hero-title">{title}</h2>
+      <p class="hero-description">{description}</p>
+      {buttonText && (
+        <div class="hero-actions">
+          <a href={buttonLink} class="hero-btn">
+            {buttonText}
+          </a>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

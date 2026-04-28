@@ -32,8 +32,8 @@
 html {
   scroll-behavior: smooth;
   font-family: var(--font-poppins, "Poppins"), sans-serif;
-  background: var(--bg-dark);
-  color: var(--color-text-main);
+  background: #ffffff;
+  color: #1a1a18;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -46,7 +46,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   font-style: normal !important;
-  background: var(--bg-dark);
+  background: #ffffff;
 }
 
 h1,
@@ -55,7 +55,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #ffffff;
+  color: #1a1a18;
   font-family: var(--font-poppins, "Poppins"), sans-serif;
   font-weight: 700;
   line-height: 1.1;
@@ -67,7 +67,7 @@ h6 {
 p {
   font-family: var(--font-poppins, "Poppins"), sans-serif;
   line-height: 1.7;
-  color: #ffffff;
+  color: #4a4a48;
   margin-bottom: 1.5rem;
 }
 
@@ -77,15 +77,7 @@ a {
   transition: all 0.3s ease;
 }
 
-/* Force header and footer links/icons to be white on every page */
-.header a,
-.header a:visited,
-.footer a,
-.footer a:visited,
-.social-link,
-.social-link svg {
-  color: #ffffff !important;
-}
+/* Base Resets */
 
 ul {
   list-style: none;
@@ -207,5 +199,38 @@ html.no-header-animation .header-enter {
 
   .section-title {
     font-size: 2rem;
+  }
+}
+
+/* Section Intro Styles */
+.section-intro {
+  padding: 100px 20px 40px 20px !important;
+  text-align: center;
+  max-width: 800px !important;
+  margin: 0 auto;
+}
+
+.intro-title {
+  font-size: 32px;
+  color: #1a1a18;
+  margin-bottom: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.intro-description {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .section-intro {
+    padding: 40px 24px;
+  }
+
+  .intro-title {
+    font-size: 24px;
   }
 }

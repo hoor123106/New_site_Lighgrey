@@ -1,0 +1,117 @@
+.feature-section {
+    padding: 100px 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.feature-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.feature-section.reversed .feature-image-wrapper {
+    order: 2;
+}
+
+.feature-section.reversed .feature-content {
+    order: 1;
+}
+
+.feature-content {
+    max-width: 500px;
+}
+
+.feature-subtitle {
+    display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000000;
+    /* Black subtitle */
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.feature-title {
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    color: #8c7a65;
+    /* Requested heading color */
+    font-weight: 400;
+    font-family: var(--font-poppins), sans-serif;
+}
+
+.feature-description {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #4a4a48;
+    margin-bottom: 35px;
+}
+
+.feature-btn {
+    display: inline-block;
+    padding: 12px 35px;
+    border: 1px solid #8c7a65;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #8c7a65;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.feature-btn:hover {
+    background: #8c7a65;
+    color: #ffffff;
+}
+
+.feature-btn:hover {
+    background: #8c7a65;
+    color: #ffffff;
+}
+
+.feature-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.feature-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.feature-section:hover .feature-image {
+    transform: scale(1.05);
+}
+
+@media (max-width: 992px) {
+    .feature-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .feature-content {
+        max-width: 100%;
+        order: 2;
+    }
+
+    .feature-image-wrapper {
+        order: 1;
+    }
+
+    .feature-section {
+        padding: 60px 0;
+    }
+}

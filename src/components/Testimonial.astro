@@ -1,0 +1,146 @@
+---
+interface Props {
+  quote: string;
+  author: string;
+  role: string;
+  companyName: string;
+  variant?: 'light' | 'dark';
+}
+
+const { 
+  quote, 
+  author, 
+  role, 
+  companyName, 
+  variant = 'light' 
+} = Astro.props;
+---
+
+<section class={`testimonial-section ${variant}`}>
+  <div class="container">
+    <div class="testimonial-content">
+      <div class="quote-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C15.4647 8 15.017 8.44772 15.017 9V12C15.017 12.5523 14.5693 13 14.017 13H12.017C11.4647 13 11.017 12.5523 11.017 12V9C11.017 7.34315 12.3601 6 14.017 6H19.017C20.6739 6 22.017 7.34315 22.017 9V15C22.017 16.6569 20.6739 18 19.017 18H17.017C16.4647 18 16.017 18.4477 16.017 19V21H14.017ZM2.01697 21L2.01697 18C2.01697 16.8954 2.9124 16 4.01697 16H7.01697C7.56925 16 8.01697 15.5523 8.01697 15V9C8.01697 8.44772 7.56925 8 7.01697 8H4.01697C3.46468 8 3.01697 8.44772 3.01697 9V12C3.01697 12.5523 2.56925 13 2.01697 13H0.0169678C-0.535317 13 -0.983032 12.5523 -0.983032 12V9C-0.983032 7.34315 0.360114 6 2.01697 6H7.01697C8.67382 6 10.017 7.34315 10.017 9V15C10.017 16.6569 8.67382 18 7.01697 18H5.01697C4.46468 18 4.01697 18.4477 4.01697 19V21H2.01697Z" />
+        </svg>
+      </div>
+      
+      <blockquote class="quote-text">
+        "{quote}"
+      </blockquote>
+      
+      <div class="author-info">
+        <span class="author-name">{author}</span>
+        <span class="author-role">{role}</span>
+        <div class="company-badge">
+          <svg class="diamond-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 3h12l4 6-10 12L2 9z" />
+            <path d="M11 3L8 9l4 12 4-12-3-6" />
+            <path d="M2 9h20" />
+          </svg>
+          <span class="company-name">{companyName}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonial-section {
+    padding: 100px 0;
+    text-align: center;
+    background: #ffffff;
+  }
+
+  .testimonial-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .quote-icon {
+    width: 60px;
+    height: 60px;
+    background: #8c7a65;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+  }
+
+  .quote-text {
+    font-size: 24px;
+    line-height: 1.5;
+    color: #1a1a18;
+    font-weight: 400;
+    margin: 0;
+    font-family: var(--font-poppins), sans-serif;
+  }
+
+  .author-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-size: 15px;
+  }
+
+  .author-name {
+    font-weight: 600;
+    color: #1a1a18;
+  }
+
+  .author-role {
+    color: #666;
+  }
+
+  .company-badge {
+    background: #f5f5f5;
+    padding: 6px 16px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .diamond-icon {
+    width: 16px;
+    height: 16px;
+    color: #0066ff;
+  }
+
+  .company-name {
+    font-weight: 700;
+    color: #1a1a18;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Example of how to change styling via variant prop */
+  .testimonial-section.dark {
+    background: #1a1a18;
+  }
+  .testimonial-section.dark .quote-text,
+  .testimonial-section.dark .author-name {
+    color: #ffffff;
+  }
+  .testimonial-section.dark .author-role {
+    color: #999;
+  }
+
+  @media (max-width: 768px) {
+    .quote-text {
+      font-size: 18px;
+    }
+    .testimonial-section {
+      padding: 60px 24px;
+    }
+  }
+</style>

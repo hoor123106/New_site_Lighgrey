@@ -2,73 +2,100 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
+import FeatureSection from '../../components/FeatureSection.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Testimonial from '../../components/Testimonial.astro';
 import '../../styles/products/index.css';
 
-const products = await getCollection('products');
-const sortedProducts = products.sort((a, b) => a.data.title.localeCompare(b.data.title));
+// Image imports
+import feature1 from '../../assets/images/Prodcut-Making-In-home.png';
+import feature2 from '../../assets/images/about.webp';
+import heroLast from '../../assets/images/Home_bg.webp';
 
-// Image resolution logic
-const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*.{jpeg,jpg,png,gif,webp}');
+const products = await getCollection('products');
+// No longer sorting or using products since we are removing the grid
 ---
 
-<Layout title="Our Products | Steelcraft" description="Explore our high-quality stainless steel commercial kitchen and industrial bakery products.">
+<Layout title="Our Products | Steelcraft" description="Explore our high-quality stainless steel commercial kitchen and industrial bakery products." fullWidth={true}>
   <main class="products-index-page">
-    <div class="container pb-40">
-      <h1 class="page-title reveal-on-scroll">Our Products</h1>
-      <p class="page-subtitle reveal-on-scroll">Precision-engineered stainless steel solutions</p>
 
-      <div class="products-grid">
-        {sortedProducts.map((product) => {
-          const imagePath = product.data.image?.replace('../../assets', '/src/assets');
-          const filename = imagePath?.split('/').pop();
-          const imageKey = Object.keys(allImages).find(
-            (key) => key === imagePath || key.endsWith(`/${filename}`)
-          );
-          const imageSrc = imageKey ? allImages[imageKey] : null;
+      <!-- Top Hero Section -->
+    <HeroSection 
+      title="The Founders"
+      description="These ten values are derived from the quest for perfection that was established ever since 1839 through the legacy of our founders."
+      buttonText="Buy This Now!"
+      bgImage={heroLast}
+      align="center"
+      height="medium"
+      overlayOpacity={0.6}
+    />
 
-          return (
-            <article class="product-card reveal-on-scroll">
-              <a href={`/products/${product.id.replace(/\.(md|mdx)$/, '')}`} class="product-card-link">
-                <div class="product-image-wrapper">
-                  {imageSrc ? (
-                    <Image 
-                      src={imageSrc()} 
-                      alt={product.data.imageAlt || product.data.title}
-                      width={600}
-                      height={600}
-                      class="product-img"
-                    />
-                  ) : (
-                    <div class="product-placeholder">No Image Available</div>
-                  )}
-                </div>
-                <div class="product-info">
-                  {product.data.category && <span class="product-category">{product.data.category}</span>}
-                  <h2 class="product-title">{product.data.title}</h2>
-                  {product.data.description && <p class="product-description">{product.data.description}</p>}
-                  <span class="view-details">View Details</span>
-                </div>
-              </a>
-            </article>
-          );
-        })}
-      </div>
-    </div>
+    <section class="section-intro container">
+      <h2 class="intro-title">Our Values</h2>
+      <p class="intro-description">
+        Our ten core values reflect the "Patek Philippe spirit", a culture that our company has upheld faithfully and passionately since 1839.
+      </p>
+    </section>
+
+  <FeatureSection 
+    title="Independence"
+    buttonText="Learn More"
+    description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+    image={feature1}
+  />
+
+  <FeatureSection 
+    title="Excellence"
+    buttonText="Buy This Now!"
+    description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+    image={feature2}
+    reverse={true}
+  />
+  <FeatureSection 
+    title="Independence"
+    buttonText="Learn More"
+    description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+    image={feature1}
+  />
+
+  <FeatureSection 
+    title="Excellence"
+    buttonText="Buy This Now!"
+    description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+    image={feature2}
+    reverse={true}
+  />
+
+  <Testimonial 
+    quote="We love Gutenberg! Our designers were using it for their projects, so clients already knew what Gutenberg was and how to use it."
+    author="Jane"
+    role="Founder"
+    companyName="Company"
+    />
+  <FeatureSection 
+    title="Independence"
+    buttonText="Learn More"
+    description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+    image={feature1}
+  />
+
+  <FeatureSection 
+    title="Excellence"
+    buttonText="Buy This Now!"
+    description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+    image={feature2}
+    reverse={true}
+  />
+      <!-- Bottom Hero Section -->
+    <HeroSection 
+      title="The Founders"
+      description="These ten values are derived from the quest for perfection that was established ever since 1839 through the legacy of our founders."
+      buttonText="Buy This Now!"
+      bgImage={heroLast}
+      align="center"
+      height="medium"
+      overlayOpacity={0.6}
+    />
+
   </main>
 </Layout>
-
-<script>
-  function setupReveal() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('reveal-visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-  }
-  setupReveal();
-  document.addEventListener('astro:after-swap', setupReveal);
-</script>

@@ -1,10 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Hero2Section from '../components/Hero2Section.astro';
-import CTASection from '../components/CTASection.astro';
-import LastSection from '../components/LastSection.astro';
+import HeroSection from '../components/HeroSection.astro';
+import FeatureSection from '../components/FeatureSection.astro';
 import '../styles/global.css';
+
+// Asset imports
+import hero1 from '../assets/images/Home_bg.webp';
+import hero2 from '../assets/images/commercial-kitches_image_1.webp';
+import hero3 from '../assets/images/cta_image.webp';
+
+import feature1 from '../assets/images/Hero2.webp';
+import feature2 from '../assets/images/about.webp';
+import feature3 from '../assets/images/commercial-steelness_image_2.webp';
+import feature4 from '../assets/images/Hero_Kitchen.webp';
 
 const title = "Steelcraft | Industrial Kitchen & Bakery Solutions";
 const description = "Premium stainless steel solutions for commercial kitchens, industrial bakeries, and high-end residences with over 16 years of expertise.";
@@ -12,10 +20,74 @@ const description = "Premium stainless steel solutions for commercial kitchens, 
 
 <Layout title={title} description={description} fullWidth={true}>
   <main class="home-main">
-    <Hero />
-    <Hero2Section />
-    <CTASection />
-    <LastSection />
+    <!-- Hero 1: The Art of Steelcraft -->
+    <HeroSection 
+      title="The Art of Gemsetting"
+      subtitle="Precision Engineering"
+      description="Where watchmaking meets Haute Joaillerie. Our gemsetters practice an extremely delicate art, which requires skills that are further refined over time."
+      buttonText="Buy This Now!"
+      bgImage={hero1}
+      align="left"
+      overlayOpacity={0.5}
+    />
+
+    <!-- Alternating Features -->
+    <FeatureSection 
+      title="The last family-owned Genevan manufacture"
+      subtitle="The power of independence"
+      description="Owned by the Stern family since 1932, our Manufacture benefits from full creative freedom, which allows us to design, develop and craft watches that connoisseurs consider to be the world's finest – as pledged by our founders Antoine Norbert de Patek and Jean Adrien Philippe."
+      buttonText="Our Values"
+      image={feature1}
+    />
+
+    <FeatureSection 
+      title="Precision in Every Detail"
+      subtitle="Excellence in Craftsmanship"
+      description="Our master craftsmen combine traditional techniques with modern technology to create stainless steel solutions that are both functional and beautiful. Every weld, every polish, and every joint is meticulously inspected to meet our rigorous standards."
+      buttonText="Learn More"
+      image={feature2}
+      reverse={true}
+    />
+<!-- Hero 2: The Steelcraft Museum -->
+    <HeroSection 
+      title="The patek philippe museum"
+      subtitle="The power of independence"
+      description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+      buttonText="Buy This Now!"
+      bgImage={hero2}
+      align="left"
+      variant="soft-overlay"
+      overlayOpacity={0.6}
+    />
+    <FeatureSection 
+      title="Industrial Scale Solutions"
+      subtitle="Engineering for Efficiency"
+      description="From large-scale bakeries to high-volume commercial kitchens, we design systems that optimize workflow and maximize output. Our industrial solutions are built to withstand the demands of 24/7 operations while maintaining peak performance."
+      buttonText="View Industrial"
+      image={feature3}
+    />
+
+    <FeatureSection 
+      title="Bespoke Private Collections"
+      subtitle="Luxury for the Home"
+      description="Bring professional-grade quality to your residence. We create custom stainless steel kitchens for private homes that demand the best in durability, hygiene, and contemporary design."
+      buttonText="Residential Gallery"
+      image={feature4}
+      reverse={true}
+    />
+
+  
+
+    <!-- Hero 3: Our Collections -->
+    <HeroSection 
+      title="Our Collections"
+      description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+      buttonText="Discover Our Collections"
+      bgImage={hero3}
+      align="left"
+      height="large"
+      overlayOpacity={0.6}
+    />
   </main>
 </Layout>
 

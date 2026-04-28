@@ -23,6 +23,26 @@ if (!project) {
 
 const { Content } = await render(project);
 const d = project.data;
+
+const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/commercial-kitchens/";
+const FALLBACK_IMAGE = `${CLOUDINARY_BASE}commercial-kitchen-placeholder.avif`;
+
+const getUrl = (img) => {
+  if (!img) return FALLBACK_IMAGE;
+  if (typeof img === 'string') return img.startsWith('http') ? img : `${CLOUDINARY_BASE}${img}`;
+  return img;
+};
+
+const mainImgUrl = getUrl(d.image);
+
+const getFeatureImgUrl = (img) => {
+  if (!img) return null;
+  return typeof img === 'string' ? (img.startsWith('http') ? img : `${CLOUDINARY_BASE}${img}`) : img;
+};
+
+const featureImages = [d.feature1Image, d.feature2Image, d.feature3Image]
+  .map(getFeatureImgUrl)
+  .filter(img => img && (typeof img === 'string' ? img !== mainImgUrl : img?.src !== mainImgUrl?.src));
 ---
 
 <Layout
@@ -66,9 +86,20 @@ const d = project.data;
           
             <div class="project-visuals reveal-on-scroll">
               <div class="main-image-wrapper">
-                {(d.image && typeof d.image !== 'string') ? (
+                {typeof mainImgUrl === 'string' ? (
+                  <img
+                    src={mainImgUrl}
+                    alt={d.imageAlt || d.title}
+                    width="1000"
+                    height="600"
+                    loading="lazy"
+                    class="main-project-image"
+                    style="width: 100%; height: auto; object-fit: cover;"
+                    onerror={`this.onerror=null;this.src='${FALLBACK_IMAGE}';`}
+                  />
+                ) : (
                   <Image 
-                    src={d.image} 
+                    src={mainImgUrl} 
                     alt={d.imageAlt || d.title} 
                     width={1000}
                     height={600}
@@ -76,17 +107,25 @@ const d = project.data;
                     quality="high"
                     class="main-project-image"
                   />
-                ) : (
-                  <div class="placeholder-main-image">No Image Available</div>
                 )}
               </div>
               
               <div class="additional-features">
-                {[d.feature1Image, d.feature2Image, d.feature3Image]
-                  .filter(img => img && typeof img !== 'string' && img?.src !== d.image?.src)
-                  .map((img, i) => (
+                {featureImages.map((img, i) => (
                   <div class="feature-img-wrap" key={i}>
-                    <Image src={img} alt={`${d.title} feature ${i+1}`} width={400} height={300} format="webp" />
+                    {typeof img === 'string' ? (
+                      <img 
+                        src={img} 
+                        alt={`${d.title} feature ${i+1}`} 
+                        width="400" 
+                        height="300" 
+                        loading="lazy" 
+                        style="width: 100%; height: auto; object-fit: cover;" 
+                        onerror={`this.onerror=null;this.src='${FALLBACK_IMAGE}';`}
+                      />
+                    ) : (
+                      <Image src={img} alt={`${d.title} feature ${i+1}`} width={400} height={300} format="webp" />
+                    )}
                   </div>
                 ))}
               </div>

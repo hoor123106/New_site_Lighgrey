@@ -6,6 +6,9 @@ import '../../styles/project/index.css';
 
 const projects = await getCollection('projects');
 const sortedProjects = projects.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/commercial-kitchens/";
+const FALLBACK_IMAGE = `${CLOUDINARY_BASE}commercial-kitchen-placeholder.avif`;
 ---
 
 <Layout
@@ -34,23 +37,38 @@ const sortedProjects = projects.sort((a, b) => a.data.title.localeCompare(b.data
       <div class="index-container">
         <div class="projects-grid">
           {sortedProjects.map((project, index) => {
+            const getUrl = (img) => {
+              if (!img) return FALLBACK_IMAGE;
+              if (typeof img === 'string') return img.startsWith('http') ? img : `${CLOUDINARY_BASE}${img}`;
+              return img;
+            };
+            const imgUrl = getUrl(project.data.image);
+
             return (
               <div 
                 class="project-card reveal-on-scroll"
                 style={`transition-delay: ${index * 0.1}s;`}
               >
                 <a href={`/projects/${project.id}`} class="card-image">
-                  {(project.data.image && typeof project.data.image !== 'string') ? (
+                  {typeof imgUrl === 'string' ? (
+                    <img
+                      src={imgUrl}
+                      alt={project.data.imageAlt || project.data.title}
+                      width="400"
+                      height="300"
+                      loading="lazy"
+                      style="width: 100%; height: 100%; object-fit: cover;"
+                      onerror={`this.onerror=null;this.src='${FALLBACK_IMAGE}';`}
+                    />
+                  ) : (
                     <Image 
-                      src={project.data.image} 
+                      src={imgUrl} 
                       alt={project.data.imageAlt || project.data.title} 
                       width={400}
                       height={300}
                       format="webp"
                       quality="mid"
                     />
-                  ) : (
-                    <div class="placeholder-image">No Image</div>
                   )}
                 </a>
                   <div class="card-content">

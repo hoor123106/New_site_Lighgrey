@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import '../styles/feature/feature-section.css';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  image: any;
+  imageAlt?: string;
+  reverse?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  description,
+  buttonText,
+  buttonLink = "#",
+  image,
+  imageAlt = "",
+  reverse = false
+} = Astro.props;
+---
+
+<section class={`feature-section ${reverse ? 'reversed' : ''}`}>
+  <div class="container feature-container">
+    <div class="feature-image-wrapper">
+      <Image src={image} alt={imageAlt || title} class="feature-image" />
+    </div>
+
+    <div class="feature-content">
+      {subtitle && <span class="feature-subtitle">{subtitle}</span>}
+      <h2 class="feature-title">{title}</h2>
+      {description && <p class="feature-description">{description}</p>}
+      {buttonText && (
+        <div class="feature-actions">
+          <a href={buttonLink} class="feature-btn">
+            {buttonText}
+          </a>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

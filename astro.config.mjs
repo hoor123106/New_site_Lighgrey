@@ -1,5 +1,8 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 export default defineConfig({
   integrations: [mdx()],
@@ -43,4 +46,5 @@ export default defineConfig({
     }
   ]
 });
+
 

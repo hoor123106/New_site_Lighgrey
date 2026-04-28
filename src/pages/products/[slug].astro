@@ -2,7 +2,15 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
+import FeatureSection from '../../components/FeatureSection.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Testimonial from '../../components/Testimonial.astro';
 import '../../styles/products/slug.css';
+
+// Image imports
+import feature1 from '../../assets/images/Prodcut-Making-In-home.png';
+import feature2 from '../../assets/images/about.webp';
+import heroLast from '../../assets/images/Home_bg.webp';
 
 export async function getStaticPaths() {
   const products = await getCollection('products');
@@ -15,162 +23,59 @@ export async function getStaticPaths() {
 const { product } = Astro.props;
 const { Content } = await render(product);
 const d = product.data;
-
-// Dynamic import of images
-const allImages = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/images/**/*.{jpeg,jpg,png,gif,webp}'
-);
-
-const imagePath = d.image?.replace('../../assets', '/src/assets');
-const filename = imagePath?.split('/').pop();
-const imageKey = Object.keys(allImages).find(
-  (key) => key === imagePath || key.endsWith(`/${filename}`)
-);
-const imageSrc = imageKey ? allImages[imageKey] : null;
-const allProducts = await getCollection('products');
-const relatedProducts = allProducts
-  .filter(p => p.id !== product.id)
-  .filter(p => p.data.category === product.data.category)
-  .sort(() => Math.random() - 0.5)
-  .slice(0, 3);
-
-if (relatedProducts.length < 3) {
-  const remaining = 3 - relatedProducts.length;
-  const fillers = allProducts
-    .filter(p => p.id !== product.id && !relatedProducts.some(rp => rp.id === p.id))
-    .sort(() => Math.random() - 0.5)
-    .slice(0, remaining);
-  relatedProducts.push(...fillers);
-}
 ---
 
-<Layout title={d.metaTitle || d.title} description={d.metaDescription || d.description}>
-  <article class="product-slug-page">
-    <div class="container">
-      <a href="/products" class="back-link reveal-left">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-        Back to Products
-      </a>
+<Layout title={d.metaTitle || d.title} description={d.metaDescription || d.description} fullWidth={true}>
+  <!-- Top Hero Section -->
+  <HeroSection 
+    title="The Founders"
+    description="These ten values are derived from the quest for perfection that was established ever since 1839 through the legacy of our founders."
+    buttonText="Buy This Now!"
+    bgImage={heroLast}
+    align="center"
+    height="medium"
+    overlayOpacity={0.6}
+  />
 
-      <div class="product-layout">
-        <!-- Left Side: Content -->
-        <div class="product-content">
-          {d.category && <span class="product-category">{d.category}</span>}
-          <h1 class="product-title">{d.title}</h1>
-          
-          {/* Material Section */}
-          {(d.material || d.Material) && (
-            <div class="spec-section">
-              <span class="spec-label">Material Specifications</span>
-              <ul class="material-list">
-                {(d.material || d.Material).split('\n').filter(Boolean).map(line => {
-                  const [label, ...rest] = line.split(':');
-                  return rest.length > 0 ? (
-                    <li><strong>{label.trim()}:</strong> {rest.join(':').trim()}</li>
-                  ) : (
-                    <li>{line.trim()}</li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-
-          {/* Options Section */}
-          {(d.options || d.Options) && (
-            <div class="spec-section">
-              <span class="spec-label">Available Options</span>
-              <div class="options-pills">
-                {(d.options || d.Options).split(/[,/|]+|and/).filter(Boolean).map(opt => (
-                  <span class="pill">{opt.trim()}</span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div class="product-body">
-            <Content />
-          </div>
-        </div>
-
-        <!-- Right Side: Image -->
-        <div class="product-visual">
-          <div class="product-image-container">
-            {imageSrc ? (
-              <Image
-                src={imageSrc()}
-                alt={d.imageAlt || d.title}
-                width={800}
-                height={1000}
-                class="product-img"
-              />
-            ) : (
-              <div class="product-placeholder">Product image not found</div>
-            )}
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </article>
-
-  <!-- Related Products Section -->
-  <section class="related-products">
-    <div class="container-wide">
-      <h2 class="section-title reveal-left">Related Products</h2>
-      <div class="products-grid">
-        {relatedProducts.map((p) => {
-          const pData = p.data;
-          const pImagePath = pData.image?.replace('../../assets', '/src/assets');
-          const pFilename = pImagePath?.split('/').pop();
-          const pImageKey = Object.keys(allImages).find(
-            (key) => key === pImagePath || key.endsWith(`/${pFilename}`)
-          );
-          const pImageSrc = pImageKey ? allImages[pImageKey] : null;
-
-          return (
-            <article class="product-card reveal-left">
-              <a href={`/products/${p.id.replace(/\.(md|mdx)$/, '')}`} class="product-card-link">
-                <div class="product-image-wrapper">
-                  {pImageSrc ? (
-                    <Image 
-                      src={pImageSrc()} 
-                      alt={pData.imageAlt || pData.title}
-                      width={800}
-                      height={1000}
-                      class="product-img"
-                    />
-                  ) : (
-                    <div class="product-placeholder">No Image Available</div>
-                  )}
-                </div>
-                <div class="product-info">
-                  {pData.category && <span class="product-category">{pData.category}</span>}
-                  <h3 class="product-title-sm">{pData.title}</h3>
-                  <span class="view-details">View Details</span>
-                </div>
-              </a>
-            </article>
-          );
-        })}
-      </div>
-    </div>
+  <section class="section-intro container">
+    <h2 class="intro-title">Our Values</h2>
+    <p class="intro-description">
+      Our ten core values reflect the "Patek Philippe spirit", a culture that our company has upheld faithfully and passionately since 1839.
+    </p>
   </section>
+
+  <!-- Top Featured Sections -->
+  <FeatureSection 
+    title="Independence"
+    buttonText="Learn More"
+    description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+    image={feature1}
+  />
+
+  <FeatureSection 
+    title="Excellence"
+    buttonText="Buy This Now!"
+    description="Assembling one of the world’s most extraordinary watch collections, our Museum showcases our legacy and represents an inexhaustible source of inspiration for our designers and artists.."
+    image={feature2}
+    reverse={true}
+  />
+
+  <Testimonial 
+    quote="We love Gutenberg! Our designers were using it for their projects, so clients already knew what Gutenberg was and how to use it."
+    author="Jane"
+    role="Founder"
+    companyName="Company"
+  />
+  <!-- Product Detail and Related Products removed per user request "remove current projects" -->
+
+  <!-- Bottom Hero Section -->
+  <HeroSection 
+    title="The Founders"
+    description="These ten values are derived from the quest for perfection that was established ever since 1839 through the legacy of our founders."
+    buttonText="Buy This Now!"
+    bgImage={heroLast}
+    align="center"
+    height="medium"
+    overlayOpacity={0.6}
+  />
 </Layout>
-
-<script>
-  function setupReveal() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('reveal-visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal-left, .reveal-right, .reveal-up').forEach(el => observer.observe(el));
-  }
-  setupReveal();
-  document.addEventListener('astro:after-swap', setupReveal);
-</script>

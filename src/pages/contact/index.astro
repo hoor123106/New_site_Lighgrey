@@ -4,10 +4,6 @@ import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
 import '../../styles/contact/contact.css';
 
-import addressIcon from '../../assets/images/address.png';
-import phoneIcon from '../../assets/images/phone.png';
-import emailIcon from '../../assets/images/email.png';
-
 const title = "Contact Us | Steelcraft Kitchen Equipment UAE";
 const description = "Get in touch with Steelcraft for premium kitchen equipment solutions in the UAE. Visit our warehouse in Sharjah or contact our sales team.";
 ---
@@ -102,7 +98,6 @@ const description = "Get in touch with Steelcraft for premium kitchen equipment 
           </div>
           
           <div class="visit-map">
-            <!-- Replace with actual Google Map embed or optimized image -->
             <div class="map-placeholder">
                <img src="https://maps.googleapis.com/maps/api/staticmap?center=Sharjah+Industrial+Area+13&zoom=15&size=600x400&markers=color:red%7CSharjah+Industrial+Area+13&key=YOUR_API_KEY_HERE" alt="Steelcraft Location Map" />
                <p class="map-fallback-text">Map View (Sharjah Industrial Area 13)</p>
@@ -118,7 +113,7 @@ const description = "Get in touch with Steelcraft for premium kitchen equipment 
             <div class="icon-cards">
                 <div class="icon-card">
                     <div class="card-icon">
-                        <Image src={addressIcon} alt="Address" width={30} height={30} />
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     </div>
                     <div class="card-text">
                         <h4>Address</h4>
@@ -128,7 +123,7 @@ const description = "Get in touch with Steelcraft for premium kitchen equipment 
 
                 <div class="icon-card">
                     <div class="card-icon">
-                        <Image src={phoneIcon} alt="Phone" width={30} height={30} />
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                     </div>
                     <div class="card-text">
                         <h4>Call Us</h4>
@@ -138,7 +133,7 @@ const description = "Get in touch with Steelcraft for premium kitchen equipment 
 
                 <div class="icon-card">
                     <div class="card-icon">
-                        <Image src={emailIcon} alt="Email" width={30} height={30} />
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     </div>
                     <div class="card-text">
                         <h4>Email Us</h4>
@@ -149,4 +144,4 @@ const description = "Get in touch with Steelcraft for premium kitchen equipment 
         </div>
     </section>
   </main>
-</Layout>
+</Layout>

@@ -79,6 +79,15 @@ async function fetchAndGenerate() {
             return;
         }
 
+        const CLOUDINARY_BASE = "https://res.cloudinary.com/creyo-com/image/upload/v1776843293/steelcraft/commercial-kitchens/";
+        const FALLBACK_IMAGE = `${CLOUDINARY_BASE}commercial-kitchen-placeholder.avif`;
+
+        const getImagePath = (filename) => {
+            if (!filename) return '';
+            const cleanFilename = filename.split('/').pop();
+            return `${CLOUDINARY_BASE}${cleanFilename}`;
+        };
+
         // Extract last part of path if it's a URL or contains slashes
         let slug = rawSlug;
         if (slug.includes('/') || slug.startsWith('http')) {
@@ -107,27 +116,29 @@ async function fetchAndGenerate() {
             metaDescription: getVal(['meta description', 'meta desc']) || '',
             location: getVal(['location', 'place']) || '',
             description: getVal(['description', 'excerpt']) || '',
-            image: getVal(['feature 1 image', 'featured image', 'image']) ? `../../assets/images/${getVal(['feature 1 image', 'featured image', 'image'])}` : '',
+            image: getImagePath(getVal(['feature 1 image', 'featured image', 'image'])),
             imageAlt: getVal(['featured alt', 'image alt', 'feature 1 alt']) || title,
-            feature1Image: getVal(['feature 1 image']) ? `../../assets/images/${getVal(['feature 1 image'])}` : '',
-            feature2Image: getVal(['feature 2 image']) ? `../../assets/images/${getVal(['feature 2 image'])}` : '',
-            feature3Image: getVal(['feature 3 image']) ? `../../assets/images/${getVal(['feature 3 image'])}` : '',
+            feature1Image: getImagePath(getVal(['feature 1 image'])),
+            feature2Image: getImagePath(getVal(['feature 2 image'])),
+            feature3Image: getImagePath(getVal(['feature 3 image'])),
         };
 
         // Add all other keys to frontmatter to ensure completeness (passthrough)
         Object.entries(row).forEach(([key, value]) => {
-            const normalizedKey = key.trim().toLowerCase();
+            const trimmedKey = key.trim();
+            const normalizedKey = trimmedKey.toLowerCase();
             const standardKeys = ['project name', 'title', 'slug', 'meta title', 'meta description', 'location', 'description', 'feature 1 image', 'featured alt', 'category'];
-            if (!standardKeys.includes(normalizedKey)) {
-                // Use original key name but trim it
-                frontmatter[key.trim()] = value;
+
+            // Fix: Skip empty keys to prevent YAML syntax errors like ": value"
+            if (trimmedKey && !standardKeys.includes(normalizedKey)) {
+                frontmatter[trimmedKey] = value;
             }
         });
 
         // MDX file generation
         let mdxContent = `---\n`;
         for (const [key, value] of Object.entries(frontmatter)) {
-            if (value !== null && value !== undefined) {
+            if (value !== null && value !== undefined && key !== '') {
                 mdxContent += `${key}: ${JSON.stringify(value)}\n`;
             }
         }
@@ -139,9 +150,15 @@ async function fetchAndGenerate() {
             mdxContent += `${escapeMDX(bodyContent)}\n\n`;
         }
 
-        const filePath = path.join(contentDir, `${slug}.mdx`);
+        // Ensure we don't use 'category' as a slug if it's generic
+        let finalSlug = slug;
+        if (finalSlug === 'category' || !finalSlug) {
+            finalSlug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-') || `project-${index}`;
+        }
+
+        const filePath = path.join(contentDir, `${finalSlug}.mdx`);
         fs.writeFileSync(filePath, mdxContent, 'utf-8');
-        console.log(`Synced Project: ${slug}.mdx`);
+        console.log(`Synced Project: ${finalSlug}.mdx`);
     });
 
     console.log('Projects sync complete!');
